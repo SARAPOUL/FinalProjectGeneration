@@ -42,7 +42,7 @@ function ResponsiveAppBar() {
 
   return (
     <AppBar position="static">
-      <Container maxWidth="xl" className="NavBar">
+      <Container  maxWidth="100%" className="NavBar">
         <Toolbar disableGutters >
           <img className="logo-img" src={Logo}  />
           <Typography
@@ -86,7 +86,9 @@ function ResponsiveAppBar() {
 
           </Box>
           {auth && (
+            
           <Box sx={{ flexGrow: 0 }}>
+          <span>displayName</span>
             <Tooltip title="Profile">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Profile" src={Logo} />
