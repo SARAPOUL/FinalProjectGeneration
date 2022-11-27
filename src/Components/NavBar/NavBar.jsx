@@ -11,8 +11,14 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+//page
+import AddActivity from '../../Pages/AddActivity'
+import Login from '../../Pages/Login'
+import EditActivity from '../../Pages/EditActivity'
+import Profile from '../../Pages/Profile'
+import Register from '../../Pages/Register'
 
 import Logo from '../../assets/icon-app.png';
 
@@ -42,9 +48,9 @@ function ResponsiveAppBar() {
 
   return (
     <AppBar position="static">
-      <Container  maxWidth="100%" className="NavBar">
+      <Container maxWidth="100%" className="NavBar">
         <Toolbar disableGutters >
-          <img className="logo-img" src={Logo}  />
+          <img className="logo-img" src={Logo} />
           <Typography
             variant="h6"
             noWrap
@@ -57,12 +63,12 @@ function ResponsiveAppBar() {
               letterSpacing: '.3rem',
               color: '#1A265A',
               textDecoration: 'none',
-              fontSize:24
+              fontSize: 24
             }}
           >
-            AMA <span style={{color: '#F9F9F9'}}> FIT</span>
+            AMA <span style={{ color: '#F9F9F9' }}> FIT</span>
           </Typography>
-          
+
           <Typography
             variant="h5"
             noWrap
@@ -76,58 +82,60 @@ function ResponsiveAppBar() {
               letterSpacing: '.3rem',
               color: '#1A265A',
               textDecoration: 'none',
-              fontSize:24
+              fontSize: 24
             }}
           >
-            AMA <span style={{color: '#F9F9F9'}}> FIT</span>
+            AMA <span style={{ color: '#F9F9F9' }}> FIT</span>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 
           </Box>
           {auth && (
-            
-          <Box sx={{ flexGrow: 0 }}>
-          <span>displayName</span>
-            <Tooltip title="Profile">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Profile" src={Logo} />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-                <MenuItem  key ="home" onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">Home</Typography>
+
+            <Box sx={{ flexGrow: 0 }}>
+              <span>displayName</span>
+              <Tooltip title="Profile">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Profile" src={Logo} />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+                aria-labelledby="composition-button"
+              >
+                <MenuItem key="home" onClick={handleCloseUserMenu} >
+                  <Link to="/dashboard" className="menu-nav"><Typography textAlign="center">Login</Typography></Link>
                 </MenuItem>
-                <MenuItem  key ="profile" onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">Profile</Typography>
+                <MenuItem key="profile">
+                  <Link to="/profile" className="menu-nav"><Typography textAlign="center" >Profile</Typography></Link>
                 </MenuItem>
                 {/* <MenuItem  key ="resetPassword" onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">Reset password</Typography>
                 </MenuItem> */}
-                <MenuItem  key ="logout" onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">Logout</Typography>
+                <MenuItem key="logout" onClick={handleCloseUserMenu}>
+                  <Link to="/" className="menu-nav"> <Typography textAlign="center">Logout</Typography></Link>
                 </MenuItem>
-          
-            </Menu>
-          </Box>)}
+
+              </Menu>
+            </Box>)}
         </Toolbar>
       </Container>
     </AppBar>
+
   );
 }
 export default ResponsiveAppBar;
