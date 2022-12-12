@@ -1,8 +1,7 @@
 
-import { useState } from 'react'
-import reactLogo from '../../assets/react.svg'
+
 import './App.css'
-import HelloWorld from '../HelloWorld'
+
 import NavBar from '../NavBar/NavBar'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 //page
