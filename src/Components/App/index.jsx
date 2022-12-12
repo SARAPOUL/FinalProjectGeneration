@@ -1,33 +1,32 @@
+
 import { useState } from 'react'
-import reactLogo  from '../../assets/react.svg'
+import reactLogo from '../../assets/react.svg'
 import './App.css'
 import HelloWorld from '../HelloWorld'
-function App() {
-  const [count, setCount] = useState(0)
+import NavBar from '../NavBar/NavBar'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+//page
+import AddActivity from '../../Pages/AddActivity'
+import Login from '../../Pages/Login'
+import EditActivity from '../../Pages/EditActivity'
+import Profile from '../../Pages/Profile'
+import Register from '../../Pages/Register'
+import Dashboard from '../../Pages/Dashboard'
 
+function App() {
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <HelloWorld name="Final Project Generation" />
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <Router>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/addActivity" element={<AddActivity />} />
+        <Route path="/editActivity" element={<EditActivity />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </Router>
     </div>
   )
 }
