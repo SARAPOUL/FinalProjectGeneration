@@ -9,8 +9,10 @@ import SimpleFormExample from './Components/Test'
 
 
 
+
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <SimpleFormExample/>
+    <EditProfile/>
   </React.StrictMode>
 )
