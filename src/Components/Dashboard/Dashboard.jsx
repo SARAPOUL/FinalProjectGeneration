@@ -38,7 +38,7 @@ const link = () => {
 
 const Dashboard = () => {
     return(
-        <div className="container">
+        <div className="container-summary">
             <div className="display-card">
                 <span>Hello, </span>
                 <h2>Display Name</h2>

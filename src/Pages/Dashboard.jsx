@@ -1,7 +1,8 @@
+import Dashboard from "../Components/Dashboard/Dashboard"
 const dashboard = () =>{
     return (
         <div>
-            <h1>Dashboard</h1>
+            <Dashboard />
         </div>
     )
 }
