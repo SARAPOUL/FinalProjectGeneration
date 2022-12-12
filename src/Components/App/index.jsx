@@ -1,5 +1,4 @@
 
-
 import './App.css'
 
 import NavBar from '../NavBar/NavBar'
@@ -15,6 +14,7 @@ import Dashboard from '../../Pages/Dashboard'
 function App() {
   return (
     <div className="App">
+
     <Router>
       <NavBar />
       <Routes>
