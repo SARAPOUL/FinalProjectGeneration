@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom/client'
 import Register from './Components/Register'
 import Profile from './Components/Profile'
 import EditProfile from './Components/EditProfile'
-import DenseAppBar from './Components/DenseAppBar'
-import SimpleFormExample from './Components/Test'
+
 
 
 
