@@ -1,3 +1,4 @@
+
 import { useState } from 'react'
 
 import reactLogo from '../../assets/react.svg'
@@ -13,10 +14,11 @@ import Profile from '../../Pages/Profile'
 import Register from '../../Pages/Register'
 import Dashboard from '../../Pages/Dashboard'
 
-
 function App() {
   // const [count, setCount] = useState(0)
 
+
+function App() {
   return (
     <div className="App">
     <Router>
