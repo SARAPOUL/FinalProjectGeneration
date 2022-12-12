@@ -10,6 +10,7 @@ import EditActivity from '../../Pages/EditActivity'
 import Profile from '../../Pages/Profile'
 import Register from '../../Pages/Register'
 import Dashboard from '../../Pages/Dashboard'
+import EditProfile from '../../Pages/EditProfile'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/addActivity" element={<AddActivity />} />
         <Route path="/editActivity" element={<EditActivity />} />
+        <Route path="/editProfile" element={<EditProfile />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/register" element={<Register />} />
       </Routes>

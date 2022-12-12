@@ -2,7 +2,7 @@ import React,{ useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import TextField from '@mui/material/TextField';
-import "./Register.css"
+import "./EditProfile.css"
 
 const commonStyles = {
   width: '19rem',

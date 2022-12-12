@@ -5,6 +5,6 @@ import App from './Components/App'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <EditProfile/>
+    <App/>
   </React.StrictMode>
 )
