@@ -1,0 +1,9 @@
+.success {
+    background-image: linear-gradient(to right top, #e5d9b6, #dcd3a9, #d1ce9d, #c5c992, #b8c487, #a6b97c, #94ae71, #82a367, #6a8f59, #537b4b, #3d673d, #285430);
+}
+
+.btn-exit {
+    position: absolute;
+    top: 10%;
+    left: 90%;
+}
