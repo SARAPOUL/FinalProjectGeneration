@@ -6,7 +6,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import MainCard from "../Card/MainCard";
-
+import {Link} from "react-router-dom"
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 export const data = { 
@@ -37,9 +37,6 @@ export const data = {
     
   };
 
-const link = () => {
-    alert('Link to Profile Page')
-}
 
 const Dashboard = () => {
     
@@ -63,20 +60,21 @@ const Dashboard = () => {
     <div className="container">
             
             <div className="left">
-            Container
 
                 <div className='left-top'>
-                    <a href="/addactivity">AddActivity</a>
+                    <button type="button" className="addActivity">
+                        <a href="/addactivity">Add Activity</a>
+                    </button>
                 </div>
 
                 <div className='left-bottom'>
-                    Bottom
-                    <div className="grid-container">
-                        <Grid container 
-                        direction="row"
-                        justifyContent="center" 
-                        alignItems="center"
-                        spacing={{ xs: 2, md: 4 }} columns={{ xs: 4, sm: 8, md: 12 }} >
+                    <div className='left-bottom-background'>
+                        <div className="grid-container">
+                            <Grid container 
+                            direction="row"
+                            justifyContent="center" 
+                            alignItems="center"
+                             spacing={{ xs: 2, md: 4 }} columns={{ xs: 4, sm: 8, md: 12 }} >
                             
                             {card.length >0 && card.map((carditem,index) => 
                                 <Grid item xs={2} sm={4} md={4} key={index}>
@@ -90,56 +88,73 @@ const Dashboard = () => {
                                 </Grid>
                             ))} */}
 
-                        </Grid>
-                    </div>
+                            </Grid>
+                        </div>
+                        <div className="grid-container">
+                            <Grid container 
+                            direction="row"
+                            justifyContent="center" 
+                            alignItems="center"
+                             spacing={{ xs: 2, md: 4 }} columns={{ xs: 4, sm: 8, md: 12 }} >
+                            
+                            {card.length >0 && card.map((carditem,index) => 
+                                <Grid item xs={2} sm={4} md={4} key={index}>
+                                    <MainCard key={carditem._id} id={carditem._id}/>
+                                </Grid>
+                            )}
+                            </Grid>
+                        </div>
+                    </div>                  
+                    
                     
                     
                 </div>
 
             </div>
             <div className="right">
-            
-                    <div className="container-summary">
-                        <div className="display-card">
-                            <span>Hello, </span>
-                            <h2>Display Name</h2>
-                            <img src={profilePicture} alt="profile-picture" className="profile-picture" onClick={link} />
-
-                            <div className="graph">
-                                <Doughnut data={data} />
-                            </div>
-
-                            <div className="activity-container">
-                                <div className="activity">
-                                    <p>Total activity:</p>
-                                    <span className="gray">|</span>
-                                    <span>99</span>
-                                </div>
-                                <div className="activity">
-                                    <p>Completed:</p>
-                                    <span className="green">|</span>
-                                    <span>20</span>
-                                </div>
-                            </div>
-
-                            <div className="activity-container">
-                                <div className="activity">
-                                    <p>In progress:</p>
-                                    <span className="yellow">|</span>
-                                    <span>71</span>
-                                </div>
-                                <div className="activity">
-                                    <p>Incomplete:</p>
-                                    <span className="red">|</span>
-                                    <span>8</span>
-                                </div>
-                            </div>
-
+                
+                    <div className="display-card">
+                        <span>Hello, </span>
+                        <h2>Display Name</h2>
+                        <Link to="/profile" className="picture-link">
+                            <img src={profilePicture} alt="profile-picture" className="profile-picture" />
+                        </Link>
+        
+                        <div className="graph">
+                            <Doughnut data={data} />
                         </div>
+
+                        <div className="activity-container">
+                            <div className="activity">
+                                <p>Total activity:</p>
+                                <span className="gray">|</span>
+                                <span>99</span>
+                            </div>
+                            <div className="activity">
+                                <p>Completed:</p>
+                                <span className="green">|</span>
+                                <span>20</span>
+                            </div>
+                        </div>
+
+                        <div className="activity-container">
+                            <div className="activity">
+                                <p>In progress:</p>
+                                <span className="yellow">|</span>
+                                <span>71</span>
+                            </div>
+                            <div className="activity">
+                                <p>Incomplete:</p>
+                                <span className="red">|</span>
+                                <span>8</span>
+                            </div>
+                        </div>
+
                     </div>
+                
             </div>
         
-        </div>
+    </div>
     )
 }
 export default Dashboard
