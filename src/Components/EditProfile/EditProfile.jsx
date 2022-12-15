@@ -150,7 +150,7 @@ const commonStyles = {
               <Link to="/profile" style={{textDecoration: 'none',color: "white"}}>Back</Link>
             </Button>
             <Button variant="contained" style={{ backgroundColor: "#50A5B1", width:"100px" ,height:"30px" }}>
-              EDIT
+              <Link to="/profile" style={{textDecoration: 'none',color: "white"}}>Save</Link>
             </Button>
           </div>
         </div>

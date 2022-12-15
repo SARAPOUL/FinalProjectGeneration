@@ -208,7 +208,9 @@ handleSubmit = () => {
               {(submitted && "Your form is submitted!") ||
                 (!submitted && "Submit")}
             </Button>
-
+            
+            {/* {(submitted && <Link to="/dashboard"></Link>) ||
+                (!submitted && "Submit")} */}
 
             <Button variant="contained" onClick={()=>{props.history.push('../Login/LoginForm.jsx')}}  style={{ backgroundColor: "#C32B42", width:"100px" ,height:"30px" }}>
               <Link to="/" style={{textDecoration: 'none',color: "white"}}>Cancel</Link>

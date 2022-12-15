@@ -141,7 +141,8 @@ const commonStyles = {
               <Link to="/dashboard" style={{textDecoration: 'none',color: "white"}}>Back</Link>
             </Button>
             <Button variant="contained" style={{ backgroundColor: "#50A5B1", width:"100px" ,height:"30px" }}>
-              Edit
+            <Link to="/editProfile" style={{textDecoration: 'none',color: "white"}}>Edit</Link>
+              
             </Button>
           </div>
         </div>
