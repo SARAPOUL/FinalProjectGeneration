@@ -8,45 +8,120 @@ import Box from '@mui/material/Box';
 import MainCard from "../Card/MainCard";
 import {Link} from "react-router-dom"
 
-ChartJS.register(ArcElement, Tooltip, Legend);
-export const data = { 
-    labels: ['Run', 'Bicycle', 'Swim', 'Walk', 'Hike'],
-    datasets: [
-      {
-        data: [12, 19, 3, 5, 2],
-        label: 'Hour of activity',
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
+
+// const [chartData, setChartData] = useState([{
+//     labels: ['Run', 'Bicycle', 'Swim', 'Walk', 'Hike'],
+//     datasets: [
+//       {
+//         data: [12, 19, 3, 5, 2],
+//         label: 'Hour of activity',
+//         backgroundColor: [
+//           'rgba(255, 99, 132, 0.2)',
+//           'rgba(54, 162, 235, 0.2)',
+//           'rgba(255, 206, 86, 0.2)',
+//           'rgba(75, 192, 192, 0.2)',
+//           'rgba(153, 102, 255, 0.2)',
           
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
+//         ],
+//         borderColor: [
+//           'rgba(255, 99, 132, 1)',
+//           'rgba(54, 162, 235, 1)',
+//           'rgba(255, 206, 86, 1)',
+//           'rgba(75, 192, 192, 1)',
+//           'rgba(153, 102, 255, 1)',
           
-        ],
-        borderWidth: 1,
-      },
-    ],
-    
-  };
+//         ],
+//         borderWidth: 1,
+//       },
+//     ], 
+// }])
+
+
+
+// export 
 
 
 const Dashboard = () => {
+
+    const [chartData, setChartData] = useState([
+        {activityName:'Run',count:12},
+        {activityName:'Bicycle',count:20},
+        {activityName:'Swim',count:21},
+        {activityName:'Walk',count:30},
+        {activityName:'Hike',count:100},
+    ])
+
+    ChartJS.register(ArcElement, Tooltip, Legend);
+    const data = { 
+        labels: chartData.map(item => item.activityName),
+        datasets: [
+          {
+            data: chartData.map(item => item.count),
+            label: 'Hour of activity',
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              
+            ],
+            borderWidth: 1,
+          },
+        ],
+      };
     
+    // const [chartData, setChartData] = useState([{
+    //     labels: chartData.map(item => item.activityName),
+    //     datasets: [
+    //       {
+    //         data: chartData.map(item => item.count),
+    //         label: 'Hour of activity',
+    //         backgroundColor: [
+    //           'rgba(255, 99, 132, 0.2)',
+    //           'rgba(54, 162, 235, 0.2)',
+    //           'rgba(255, 206, 86, 0.2)',
+    //           'rgba(75, 192, 192, 0.2)',
+    //           'rgba(153, 102, 255, 0.2)',
+              
+    //         ],
+    //         borderColor: [
+    //           'rgba(255, 99, 132, 1)',
+    //           'rgba(54, 162, 235, 1)',
+    //           'rgba(255, 206, 86, 1)',
+    //           'rgba(75, 192, 192, 1)',
+    //           'rgba(153, 102, 255, 1)',
+              
+    //         ],
+    //         borderWidth: 1,
+    //       },
+    //     ], 
+    // }])
+
+    
+
     const [card,setCard] =useState([
         {_id:'222',activity:'run',decripttion:'gogogo'},
         {_id:'222',activity:'run',decripttion:'gogogo'},
         {_id:'222',activity:'run',decripttion:'gogogo'},
     ]);
+
+    const [activityData,setActivityData] =useState([
+        {_id:'1',Type:'Total activity',amount:'98'},
+        {_id:'2',Type:'Completed',amount:'21'},
+        {_id:'3',Type:'Inprogress',amount:'74'},
+        {_id:'4',Type:'Incomplete',amount:'9'},
+    ]);
     
-   
+
 
     // const {_id,activity,decripttion,endDate,startDate} = card;
     
@@ -128,12 +203,12 @@ const Dashboard = () => {
                             <div className="activity">
                                 <p>Total activity:</p>
                                 <span className="gray">|</span>
-                                <span>99</span>
+                                <span>{activityData[0].amount}</span>
                             </div>
                             <div className="activity">
                                 <p>Completed:</p>
                                 <span className="green">|</span>
-                                <span>20</span>
+                                <span>{activityData[1].amount}</span>
                             </div>
                         </div>
 
@@ -141,12 +216,12 @@ const Dashboard = () => {
                             <div className="activity">
                                 <p>In progress:</p>
                                 <span className="yellow">|</span>
-                                <span>71</span>
+                                <span>{activityData[2].amount}</span>
                             </div>
                             <div className="activity">
                                 <p>Incomplete:</p>
                                 <span className="red">|</span>
-                                <span>8</span>
+                                <span>{activityData[3].amount}</span>
                             </div>
                         </div>
 
