@@ -6,8 +6,6 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import "./Register.css";
 
-
-
 const Register = () => {
   //start img
   const [images, setImages] = useState([]);
@@ -27,16 +25,20 @@ const Register = () => {
 
   const {
     register,
+    watch,
+    getValues,
     formState: { errors },
     handleSubmit,
   } = useForm();
   const onSubmit = (data) => console.log(data);
+
   return (
     <form className="boxs" onSubmit={handleSubmit(onSubmit)}>
       <div className="form-register">
         <h1>Create a new account</h1>
         <div className="f-input">
-          <label>Email:</label><br/>
+          <label>Email:</label>
+          <br />
           <TextField
             required
             name="email"
@@ -48,26 +50,13 @@ const Register = () => {
             })}
           />
         </div>
-        {/* <error>
-          {errors.email?.type === "required" && "Email is required"}
-          {errors.email?.type === "pattern" &&
-            "Entered email is in wrong format"}
-        </error> */}
         <div className="f-input">
-          <label>Password:</label><br/>
+          <label>Password:</label>
+          <br />
           <TextField
             required
             name="password"
             label="Password"
-            type="password"
-          />
-        </div>
-        <div className="f-input">
-          <label>RepeatPassword:</label><br/>
-          <TextField
-            required
-            name="password1"
-            label="RepeatPassword"
             type="password"
             {...register("password", {
               required: true,
@@ -75,15 +64,34 @@ const Register = () => {
               maxLength: 20,
             })}
           />
-          <error>
-            {errors.password?.type === "minLength" &&
-              "Entered password is less than 5 characters"}
-            {errors.password?.type === "maxLength" &&
-              "Entered password is more than 20 characters"}
-          </error>
+          {errors?.password?.type === "required" && <p>This field is required</p>}
+        {errors?.password?.type === "minLength" && (
+          <p>password cannot less than 5 characters</p>
+        )}
+        </div>
+        
+        <div className="f-input">
+          <label>RepeatPassword:</label>
+          <br />
+          <TextField
+            required
+            name="password1"
+            label="RepeatPassword"
+            type="password"
+            {...register("password1", {
+              required: true,
+              minLength: 5,
+              maxLength: 20,
+            })}
+          />
+          {watch("password1") !== watch("password") &&
+          getValues("password1") ? (
+            <p>password not match</p>
+          ) : null}
         </div>
         <div className="f-input">
-          <label>Fisrtname:</label><br/>
+          <label>Fisrtname:</label>
+          <br />
           <TextField
             required
             name="fisrtname"
@@ -92,7 +100,8 @@ const Register = () => {
           />
         </div>
         <div className="f-input">
-          <label>Lastname:</label><br/>
+          <label>Lastname:</label>
+          <br />
           <TextField
             required
             name="lastname"
@@ -101,7 +110,8 @@ const Register = () => {
           />
         </div>
         <div className="f-input">
-          <label>Displayname:</label><br/>
+          <label>Displayname:</label>
+          <br />
           <TextField
             required
             name="displayname"
@@ -110,7 +120,8 @@ const Register = () => {
           />
         </div>
         <div className="f-input">
-          <label>Height:</label><br/>
+          <label>Height:</label>
+          <br />
           <TextField
             required
             name="height"
@@ -121,7 +132,8 @@ const Register = () => {
           <label>Cm.</label>
         </div>
         <div className="f-input">
-          <label>Weight:</label><br/>
+          <label>Weight:</label>
+          <br />
           <TextField
             required
             name="weight"
@@ -132,7 +144,8 @@ const Register = () => {
           <label>Kg.</label>
         </div>
         <div className="f-input">
-          <label>Address:</label><br/>
+          <label>Address:</label>
+          <br />
           <TextField
             name="address"
             aria-label="minimum height"
@@ -147,8 +160,11 @@ const Register = () => {
             variant="contained"
             type="submit"
             onSubmit="handleSubmit"
-            style={{ backgroundColor: "#50A5B1",width: "100px",
-              height: "30px", }}
+            style={{
+              backgroundColor: "#50A5B1",
+              width: "100px",
+              height: "30px",
+            }}
           >
             Confirm
           </Button>
