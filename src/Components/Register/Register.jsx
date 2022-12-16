@@ -192,7 +192,7 @@ const Register = () => {
       <div className="form-register-image">
         <input type="file" multiple accept="image/*" onChange={onImageChange} />
         {imageURLs.map((imageSrc, idx) => (
-          <img key={idx} width="340" height="360" src={imageSrc} />
+          <img key={idx} width="240" height="360" src={imageSrc} />
         ))}
       </div>
     </form>
