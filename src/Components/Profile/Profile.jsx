@@ -13,7 +13,7 @@ const Profile = () => {
       <div className="form-register">
         <h1>Profile</h1>
         <div className="f-input">
-          <label>Email:</label>
+          <label>Email:</label><br/>
           <TextField
             name="email"
             type="email"
@@ -22,7 +22,7 @@ const Profile = () => {
           />
         </div>
         <div className="f-input">
-          <label>Fisrtname:</label>
+          <label>Fisrtname:</label><br/>
           <TextField
             name="fisrtname"
             InputProps={{ readOnly: true }}
@@ -30,7 +30,7 @@ const Profile = () => {
           />
         </div>
         <div className="f-input">
-          <label>Lastname:</label>
+          <label>Lastname:</label><br/>
           <TextField
             name="lastname"
             InputProps={{ readOnly: true }}
@@ -38,7 +38,7 @@ const Profile = () => {
           />
         </div>
         <div className="f-input">
-          <label>Displayname:</label>
+          <label>Displayname:</label><br/>
           <TextField
             name="displayname"
             InputProps={{ readOnly: true }}
@@ -46,7 +46,7 @@ const Profile = () => {
           />
         </div>
         <div className="f-input">
-          <label>Height:</label>
+          <label>Height:</label><br/>
           <TextField
             name="height"
             InputProps={{ readOnly: true }}
@@ -55,7 +55,7 @@ const Profile = () => {
           <label>Cm.</label>
         </div>
         <div className="f-input">
-          <label>Weight:</label>
+          <label>Weight:</label><br/>
           <TextField
             required
             name="weight"
@@ -65,7 +65,7 @@ const Profile = () => {
           <label>Kg.</label>
         </div>
         <div className="f-input">
-          <label>Address:</label>
+          <label>Address:</label><br/>
           <TextField
             multiline
             name="address"

@@ -6,6 +6,8 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import "./Register.css";
 
+
+
 const Register = () => {
   //start img
   const [images, setImages] = useState([]);
@@ -46,11 +48,11 @@ const Register = () => {
             })}
           />
         </div>
-        <error>
+        {/* <error>
           {errors.email?.type === "required" && "Email is required"}
           {errors.email?.type === "pattern" &&
             "Entered email is in wrong format"}
-        </error>
+        </error> */}
         <div className="f-input">
           <label>Password:</label><br/>
           <TextField
@@ -135,7 +137,7 @@ const Register = () => {
             name="address"
             aria-label="minimum height"
             minRows={3}
-            // placeholder="Minimum 3 rows"
+            placeholder="Address"
             style={{ width: 200 }}
             {...register("address", { required: true })}
           />

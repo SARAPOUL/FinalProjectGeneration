@@ -34,7 +34,7 @@ const Register = () => {
       <div className="form-register">
         <h1>EditProfile</h1>
         <div className="f-input">
-          <label>Email:</label>
+          <label>Email:</label><br/>
           <TextField
             required
             name="email"
@@ -46,13 +46,13 @@ const Register = () => {
             })}
           />
         </div>
-        <error>
+        {/* <error>
           {errors.email?.type === "required" && "Email is required"}
           {errors.email?.type === "pattern" &&
             "Entered email is in wrong format"}
-        </error>
+        </error> */}
         <div className="f-input">
-          <label>Fisrtname:</label>
+          <label>Fisrtname:</label><br/>
           <TextField
             required
             name="fisrtname"
@@ -61,7 +61,7 @@ const Register = () => {
           />
         </div>
         <div className="f-input">
-          <label>Lastname:</label>
+          <label>Lastname:</label><br/>
           <TextField
             required
             name="lastname"
@@ -70,7 +70,7 @@ const Register = () => {
           />
         </div>
         <div className="f-input">
-          <label>Displayname:</label>
+          <label>Displayname:</label><br/>
           <TextField
             required
             name="displayname"
@@ -79,7 +79,7 @@ const Register = () => {
           />
         </div>
         <div className="f-input">
-          <label>Height:</label>
+          <label>Height:</label><br/>
           <TextField
             required
             name="height"
@@ -90,7 +90,7 @@ const Register = () => {
           <label>Cm.</label>
         </div>
         <div className="f-input">
-          <label>Weight:</label>
+          <label>Weight:</label><br/>
           <TextField
             required
             name="weight"
@@ -101,7 +101,7 @@ const Register = () => {
           <label>Kg.</label>
         </div>
         <div className="f-input">
-          <label>Address:</label>
+          <label>Address:</label><br/>
           <TextField
             name="address"
             aria-label="minimum height"
