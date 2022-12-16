@@ -12,7 +12,8 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate, Navigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 //page
 import AddActivity from '../../Pages/AddActivity'
 import Login from '../../Pages/Login'
@@ -27,6 +28,9 @@ import './NavBar.css'
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [auth, setAuth] = React.useState(true);
@@ -45,6 +49,15 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const logout = () =>{
+    dispatch({
+      type:'LOGOUT',
+      payload: null,
+    })
+     navigate('/')
+
+  }
 
   return (
     <AppBar position="static">
@@ -126,8 +139,8 @@ function ResponsiveAppBar() {
                 {/* <MenuItem  key ="resetPassword" onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">Reset password</Typography>
                 </MenuItem> */}
-                <MenuItem key="logout" onClick={handleCloseUserMenu}>
-                  <Link to="/" className="menu-nav"> <Typography textAlign="center">Logout</Typography></Link>
+                <MenuItem key="logout" onClick={logout}>
+                   <Link to="/" className="menu-nav"> <Typography textAlign="center">Logout</Typography></Link>
                 </MenuItem>
 
               </Menu>

@@ -1,4 +1,3 @@
-import { getStyleValue } from '@mui/system';
 import React, {useState, useCallback} from 'react';
 import { useNavigate } from 'react-router-dom';
 // import Login from '../Pages/auth/Login';
@@ -23,7 +22,7 @@ function LoginForm() {
     if (role === "admin") {
       navigate('/admin/index')
     } else {
-      navigate('/user/index')  
+      navigate('/dashboard')  
     }
   }
   
