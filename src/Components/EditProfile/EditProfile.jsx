@@ -1,5 +1,6 @@
 import React,{ useState, useEffect } from "react";
 import Button from "@mui/material/Button";
+import { Link } from 'react-router-dom';
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import TextField from '@mui/material/TextField';
 import "./EditProfile.css"
@@ -101,6 +102,7 @@ const commonStyles = {
               label="Height"
               onChange={this.handleChange}
               name="Height"
+              type="number"
               value={formData.Height}
               validators={["required"]}
               errorMessages={["this field is required"]}
@@ -114,6 +116,7 @@ const commonStyles = {
               label="Weight"
               onChange={this.handleChange}
               name="Weight"
+              type="number"
               value={formData.Weight}
               validators={["required"]}
               errorMessages={["this field is required"]}
@@ -139,20 +142,20 @@ const commonStyles = {
           </div>
           <div className="f-button">
             <Button
-              style={{ backgroundColor: "#C32B42" }}
+              style={{ backgroundColor: "#C32B42", width:"100px" ,height:"30px" }}
               variant="contained"
               type="submit"
               disabled={submitted}
             >
-              BACK
+              <Link to="/profile" style={{textDecoration: 'none',color: "white"}}>Back</Link>
             </Button>
-            <Button variant="contained" style={{ backgroundColor: "#50A5B1" }}>
-              EDIT
+            <Button variant="contained" style={{ backgroundColor: "#50A5B1", width:"100px" ,height:"30px" }}>
+              <Link to="/profile" style={{textDecoration: 'none',color: "white"}}>Save</Link>
             </Button>
           </div>
         </div>
         <div className="form-register-image">
-        <Button variant="contained" style={{ backgroundColor: "#50A5B1" }}>
+        <Button variant="contained" style={{ backgroundColor: "#50A5B1", width:"100px" ,height:"30px" }}>
           Upload
         </Button>
         </div>

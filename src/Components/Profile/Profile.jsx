@@ -1,4 +1,5 @@
 import React,{ useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import Button from "@mui/material/Button";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import TextField from '@mui/material/TextField';
@@ -32,6 +33,8 @@ const commonStyles = {
       setTimeout(() => this.setState({ submitted: false }), );
     });
   };
+
+  
 
 
   render() {
@@ -129,16 +132,17 @@ const commonStyles = {
           </div>
           <div className="f-button">
             <Button
-              style={{ backgroundColor: "#C32B42" }}
+              style={{ backgroundColor: "#C32B42", width:"100px" ,height:"30px" }}
               variant="contained"
               type="submit"
               disabled={submitted}
               InputProps={{readOnly: true}}
             >
-            Back
+              <Link to="/dashboard" style={{textDecoration: 'none',color: "white"}}>Back</Link>
             </Button>
-            <Button variant="contained" style={{ backgroundColor: "#50A5B1" }}>
-              Edit
+            <Button variant="contained" style={{ backgroundColor: "#50A5B1", width:"100px" ,height:"30px" }}>
+            <Link to="/editProfile" style={{textDecoration: 'none',color: "white"}}>Edit</Link>
+              
             </Button>
           </div>
         </div>

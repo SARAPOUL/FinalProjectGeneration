@@ -1,45 +1,76 @@
 import React,{ useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import Button from "@mui/material/Button";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import TextField from '@mui/material/TextField';
-import "./Register.css"
 
+// import  "./Register.css"
+
+ 
 const commonStyles = {
-  width: '19rem',
+  width: '20rem',
 };
 
  class Register extends React.Component {
-  state = {
-    formData: {
-      email: "",
-      password: "",
-      Name: "",
-      Lastname: "",
-      Displayname:"",
-      Height: "",
-      Weight: "",
-      Address: "",
-    },
-    submitted: false,
-  };
-  handleChange = (event) => {
-    const { formData } = this.state;
-    formData[event.target.name] = event.target.value;
-    this.setState({ formData });
-  };
+  constructor(props) {
+    super(props);
 
-  handleSubmit = () => {
-    this.setState({ submitted: true }, () => {
-      setTimeout(() => this.setState({ submitted: false }), );
-    });
-  };
+   
+    if (!ValidatorForm.hasValidationRule('isPasswordMatch')) {
+        ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
+            const { formData } = this.state;
+            if (value == formData.password) {
+                return false;
+            }
+            return true;
+        });
+    }
+
+
+    this.state = {
+        formData: {
+          email: "",
+          password: '',
+          repeatPassword: '',
+          Name: "",
+          Lastname: "",
+          Displayname:"",
+          Height: "",
+          Weight: "",
+          Address: "",
+        },
+        submitted: false,
+    };
+}
+
+componentWillUnmount() {
+  if (ValidatorForm.hasValidationRule('isPasswordMatch')) {
+      ValidatorForm.removeValidationRule('isPasswordMatch');
+  }
+}
+
+handleChange = (event) => {
+  const { formData } = this.state;
+  formData[event.target.name] = event.target.value;
+  if (event.target.name === 'password') {
+      this.form.isFormValid(false);
+  }
+  this.setState({ formData });
+}
+
+handleSubmit = () => {
+  this.setState({ submitted: true }, () => {
+      setTimeout(() => this.setState({ submitted: false }), 5000);
+  });
+}
+
 
 
 
   render() {
     const { formData, submitted } = this.state;
     return (
-      <ValidatorForm className="boxs" ref="form" onSubmit={this.handleSubmit}>
+      <ValidatorForm className="boxs" ref={r => (this.form = r)}  onSubmit={this.handleSubmit}>
         <div className="form-register">
           <h2>Create a new account</h2>
           <div className="f-input">
@@ -59,14 +90,29 @@ const commonStyles = {
             <label>Password:</label>
             <TextValidator
             sx={{ ...commonStyles, borderRadius: '40%' }}
-              label="Password"
-              onChange={this.handleChange}
-              name="password"
-              value={formData.password}
-              validators={['required']}
-              errorMessages={["this field is required"]}
+                    label="Password"
+                    onChange={this.handleChange}
+                    name="password"
+                    type="password"
+                    validators={['required']}
+                    errorMessages={['this field is required']}
+                    value={formData.password}
             />
           </div>
+
+          <div className="f-input">
+          <label>Repeat password:</label>
+          <TextValidator
+          sx={{ ...commonStyles, borderRadius: '40%' }}
+                    label="Repeat password"
+                    onChange={this.handleChange}
+                    name="repeatPassword"
+                    type="password"
+                    validators={['isPasswordMatch', 'required']}
+                    errorMessages={['password mismatch', 'this field is required']}
+                    value={formData.repeatPassword}
+                />
+                </div>
 
           <div className="f-input">
             <label>Name:</label>
@@ -112,6 +158,7 @@ const commonStyles = {
             <TextValidator
             sx={{ ...commonStyles, borderRadius: '40%' }}
               label="Height"
+              type="number"
               onChange={this.handleChange}
               name="Height"
               value={formData.Height}
@@ -125,6 +172,7 @@ const commonStyles = {
             <TextValidator
             sx={{ ...commonStyles, borderRadius: '40%' }}
               label="Weight"
+              type="number"
               onChange={this.handleChange}
               name="Weight"
               value={formData.Weight}
@@ -152,7 +200,7 @@ const commonStyles = {
           </div>
           <div className="f-button">
             <Button
-              style={{ backgroundColor: "#50A5B1" }}
+              style={{ backgroundColor: "#50A5B1", width:"100px" ,height:"30px" }}
               variant="contained"
               type="submit"
               disabled={submitted}
@@ -160,13 +208,17 @@ const commonStyles = {
               {(submitted && "Your form is submitted!") ||
                 (!submitted && "Submit")}
             </Button>
-            <Button variant="contained" style={{ backgroundColor: "#C32B42" }}>
-              Cancel
+            
+            {/* {(submitted && <Link to="/dashboard"></Link>) ||
+                (!submitted && "Submit")} */}
+
+            <Button variant="contained" onClick={()=>{props.history.push('../Login/LoginForm.jsx')}}  style={{ backgroundColor: "#C32B42", width:"100px" ,height:"30px" }}>
+              <Link to="/" style={{textDecoration: 'none',color: "white"}}>Cancel</Link>
             </Button>
           </div>
         </div>
         <div className="form-register-image">
-        <Button variant="contained" style={{ backgroundColor: "#50A5B1" }}>
+        <Button variant="contained" style={{ backgroundColor: "#50A5B1" , width:"100px" ,height:"30px" }}>
           Upload
         </Button>
         </div>
