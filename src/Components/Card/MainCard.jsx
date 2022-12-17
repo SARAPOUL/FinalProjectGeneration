@@ -13,6 +13,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import { flexbox } from '@mui/system';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
+import { useNavigate,Link } from 'react-router-dom';
+import axios from 'axios'
+
 
 
 // const themeCard = createTheme({
@@ -49,10 +52,16 @@ const bgcolor = {
 
 
 
-const MainCard = (props) => {
-   
+const MainCard = ({card}) => {
+    
+    const navigate = useNavigate();
+    
     const bgcolor2 = '#FFFFFF';
 
+
+    const { username,activityName,activityType,startActivity,endActivity,
+    detailActivity,status,duration } = card
+    const {_id:id} = card
 
     const [dateStart,setDateStart] = useState(new Date());
     const [dateEnd,setdateEnd] = useState(new Date());
@@ -62,7 +71,7 @@ const MainCard = (props) => {
     const timeHrMin = `${time.getHours()}:${time.getMinutes()}`
     const [timeRemain,setTimeRemain] = useState(timeHrMin)
 
-    
+   
     const [state,setState] = useState({
         activity:"",
         startDate:"",
@@ -81,10 +90,18 @@ const MainCard = (props) => {
         setState({ ...state, statusActivity: 9})
         // ไปเรียก axios เปลี่ยนสถานนะcard
     }
+
     
-    const confirmDelete =()=> {
-        const deleteCard = window.confirm(`You want to delete !!`)
-        return (deleteCard)  ? alert('Delete card success!!') : null;
+    
+    const confirmDelete =(id)=> {
+        const deleteCard = window.confirm(`You want to delete${id} !!`)
+        if (deleteCard) {
+            axios.delete(`${import.meta.env.VITE_APP_API}/card-activity/${id}`)
+            .then(response => {
+                window.alert(`Delete success !!`)
+                window.location.reload()
+            }).catch(err => console.log(err))
+        }
     }
 
     // modal state
@@ -97,7 +114,6 @@ const MainCard = (props) => {
     
     <Card 
         bgcolor2={bgcolor2} 
-        {...state}
         
         sx={{ 
         // maxWidth: 400,
@@ -105,17 +121,16 @@ const MainCard = (props) => {
         // bgcolor: colorStatus,
         background: `${bgcolor2}`,
         'border-radius': `10px`,
-    
-
-        
+  
             }} 
     >
       <Box  sx={{
+
         display:'flex',
         justifyContent: "space-between",
         alignItems:'center',
       }} >
-
+            {activityName}
         <Box sx={{
             display:'flex',
             alignItems:'center',
@@ -129,7 +144,7 @@ const MainCard = (props) => {
                 }}
 
             >
-                {activity}
+                {activityType}
             </Typography>
             <PoolIcon />
 
@@ -145,11 +160,16 @@ const MainCard = (props) => {
                     <Button size="small">
                         <StickyNote2Icon />
                     </Button>
-                    <Button size="small" href='/editActivity'>
-                       <EditIcon />
-                    </Button>
+
+                    <Link to={`/editActivity/${id}`} id={id}>
+                        <Button size="small" href='/editActivity'>
+                            <EditIcon />
+                        </Button>
+
+                    </Link>
+
                     <Button size="small">
-                        <DeleteIcon sx={{ color: 'red' }} onClick={()=>confirmDelete()} />
+                        <DeleteIcon sx={{ color: 'red' }} onClick={()=>confirmDelete(id)} />
                     </Button>
                 </div>
         </CardActions>
@@ -168,7 +188,7 @@ const MainCard = (props) => {
                     
                 }}
         >
-            Start: {startDate}
+            Start: {startActivity}
             {/* Start: {dateStart.toLocaleString()} */}
         </Typography>
         <Typography  component="div"  
@@ -180,7 +200,7 @@ const MainCard = (props) => {
                     color: '#434242',
                 }}
         >
-            End: {endDate}
+            End: {endActivity}
             {/* End: {dateEnd.toLocaleString()} */}
         </Typography>
       </Box>
@@ -243,7 +263,7 @@ const MainCard = (props) => {
                                             </div>
                                         </div>
                                         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                            {decripttion}
+                                            {detailActivity}
                                         </Typography>
                                     </Box>
                                 </Modal>
@@ -273,7 +293,7 @@ const MainCard = (props) => {
                     
                 }}>
                     <AccessTimeIcon />
-                    <Typography variant="h7" component="div" > remain : {startDate-endDate}</Typography>
+                    <Typography variant="h7" component="div" > remain : 1</Typography>
                 </Box>
       </CardContent>
       

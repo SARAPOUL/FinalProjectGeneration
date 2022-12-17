@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React , { useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,7 +12,8 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate, Navigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 //page
 import AddActivity from '../../Pages/AddActivity'
 import Login from '../../Pages/Login'
@@ -27,9 +28,12 @@ import './NavBar.css'
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [auth, setAuth] = React.useState(true);
+  const [auth, setAuth] = React.useState(localStorage.token);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -46,6 +50,21 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
+  const logout = () => {
+    dispatch({
+      type: 'LOGOUT',
+      payload: null,
+    })
+    navigate('/')
+
+  }
+
+  useEffect(() => {
+    setAuth(localStorage.token)
+    // This function will be called whenever the value of date1 or date2 changes
+    // console.log('The difference between the selected dates has changed');
+  }, [localStorage.token]);
+  //  console.log(localStorage.token);
   return (
     <AppBar position="static">
       <Container maxWidth="100%" className="NavBar">
@@ -126,10 +145,9 @@ function ResponsiveAppBar() {
                 {/* <MenuItem  key ="resetPassword" onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">Reset password</Typography>
                 </MenuItem> */}
-                <MenuItem key="logout" onClick={handleCloseUserMenu}>
+                <MenuItem key="logout" onClick={logout}>
                   <Link to="/" className="menu-nav"> <Typography textAlign="center">Logout</Typography></Link>
                 </MenuItem>
-
               </Menu>
             </Box>)}
         </Toolbar>

@@ -7,7 +7,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import MainCard from "../Card/MainCard";
 import {Link} from "react-router-dom"
-
+import axios from 'axios'
 
 // const [chartData, setChartData] = useState([{
 //     labels: ['Run', 'Bicycle', 'Swim', 'Walk', 'Hike'],
@@ -43,6 +43,7 @@ import {Link} from "react-router-dom"
 
 const Dashboard = () => {
 
+    const user = localStorage.user
     const [chartData, setChartData] = useState([
         {activityName:'Run',count:12},
         {activityName:'Bicycle',count:20},
@@ -108,11 +109,7 @@ const Dashboard = () => {
 
     
 
-    const [card,setCard] =useState([
-        {_id:'222',activity:'run',decripttion:'gogogo'},
-        {_id:'222',activity:'run',decripttion:'gogogo'},
-        {_id:'222',activity:'run',decripttion:'gogogo'},
-    ]);
+    const [card,setCard] =useState([]);
 
     const [activityData,setActivityData] =useState([
         {_id:'1',Type:'Total activity',amount:'98'},
@@ -121,10 +118,25 @@ const Dashboard = () => {
         {_id:'4',Type:'Incomplete',amount:'9'},
     ]);
     
-
+    
 
     // const {_id,activity,decripttion,endDate,startDate} = card;
-    
+    const fetchData = () => {
+        axios.get(`${import.meta.env.VITE_APP_API}/card-activity`,{ params: { user } })
+        .then(response => {
+            setCard(response.data)
+            console.log(card)
+        }).catch(err => console.log(err))
+    }
+
+    useEffect(()=>{
+        fetchData()
+        
+    },[])
+
+
+
+
     
     
     return(
@@ -150,9 +162,9 @@ const Dashboard = () => {
                             alignItems="center"
                              spacing={{ xs: 2, md: 4 }} columns={{ xs: 4, sm: 8, md: 12 }} >
                             
-                            {card.length >0 && card.map((carditem,index) => 
+                            { card.length >0 && card.map((carditem,index) => 
                                 <Grid item xs={2} sm={4} md={4} key={index}>
-                                    <MainCard key={carditem._id} id={carditem._id}/>
+                                    <MainCard key={carditem._id} card={carditem}/>
                                 </Grid>
                             )}
                             
@@ -164,6 +176,7 @@ const Dashboard = () => {
 
                             </Grid>
                         </div>
+
                     </div>                  
                     
                     
