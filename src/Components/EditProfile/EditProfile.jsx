@@ -28,7 +28,8 @@ const Register = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = () => navigate('/profile');
+  // const onSubmit = (data) => console.log(data);
   return (
     <form className="boxs" onSubmit={handleSubmit(onSubmit)}>
       <div className="form-register">

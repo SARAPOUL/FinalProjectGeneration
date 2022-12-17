@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import "./Register.css";
@@ -10,6 +10,8 @@ const Register = () => {
   //start img
   const [images, setImages] = useState([]);
   const [imageURLs, setImageURLs] = useState([]);
+  const navigate = useNavigate();
+ 
 
   useEffect(() => {
     if (images.length < 1) return;
@@ -30,7 +32,8 @@ const Register = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = () => navigate('/dashboard');
+  // const onSubmit = (data) => console.log(data); แสดงข้อมูลให้ดู
 
   return (
     <form className="boxs" onSubmit={handleSubmit(onSubmit)}>
