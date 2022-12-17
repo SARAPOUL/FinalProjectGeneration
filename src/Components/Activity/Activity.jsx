@@ -4,21 +4,42 @@ import { useNavigate } from 'react-router-dom';
 import { InputLabel, Select, MenuItem } from '@mui/material';
 import './Activity.css'
 import Grid from '@mui/material/Grid'; // Grid version 1';
+import axios from 'axios';
 
 const Activity = (props) => {
-    // State of activity
-    const [state, setState] = useState({
-        _id: props.activity ? props.activity._id : "",
-        userId: props.activity ? props.activity.userId : "",
-        activityName: props.activity ? props.activity.activityName : "",
-        activityType: props.activity ? props.activity.activityType : "",
-        startDate: props.activity ? props.activity.startDate : "",
-        endDate: props.activity ? props.activity.endDate : "",
-        duration: props.activity ? props.activity.duration : "",
-        decripttion: props.activity ? props.activity.decripttion : "",
-    })
-    const { _id, userId, activityName, activityType, startDate, endDate, duration, decripttion } = state
     const navigate = useNavigate();
+    const id = props.id
+    // console.log(props.id)
+    
+    // State of activity
+    // const {id} = props.id
+    const [state, setState] = useState({
+        username:"",
+        activityName:"",
+        activityType:"",
+        startDate:"",
+        endDate:"",
+        duration: "",
+        status:"",
+        detailActivity: "",
+    })
+    const { activityName, activityType, startDate, endDate, duration, detailActivity } = state
+    
+    async function getCardActivity() {
+        try {
+          const response = await axios.get(`${import.meta.env.VITE_APP_API}/card-activity/${id}`);
+          const { activityName, activityType, startDate, endDate, duration, detailActivity } = response.data
+          setState({ activityName, activityType, startDate, endDate, duration, detailActivity })
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+    useEffect(()=> {
+        getCardActivity()
+    },[])
+    
+    
     // Function
 
     const setActivityName = (e) => {
@@ -28,19 +49,20 @@ const Activity = (props) => {
         setState({ ...state, activityType: e.target.value })
     }
     const setDescriptiton = (e) => {
-        setState({ ...state, decripttion: e.target.value })
+        setState({ ...state, detailActivity: e.target.value })
     }
     const selectstartdate = (e) => {
         setState({ ...state, startDate: e.target.value })
     }
-
     const selectenddate = (e) => {
         setState({ ...state, endDate: e.target.value })
     }
-
-    const setDuration = (e) => {
-        setState({ ...state, duration: e.target.value })
-    }
+    useEffect(() => {
+        // console.log('duration set!!')
+        setState({ ...state, duration: getDateDifference() })
+        // This function will be called whenever the value of date1 or date2 changes
+        // console.log('The difference between the selected dates has changed');
+    }, [startDate, endDate]);
 
 
     function getDateDifference() {
@@ -54,26 +76,17 @@ const Activity = (props) => {
         return formattedTimeDifference;
     }
 
-    useEffect(() => {
-        setState({ ...state, duration: getDateDifference() })
-        // This function will be called whenever the value of date1 or date2 changes
-        // console.log('The difference between the selected dates has changed');
-    }, [startDate, endDate]);
+   
 
     const submitForm = (e) => {
-        e.preventDefault()
-        if(props.activity){
-            //edit 
-        }else{
-            //add
-        }
-        console.log(state)
-        // setState({
-        //     activity:"",
-        //     startDate:"",
-        //     endDate:"",
-        //     decripttion:"",
-        // })
+        e.preventDefault();
+        axios.put(`${import.meta.env.VITE_APP_API}/edit-activity/${id}`,{ activityName, activityType, startDate, endDate, detailActivity,duration })
+        .then(response => {
+            alert('Edit Activity')
+            console.log('after edit',response.data)
+            setState(response.data)
+            console.log(state)
+        }).catch(err =>console.log(err))
     }
 
     const onBackClick = useCallback(() => {
@@ -83,7 +96,8 @@ const Activity = (props) => {
 
 
     return (
-        <div className='form-activity' style={{ margin: "32px" }}>
+        (state && 
+            <div className='form-activity' style={{ margin: "32px" }}>
 
             <form className='form-add' onSubmit={submitForm}>
                 <Grid container spacing={0} margin={2}>
@@ -170,10 +184,10 @@ const Activity = (props) => {
 
                 <Grid container spacing={0} margin={2}>
                     <Grid item xs={12} md={2}>
-                        <label className=''>Duration : </label>
+                        <label className=''>Duration :  </label>
                     </Grid>
                     <Grid item xs={12} md={10}>
-                        <TextField id="duration" label="" variant="outlined" value={duration} onChange={setDuration} disabled />
+                        <TextField id="duration" label="" variant="outlined" value={duration} disabled />
                     </Grid>
                 </Grid>
 
@@ -192,7 +206,7 @@ const Activity = (props) => {
                             label="Decripttion"
                             onChange={setDescriptiton}
                             name="Decripttion"
-                            value={decripttion}
+                            value={detailActivity}
                         // validators={["required"]}
                         // errorMessages={["this field is required"]}
                         />
@@ -206,7 +220,7 @@ const Activity = (props) => {
 
 
             </form>
-        </div>
+        </div>)
     )
 }
 

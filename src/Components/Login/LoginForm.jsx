@@ -58,6 +58,7 @@ function LoginForm() {
         })
 
         localStorage.setItem('token',res.data.token)
+        localStorage.setItem('user',res.data.payload.user.username)
         roleBasedRedirect(res.data.payload.user.role)
       })
       .catch((err)=> {
