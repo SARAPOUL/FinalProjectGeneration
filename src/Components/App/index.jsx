@@ -1,6 +1,6 @@
 
 import './App.css'
-
+import React , { useEffect } from 'react';
 import NavBar from '../NavBar/NavBar'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 //page
@@ -13,6 +13,13 @@ import Dashboard from '../../Pages/Dashboard'
 import EditProfile from '../../Pages/EditProfile'
 
 function App() {
+  const [auth, setAuth] = React.useState(localStorage.token);
+
+  useEffect(() => {
+    setAuth(localStorage.token)
+    // This function will be called whenever the value of date1 or date2 changes
+    // console.log('The difference between the selected dates has changed');
+  }, [localStorage.token]);
   return (
     <div className="App">
 
@@ -20,12 +27,14 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/addActivity" element={<AddActivity />} />
-        <Route path="/editActivity/:id" element={<EditActivity />} />
-        <Route path="/editProfile" element={<EditProfile />} />
-        <Route path="/profile" element={<Profile />} />
         <Route path="/register" element={<Register />} />
+        
+        <Route path="/dashboard" element={ auth ? <Dashboard /> : null}  />
+        <Route path="/addActivity" element={ auth ?<AddActivity />: null} />
+        <Route path="/editActivity" element={ auth ?<EditActivity />: null}/>
+        <Route path="/editProfile" element={ auth ?<EditProfile />: null}/>
+        <Route path="/profile" element={ auth ?<Profile />: null}/>
+
       </Routes>
     </Router>
     </div>
