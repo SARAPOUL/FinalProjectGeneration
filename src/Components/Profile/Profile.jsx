@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-// import "./Register.css";
+import "../Register/Register.css";
 
 const Profile = () => {
   const { register, handleSubmit } = useForm();

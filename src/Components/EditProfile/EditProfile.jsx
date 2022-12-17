@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-// import "./Register.css";
+import "../Register/Register.css";
 
 const Register = () => {
   //start img
@@ -39,7 +39,6 @@ const Register = () => {
           <TextField
             required
             name="email"
-            label="Email"
             type="email"
             {...register("email", {
               required: true,
@@ -57,7 +56,6 @@ const Register = () => {
           <TextField
             required
             name="fisrtname"
-            label="Name"
             {...register("fisrtname", { required: true })}
           />
         </div>
@@ -66,7 +64,6 @@ const Register = () => {
           <TextField
             required
             name="lastname"
-            label="Lastname"
             {...register("lastname", { required: true })}
           />
         </div>
@@ -75,7 +72,6 @@ const Register = () => {
           <TextField
             required
             name="displayname"
-            label="Display name"
             {...register("displayname", { required: true })}
           />
         </div>
@@ -84,7 +80,6 @@ const Register = () => {
           <TextField
             required
             name="height"
-            label="Height"
             type="number"
             {...register("height", { required: true })}
           />
@@ -95,7 +90,6 @@ const Register = () => {
           <TextField
             required
             name="weight"
-            label="Weight"
             type="number"
             {...register("weight", { required: true })}
           />
