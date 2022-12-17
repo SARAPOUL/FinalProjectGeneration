@@ -84,21 +84,31 @@ const MainCard = ({card}) => {
     const setStatusActivityCompleted = () => {
         setState({ ...state, statusActivity: 1})
         // ไปเรียก axios เปลี่ยนสถานนะcard
+        axios.put(`${import.meta.env.VITE_APP_API}/change-status/${id}`,{statusActivity})
+            .then(response => {
+                // window.alert(`Delete success !!`)
+                window.location.reload()
+            }).catch(err => console.log(err))
     }
 
     const setStatusActivityIncompleted = () => {
         setState({ ...state, statusActivity: 9})
         // ไปเรียก axios เปลี่ยนสถานนะcard
+        axios.put(`${import.meta.env.VITE_APP_API}/change-status/${id}`,{statusActivity})
+        .then(response => {
+            // window.alert(`Delete success !!`)
+            window.location.reload()
+        }).catch(err => console.log(err))
     }
 
     
     
     const confirmDelete =(id)=> {
-        const deleteCard = window.confirm(`You want to delete${id} !!`)
+        const deleteCard = window.confirm(`You want to delete :${activityName} !!`)
         if (deleteCard) {
             axios.delete(`${import.meta.env.VITE_APP_API}/card-activity/${id}`)
             .then(response => {
-                window.alert(`Delete success !!`)
+                // window.alert(`Delete success !!`)
                 window.location.reload()
             }).catch(err => console.log(err))
         }
@@ -157,9 +167,6 @@ const MainCard = ({card}) => {
             }}>
                     
                 <div>
-                    <Button size="small">
-                        <StickyNote2Icon />
-                    </Button>
 
                     <Link to={`/editActivity/${id}`} id={id}>
                         <Button size="small" href='/editActivity'>
@@ -218,7 +225,7 @@ const MainCard = ({card}) => {
             minWidth: "100%" }}>
             <CardContent>
                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    What's today
+                    Activity Details
                 </Typography>
      
             </CardContent>
@@ -293,7 +300,7 @@ const MainCard = ({card}) => {
                     
                 }}>
                     <AccessTimeIcon />
-                    <Typography variant="h7" component="div" > remain : 1</Typography>
+                    <Typography variant="h7" component="div" >{duration}</Typography>
                 </Box>
       </CardContent>
       

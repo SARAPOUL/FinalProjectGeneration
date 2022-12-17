@@ -1,6 +1,6 @@
 
 import './App.css'
-import React , { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import NavBar from '../NavBar/NavBar'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 //page
@@ -23,20 +23,20 @@ function App() {
   return (
     <div className="App">
 
-    <Router>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        
-        <Route path="/dashboard" element={ auth ? <Dashboard /> : null}  />
-        <Route path="/addActivity" element={ auth ?<AddActivity />: null} />
-        <Route path="/editActivity" element={ auth ?<EditActivity />: null}/>
-        <Route path="/editProfile" element={ auth ?<EditProfile />: null}/>
-        <Route path="/profile" element={ auth ?<Profile />: null}/>
+      <Router>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={auth ? <Dashboard /> : <Login />} />
+          <Route path="/register" element={<Register />} />
 
-      </Routes>
-    </Router>
+          <Route path="/dashboard" element={auth ? <Dashboard /> : null} />
+          <Route path="/addActivity" element={auth ? <AddActivity /> : null} />
+          <Route path="/editActivity/:id" element={auth ? <EditActivity /> : null} />
+          <Route path="/editProfile" element={auth ? <EditProfile /> : null} />
+          <Route path="/profile" element={auth ? <Profile /> : null} />
+
+        </Routes>
+      </Router>
     </div>
   )
 }
