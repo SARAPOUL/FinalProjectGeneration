@@ -92,7 +92,7 @@ const MainCard = ({card}) => {
     
 
     return (
-    <Card  
+    <Card  className='zoomOut'
         bgcolor2={bgcolor2} 
         
         sx={{ 

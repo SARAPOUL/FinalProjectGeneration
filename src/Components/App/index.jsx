@@ -11,21 +11,29 @@ import Profile from '../../Pages/Profile'
 import Register from '../../Pages/Register'
 import Dashboard from '../../Pages/Dashboard'
 import EditProfile from '../../Pages/EditProfile'
+import {useContext,createContext} from 'react'
+
+
+const CollectContext = createContext();
+
 
 function App() {
   return (
     <div className="App">
 
+    
     <Router>
       <NavBar />
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/addActivity" element={<AddActivity />} />
-        <Route path="/editActivity/:id" element={<EditActivity />} />
-        <Route path="/editProfile" element={<EditProfile />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/register" element={<Register />} />
+        
+            <Route path="/" element={<Login />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/addActivity" element={<AddActivity />} />
+            <Route path="/editActivity/:id" element={<EditActivity />} />
+            <Route path="/editProfile" element={<EditProfile />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/register" element={<Register />} />
+        
       </Routes>
     </Router>
     </div>

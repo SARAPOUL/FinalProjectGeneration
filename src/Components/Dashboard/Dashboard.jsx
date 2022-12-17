@@ -44,20 +44,17 @@ import axios from 'axios'
 const Dashboard = () => {
 
     const user = localStorage.user
-    const [chartData, setChartData] = useState([
-        {activityName:'Run',count:12},
-        {activityName:'Bicycle',count:20},
-        {activityName:'Swim',count:21},
-        {activityName:'Walk',count:30},
-        {activityName:'Hike',count:100},
-    ])
+    const [chartData, setChartData] = useState([])
+    console.log(chartData)
 
     ChartJS.register(ArcElement, Tooltip, Legend);
     const data = { 
-        labels: chartData.map(item => item.activityName),
+        labels: chartData.map(item => item._id),
+        
         datasets: [
-          {
-            data: chartData.map(item => item.count),
+          { 
+            
+            data: chartData.map(item => item.totalscore),
             label: 'Hour of activity',
             backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
@@ -110,27 +107,65 @@ const Dashboard = () => {
     
 
     const [card,setCard] =useState([]);
-
+    
     const [activityData,setActivityData] =useState([
         {_id:'1',Type:'Total activity',amount:'98'},
         {_id:'2',Type:'Completed',amount:'21'},
         {_id:'3',Type:'Inprogress',amount:'74'},
         {_id:'4',Type:'Incomplete',amount:'9'},
     ]);
+
+    // 0=Pending,1 =  Completed , 9 = Incomplete
+    const [totalStatus,setTotalStatus] = useState()
+    let pending,completed,incomplete,total ;
+    totalStatus.map(item => {
+        if(item._id == 9) {
+            incomplete += item.totalscore
+            total += item.totalscore
+        } else if (item._id == 1) {
+            completed += item.totalscore
+            total += item.totalscore
+        } else if (item._id == 0) {
+            pending += item.totalscore
+            total += item.totalscore
+        }
+    })
     
-    
+    // /chart-activity, /card-activity /total-status/
 
     // const {_id,activity,decripttion,endDate,startDate} = card;
-    const fetchData = () => {
-        axios.get(`${import.meta.env.VITE_APP_API}/card-activity`,{ params: { user } })
+    const fetchData = (path) => {
+        axios.get(`${import.meta.env.VITE_APP_API}/${path}`,{ params: { user } })
         .then(response => {
-            setCard(response.data)
+            console.log(response.data)
+            if(path == "/card-activity") {
+                setCard(response.data)
+            } else if(path == "/chart-activity") {
+                    setChartData(response.data)
+                    console.log(`i'm chart`,response.data)
+            }
+            else if(path == "/total-status") {
+                    setTotalStatus(response.data)
+                    console.log(`i'm total`,response.data)
+                }
             console.log(card)
         }).catch(err => console.log(err))
     }
 
+    async function fetchData2 (path) {
+        try {
+            const response = await axios.get(`${import.meta.env.VITE_APP_API}/${path}`,{ params: { user } })
+            (path == "/card-activity") ? setCard(response) :console.log(response);
+                
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     useEffect(()=>{
-        fetchData()
+        fetchData("/card-activity")
+        fetchData("/chart-activity")
+        fetchData("/total-status")
         
     },[])
 
@@ -145,7 +180,7 @@ const Dashboard = () => {
 
 
     <div className="container">
-            
+            {total}
             <div className="left">
 
                 <div className='left-top'>

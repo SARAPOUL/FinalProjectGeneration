@@ -83,9 +83,9 @@ const Activity = (props) => {
         axios.put(`${import.meta.env.VITE_APP_API}/edit-activity/${id}`,{ activityName, activityType, startDate, endDate, detailActivity,duration })
         .then(response => {
             alert('Edit Activity')
-            console.log('after edit',response.data)
+            // console.log('after edit',response.data)
             setState(response.data)
-            console.log(state)
+            // console.log(state)
         }).catch(err =>console.log(err))
     }
 
