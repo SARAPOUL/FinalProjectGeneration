@@ -1,212 +1,95 @@
-import * as React from "react";
-import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { Link,useNavigate } from "react-router-dom";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import "./Register.css";
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import {register} from '../../Components/Function/auth'
+//Redux
+import { useCallback } from 'react';
+import FileUpload from './FileUpload';
+
 
 const Register = () => {
-  //start img
-  const [images, setImages] = useState([]);
-  const [imageURLs, setImageURLs] = useState([]);
-  const navigate = useNavigate();
- 
+    const navigate = useNavigate(); 
 
-  useEffect(() => {
-    if (images.length < 1) return;
-    const newImageUrls = [];
-    images.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
-    setImageURLs(newImageUrls);
-  }, [images]);
+    const [value, setValue] = useState({
+        username: "",
+        password: "",
+        password1: "",
+        fisrtname: "",
+        lastname: "",
+        displayname: "",
+        height: "",
+        weight: "",
+        address: "",
+        images: []
+    })
 
-  function onImageChange(e) {
-    setImages([...e.target.files]);
+    const OnLoginClick = useCallback(()=>{
+        navigate('../')
+    }, [navigate])
+    const handleChange  = (e) => {
+      setValue({
+          ...value,
+          [e.target.name]: e.target.value,
+          })
   }
-  //ed img
 
-  const {
-    register,
-    watch,
-    getValues,
-    formState: { errors },
-    handleSubmit,
-  } = useForm();
-  const onSubmit = () => navigate('/dashboard');
-  // const onSubmit = (data) => console.log(data); แสดงข้อมูลให้ดู
-
+  console.log(value)
+  const handleSubmit = (e) => {
+      e.preventDefault()
+      console.log(value)
+      if(value.password !== value.password1){
+          alert("Password not match")
+      }  else {
+          register(value)
+          .then((res)=>{
+              console.log(res)
+              alert(res.data)
+          })
+          .catch((err)=> {
+              console.log(err.response.data)
+              alert(err.response.data)
+          })
+      }
+  };
   return (
-    <form className="boxs" onSubmit={handleSubmit(onSubmit)}>
-      <div className="form-register">
-        <h1>Create a new account</h1>
-        <div className="f-input">
-          <label>Email:</label>
-          <br />
-          <TextField
-            required
-            name="username"
-            label="Email"
-            type="email"
-            {...register("email", {
-              required: true,
-              pattern: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/i,
-            })}
-          />
-        </div>
-        <div className="f-input">
-          <label>Password:</label>
-          <br />
-          <TextField
-            required
-            name="password"
-            label="Password"
-            type="password"
-            {...register("password", {
-              required: true,
-              minLength: 5,
-              maxLength: 20,
-            })}
-          />
-          {errors?.password?.type === "required" && <p>This field is required</p>}
-        {errors?.password?.type === "minLength" && (
-          <p>password cannot less than 5 characters</p>
-        )}
-        </div>
-        
-        <div className="f-input">
-          <label>RepeatPassword:</label>
-          <br />
-          <TextField
-            required
-            name="password1"
-            label="RepeatPassword"
-            type="password"
-            {...register("password1", {
-              required: true,
-              minLength: 5,
-              maxLength: 20,
-            })}
-          />
-          {watch("password1") !== watch("password") &&
-          getValues("password1") ? (
-            <p>password not match</p>
-          ) : null}
-        </div>
-        <div className="f-input">
-          <label>Fisrtname:</label>
-          <br />
-          <TextField
-            required
-            name="fisrtname"
-            label="Name"
-            {...register("fisrtname", { required: true })}
-          />
-        </div>
-        <div className="f-input">
-          <label>Lastname:</label>
-          <br />
-          <TextField
-            required
-            name="lastname"
-            label="Lastname"
-            {...register("lastname", { required: true })}
-          />
-        </div>
-        <div className="f-input">
-          <label>Displayname:</label>
-          <br />
-          <TextField
-            required
-            name="displayname"
-            label="Display name"
-            {...register("displayname", { required: true })}
-          />
-        </div>
-        <div className="f-input">
-          <label>Height:</label>
-          <br />
-          <TextField
-            required
-            name="height"
-            label="Height"
-            type="number"
-            {...register("height", { required: true })}
-          />
-          <label>Cm.</label>
-        </div>
-        <div className="f-input">
-          <label>Weight:</label>
-          <br />
-          <TextField
-            required
-            name="weight"
-            label="Weight"
-            type="number"
-            {...register("weight", { required: true })}
-          />
-          <label>Kg.</label>
-        </div>
-        <div className="f-input">
-          <label>Address:</label>
-          <br />
-          <TextField
-            name="address"
-            aria-label="minimum height"
-            minRows={3}
-            placeholder="Address"
-            style={{ width: 200 }}
-            {...register("address", { required: true })}
-          />
-        </div>
-        <div className="f-button">
-          <Button
-            variant="contained"
-            type="submit"
-            onSubmit="handleSubmit"
-            style={{
-              backgroundColor: "#50A5B1",
-              width: "100px",
-              height: "30px",
-            }}
-          >
-            Confirm
-          </Button>
-          <Button
-            variant="contained"
-            style={{
-              backgroundColor: "#C32B42",
-              width: "100px",
-              height: "30px",
-            }}
-          >
-            <Link
-              to="/"
-              style={{
-                textDecoration: "none",
-                color: "white",
-              }}
-            >
-              Cancel
-            </Link>
-          </Button>
-        </div>
-      </div>
+    <div>
+        <h1>Register Page</h1>
+        <form onSubmit={handleSubmit}>
+            <label>Username</label>
+            <input type="text" name="username" onChange={handleChange}/>
 
-      <div className="form-register-image">
-      <Button variant="contained" component="label" style={{
-              backgroundColor: "#50A5B1",
-              width: "100px",
-              height: "30px",
-            }}>
-          Upload
-        <input hidden type="file"   multiple accept="image/*" onChange={onImageChange} />
-        </Button>
-        {imageURLs.map((imageSrc, idx) => (
-          <img key={idx} width="240" height="260" src={imageSrc} />
-        ))}
-      </div>
-    </form>
-  );
-};
+            <label>Password</label>
+            <input type="password" name="password" onChange={handleChange}/>
+            <br />
+            <label>Confirm Password</label>
+            <input type="password" name="password1" onChange={handleChange}/>
+            <br />
+            <label>Name</label>
+            <input type="text" name="firstname" onChange={handleChange}/>
+            <br />
+            <label>Lastname</label>
+            <input type="text" name="lastname" onChange={handleChange}/>
+            <br />
+            <label>Display name</label>
+            <input type="text" name="displayname" onChange={handleChange}/>
+            <br />
+            <label>Height</label>
+            <input type="number" name="height" onChange={handleChange}/>
+            <br />
+            <label>Weight</label>
+            <input type="number" name="weight" onChange={handleChange}/>
+            <br />
+            <label>Address</label>
+            <input type="text" name="address" onChange={handleChange}/>
+            <br />
 
-export default Register;
+            <FileUpload value={value} setValue={setValue}/>
+
+            <button className = 'confirm' disabled={value.password.length < 8}>Confirm</button>
+            <button className='cancel' onClick = {OnLoginClick}>Cancel</button>
+
+        </form>
+    </div>
+  )
+}
+
+export default Register

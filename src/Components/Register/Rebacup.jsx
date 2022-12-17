@@ -1,0 +1,249 @@
+import * as React from "react";
+import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { Link,useNavigate } from "react-router-dom";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Resize from 'react-image-file-resizer';
+import axios from 'axios'
+import "./Register.css";
+
+const Register = ({value, setValue}) => {
+  const navigate = useNavigate();
+  // start img
+  const [images, setImages] = useState([]);
+  const [imageURLs, setImageURLs] = useState([]);
+ 
+
+  useEffect(() => {
+    if (images.length < 1) return;
+    const newImageUrls = [];
+    images.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
+    setImageURLs(newImageUrls);
+  }, [images]);
+
+  function onImageChange(e) {
+    setImages([...e.target.files]);
+  }
+  // ed img
+
+// axiosจารพีท
+  const handleChangeFile = (e) => {
+      const files = e.target.files
+      if (files) {
+          let fileUpload =value.images
+
+          // วนลูปจำนวนรูปที่อัพ
+          for (let i = 0; i < files.length; i++); {
+              Resize.imageFileResizer(
+                  files[0],
+                  300,
+                  300,
+                  100,
+                  "JPEG",
+                  0,
+                  (uri) => {
+                      axios.post
+                      (import.meta.env.VITE_APP_API+ '/images',
+                      {
+                          image:uri
+                      }
+                      ).then(res=>{
+                          fileUpload.push(res.data)
+                          console.log('file upload in then', fileUpload)
+                          setValue({...value, images:fileUpload})
+                      }).catch(err=>{
+                          console.log(err)
+                      })
+                      // console.log(uri);
+                  },
+                  "base64"
+              )
+          }
+        }
+      }
+  
+
+
+  const {
+    register,
+    watch,
+    getValues,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+  // const onSubmit = () => navigate('/dashboard');
+  const onSubmit = (data) => console.log(data); 
+
+  return (
+    <form className="boxs" onSubmit={handleSubmit(onSubmit)}>
+      <div className="form-register">
+        <h1>Create a new account</h1>
+        <div className="f-input">
+          <label>Email:</label>
+          <br />
+          <TextField
+            required
+            name="username"
+            label="Email"
+            type="email"
+            {...register("email", {
+              required: true,
+              pattern: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/i,
+            })}
+          />
+        </div>
+        <div className="f-input">
+          <label>Password:</label>
+          <br />
+          <TextField
+            required
+            name="password"
+            label="Password"
+            type="password"
+            {...register("password", {
+              required: true,
+              minLength: 5,
+              maxLength: 20,
+            })}
+          />
+          {errors?.password?.type === "required" && <p>This field is required</p>}
+        {errors?.password?.type === "minLength" && (
+          <p>password cannot less than 5 characters</p>
+        )}
+        </div>
+        
+        <div className="f-input">
+          <label>RepeatPassword:</label>
+          <br />
+          <TextField
+            required
+            name="password1"
+            label="RepeatPassword"
+            type="password"
+            {...register("password1", {
+              required: true,
+              minLength: 5,
+              maxLength: 20,
+            })}
+          />
+          {watch("password1") !== watch("password") &&
+          getValues("password1") ? (
+            <p>password not match</p>
+          ) : null}
+        </div>
+        <div className="f-input">
+          <label>Fisrtname:</label>
+          <br />
+          <TextField
+            required
+            name="fisrtname"
+            label="Name"
+            {...register("fisrtname", { required: true })}
+          />
+        </div>
+        <div className="f-input">
+          <label>Lastname:</label>
+          <br />
+          <TextField
+            required
+            name="lastname"
+            label="Lastname"
+            {...register("lastname", { required: true })}
+          />
+        </div>
+        <div className="f-input">
+          <label>Displayname:</label>
+          <br />
+          <TextField
+            required
+            name="displayname"
+            label="Display name"
+            {...register("displayname", { required: true })}
+          />
+        </div>
+        <div className="f-input">
+          <label>Height:</label>
+          <br />
+          <TextField
+            required
+            name="height"
+            label="Height"
+            type="number"
+            {...register("height", { required: true })}
+          />
+          <label>Cm.</label>
+        </div>
+        <div className="f-input">
+          <label>Weight:</label>
+          <br />
+          <TextField
+            required
+            name="weight"
+            label="Weight"
+            type="number"
+            {...register("weight", { required: true })}
+          />
+          <label>Kg.</label>
+        </div>
+        <div className="f-input">
+          <label>Address:</label>
+          <br />
+          <TextField
+            name="address"
+            placeholder="Address"
+            {...register("address", { required: true })}
+          />
+        </div>
+        <div className="f-button">
+          <Button
+            variant="contained"
+            type="submit"
+            onSubmit="handleSubmit"
+            style={{
+              backgroundColor: "#50A5B1",
+              width: "100px",
+              height: "30px",
+            }}
+          >
+            Confirm
+          </Button>
+          <Button
+            variant="contained"
+            style={{
+              backgroundColor: "#C32B42",
+              width: "100px",
+              height: "30px",
+            }}
+          >
+            <Link
+              to="/"
+              style={{
+                textDecoration: "none",
+                color: "white",
+              }}
+            >
+              Cancel
+            </Link>
+          </Button>
+        </div>
+      </div>
+
+      <div className="form-register-image">
+      <Button variant="contained" component="label" style={{
+              backgroundColor: "#50A5B1",
+              width: "100px",
+              height: "30px",
+            }}>
+          Upload
+        <input hidden type="file" value={value} setValue={setValue}   multiple accept="image/*" onChange={onImageChange} />
+        </Button>
+        {imageURLs.map((imageSrc, idx) => (
+          <img key={idx} width="240" height="260" src={imageSrc} />
+        ))}
+      </div>
+    </form>
+  );
+};
+
+export default Register;
