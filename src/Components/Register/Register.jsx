@@ -1,30 +1,33 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import "./Register.css";
-
+import { register as registerAxios } from '../Functions/auth'
+import FileUpload from "./FileUpload";
 const Register = () => {
   //start img
-  const [images, setImages] = useState([]);
-  const [imageURLs, setImageURLs] = useState([]);
-  const navigate = useNavigate();
- 
+  // const [images, setImages] = useState([]);
+  // const [imageURLs, setImageURLs] = useState([]);
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    if (images.length < 1) return;
-    const newImageUrls = [];
-    images.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
-    setImageURLs(newImageUrls);
-  }, [images]);
 
-  function onImageChange(e) {
-    setImages([...e.target.files]);
-  }
+  // useEffect(() => {
+  //   if (images.length < 1) return;
+  //   const newImageUrls = [];
+  //   images.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
+  //   setImageURLs(newImageUrls);
+  // }, [images]);
+
+  // function onImageChange(e) {
+  //   setImages([...e.target.files]);
+  // }
   //ed img
-
+  const [value, setValue] = useState({
+    images: []
+  })
   const {
     register,
     watch,
@@ -32,8 +35,15 @@ const Register = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const onSubmit = () => navigate('/dashboard');
-  // const onSubmit = (data) => console.log(data); แสดงข้อมูลให้ดู
+  const onSubmit = (data) => {
+    // console.log(value.images);
+    data.images = value.images
+    // console.log(data);
+    registerAxios(data)
+    // console.log(data); 
+    navigate('/dashboard');
+  }
+  // const onSubmit = (data) => /แสดงข้อมูลให้ดู
 
   return (
     <form className="boxs" onSubmit={handleSubmit(onSubmit)}>
@@ -47,7 +57,7 @@ const Register = () => {
             name="username"
             label="Email"
             type="email"
-            {...register("email", {
+            {...register("username", {
               required: true,
               pattern: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/i,
             })}
@@ -68,11 +78,11 @@ const Register = () => {
             })}
           />
           {errors?.password?.type === "required" && <p>This field is required</p>}
-        {errors?.password?.type === "minLength" && (
-          <p>password cannot less than 5 characters</p>
-        )}
+          {errors?.password?.type === "minLength" && (
+            <p>password cannot less than 5 characters</p>
+          )}
         </div>
-        
+
         <div className="f-input">
           <label>RepeatPassword:</label>
           <br />
@@ -88,7 +98,7 @@ const Register = () => {
             })}
           />
           {watch("password1") !== watch("password") &&
-          getValues("password1") ? (
+            getValues("password1") ? (
             <p>password not match</p>
           ) : null}
         </div>
@@ -193,17 +203,18 @@ const Register = () => {
       </div>
 
       <div className="form-register-image">
-      <Button variant="contained" component="label" style={{
-              backgroundColor: "#50A5B1",
-              width: "100px",
-              height: "30px",
-            }}>
+        {/* <Button variant="contained" component="label" style={{
+          backgroundColor: "#50A5B1",
+          width: "100px",
+          height: "30px",
+        }}>
           Upload
-        <input hidden type="file"   multiple accept="image/*" onChange={onImageChange} />
+          <input hidden type="file" multiple accept="image/*" onChange={onImageChange} />
         </Button>
         {imageURLs.map((imageSrc, idx) => (
           <img key={idx} width="240" height="260" src={imageSrc} />
-        ))}
+        ))} */}
+        <FileUpload key={value} value={value} setValue={setValue} />
       </div>
     </form>
   );

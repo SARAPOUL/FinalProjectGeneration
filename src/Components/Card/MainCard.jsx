@@ -211,7 +211,19 @@ const MainCard = ({ card }) => {
                 }}
             >
                 <div className="activity-name" >
-                    {activityName}
+                <Typography
+                        component="p"
+                        variant="h5"
+                        sx={{
+                            // marginLeft: "10px",
+                            // marginRight: "2px",
+                            fontWeight: "bold"
+                        }}
+                    >
+                       {activityName}
+                    </Typography>
+                {/* <span style={{fontWeight: "bold"}}>{activityName}</span>  */}
+                    
                 </div>
 
                 <Box
