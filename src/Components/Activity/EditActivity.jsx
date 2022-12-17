@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { InputLabel, Select, MenuItem } from '@mui/material';
 import './Activity.css'
 import Grid from '@mui/material/Grid'; // Grid version 1';
-import activityPic from '../../assets/run.png'
-import addheader from '../../assets/add.png'
+import activityPic from '../../assets/editrun.png'
+import editheader from '../../assets/edit.png'
 
-const Activity = (props) => {
+const EditActivity = (props) => {
     // State of activity
     const [state, setState] = useState({
         _id: props.activity ? props.activity._id : "",
@@ -91,7 +91,7 @@ const Activity = (props) => {
             </div>
             <form className='form-add' onSubmit={submitForm}>
                 <div className="add-header">
-                    <img src={addheader} />
+                    <img src={editheader} />
                 </div>
                 
                 <Grid container spacing={0} margin={2} >
@@ -224,4 +224,4 @@ const Activity = (props) => {
     )
 }
 
-export default Activity
+export default EditActivity

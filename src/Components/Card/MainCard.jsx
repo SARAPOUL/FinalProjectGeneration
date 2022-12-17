@@ -3,7 +3,7 @@ import './maincard.css'
 import { Box, Typography, 
     Button, Card, 
     CardActions, CardContent, 
-    CardMedia, createTheme, Modal, Alert  } from '@mui/material'
+    CardMedia, createTheme, Modal, Alert, Stack  } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import StickyNote2Icon from '@mui/icons-material/StickyNote2';
@@ -11,6 +11,8 @@ import PoolIcon from '@mui/icons-material/Pool';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CloseIcon from '@mui/icons-material/Close';
 import { flexbox } from '@mui/system';
+import CheckIcon from '@mui/icons-material/Check';
+import ClearIcon from '@mui/icons-material/Clear';
 
 
 // const themeCard = createTheme({
@@ -66,9 +68,19 @@ const MainCard = (props) => {
         startDate:"",
         endDate:"",
         decripttion:"",
+        statusActivity:""
     })
-    const { activity,startDate,endDate,decripttion } = state
-    
+    const { activity,startDate,endDate,decripttion,statusActivity } = state
+
+    const setStatusActivityCompleted = () => {
+        setState({ ...state, statusActivity: 1})
+        // ไปเรียก axios เปลี่ยนสถานนะcard
+    }
+
+    const setStatusActivityIncompleted = () => {
+        setState({ ...state, statusActivity: 9})
+        // ไปเรียก axios เปลี่ยนสถานนะcard
+    }
     
     const confirmDelete =()=> {
         const deleteCard = window.confirm(`You want to delete !!`)
@@ -77,10 +89,13 @@ const MainCard = (props) => {
 
     // modal state
     const [modalState,setModalState] = useState(false)
-    
-
+    useEffect(() => {
+        // ไปเปลี่ยนสีี
+       
+    }, [statusActivity]);
     return (
-    <Card  
+    
+    <Card 
         bgcolor2={bgcolor2} 
         {...state}
         
@@ -95,7 +110,7 @@ const MainCard = (props) => {
         
             }} 
     >
-      <Box sx={{
+      <Box  sx={{
         display:'flex',
         justifyContent: "space-between",
         alignItems:'center',
@@ -120,7 +135,7 @@ const MainCard = (props) => {
 
         </Box>
         
-        <CardActions
+        <CardActions 
             sx={{
                 display: "flex",
                 gap:'1px',
@@ -237,6 +252,20 @@ const MainCard = (props) => {
       </Box>
       {/* remain time */}
       <CardContent>
+        <Stack mb={2} spacing={2} direction="row" sx={{
+                   display:"flex",
+                    alignItems:'center',
+                    justifyContent: "center",
+                    
+                }}>
+            <Button variant="contained" onClick={setStatusActivityCompleted} endIcon={<CheckIcon />} style={{ backgroundColor: "#50A5B1", width:"100px" ,height:"30px" }} >
+                Done
+            </Button>
+            <Button variant="contained" onClick={setStatusActivityIncompleted} endIcon={<ClearIcon />} style={{ backgroundColor: "red", width:"100px" ,height:"30px" }} >
+                Fail 
+            </Button>
+        </Stack>
+        
         <Box sx={{
                    display:"flex",
                     alignItems:'center',
@@ -248,7 +277,7 @@ const MainCard = (props) => {
                 </Box>
       </CardContent>
       
-    </Card>
+    </Card> 
   )
 }
 

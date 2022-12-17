@@ -137,9 +137,8 @@ const Dashboard = () => {
             <div className="left">
 
                 <div className='left-top'>
-                    <button type="button" className="addActivity">
-                        <a href="/addactivity">Add Activity</a>
-                    </button>
+                     <a href="/addactivity"><button type="button" className="addActivity">Add Activity</button></a>
+                   
                 </div>
 
                 <div className='left-bottom'>
@@ -163,20 +162,6 @@ const Dashboard = () => {
                                 </Grid>
                             ))} */}
 
-                            </Grid>
-                        </div>
-                        <div className="grid-container">
-                            <Grid container 
-                            direction="row"
-                            justifyContent="center" 
-                            alignItems="center"
-                             spacing={{ xs: 2, md: 4 }} columns={{ xs: 4, sm: 8, md: 12 }} >
-                            
-                            {card.length >0 && card.map((carditem,index) => 
-                                <Grid item xs={2} sm={4} md={4} key={index}>
-                                    <MainCard key={carditem._id} id={carditem._id}/>
-                                </Grid>
-                            )}
                             </Grid>
                         </div>
                     </div>                  
