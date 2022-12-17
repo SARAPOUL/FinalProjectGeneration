@@ -38,14 +38,14 @@
     font-size: 14px;
     border-radius: 42px;
   }
+  .login-page>form button  {
+    width: 100%;
+  }
 
   .register {
     background: #1a265a;
   }
   
-  form button:hover, form button:active, form button:focus {
-    background: #43A047;
-  }
 
   h1 {
     text-align: center;
