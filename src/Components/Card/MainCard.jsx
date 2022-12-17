@@ -57,11 +57,25 @@ const MainCard = ({card}) => {
     const navigate = useNavigate();
     
     const bgcolor2 = '#FFFFFF';
-
+    const bgcolorDone = 'green';
+    const bgcolorFail = 'red';
+    let bgcolor ='';
+    let visibility ='visible';
 
     const { username,activityName,activityType,startActivity,endActivity,
     detailActivity,status,duration } = card
     const {_id:id} = card
+
+    if(status == 1 ){
+        bgcolor = bgcolorDone
+        visibility = 'hidden'
+    }else if(status == 9){
+        bgcolor = bgcolorFail
+        visibility = 'hidden'
+    }else{
+        bgcolor = bgcolor2
+        
+    }
 
     const [dateStart,setDateStart] = useState(new Date());
     const [dateEnd,setdateEnd] = useState(new Date());
@@ -77,26 +91,26 @@ const MainCard = ({card}) => {
         startDate:"",
         endDate:"",
         decripttion:"",
-        statusActivity:""
+        statusActivity:0
     })
     const { activity,startDate,endDate,decripttion,statusActivity } = state
 
     const setStatusActivityCompleted = () => {
         setState({ ...state, statusActivity: 1})
         // ไปเรียก axios เปลี่ยนสถานนะcard
-        axios.put(`${import.meta.env.VITE_APP_API}/change-status/${id}`,{statusActivity})
+        axios.put(`${import.meta.env.VITE_APP_API}/change-status/${id}`,{status:1})
             .then(response => {
-                // window.alert(`Delete success !!`)
-                window.location.reload()
+                // window.alert(`Done success !!`)
+                // window.location.reload()
             }).catch(err => console.log(err))
     }
 
     const setStatusActivityIncompleted = () => {
         setState({ ...state, statusActivity: 9})
         // ไปเรียก axios เปลี่ยนสถานนะcard
-        axios.put(`${import.meta.env.VITE_APP_API}/change-status/${id}`,{statusActivity})
+        axios.put(`${import.meta.env.VITE_APP_API}/change-status/${id}`,{status:9})
         .then(response => {
-            // window.alert(`Delete success !!`)
+            // window.alert(`Fail success !!`)
             window.location.reload()
         }).catch(err => console.log(err))
     }
@@ -123,13 +137,14 @@ const MainCard = ({card}) => {
     return (
     
     <Card 
-        bgcolor2={bgcolor2} 
-        
+        bgcolor={bgcolor} 
+      visibility={visibility}
+
         sx={{ 
         // maxWidth: 400,
         //  bgcolor status
         // bgcolor: colorStatus,
-        background: `${bgcolor2}`,
+        background: `${bgcolor}`,
         'border-radius': `10px`,
   
             }} 
@@ -285,10 +300,10 @@ const MainCard = ({card}) => {
                     justifyContent: "center",
                     
                 }}>
-            <Button variant="contained" onClick={setStatusActivityCompleted} endIcon={<CheckIcon />} style={{ backgroundColor: "#50A5B1", width:"100px" ,height:"30px" }} >
+            <Button variant="contained" onClick={setStatusActivityCompleted} endIcon={<CheckIcon />} style={{ backgroundColor: "#50A5B1", width:"100px" ,height:"30px", visibility:`${visibility}` }} >
                 Done
             </Button>
-            <Button variant="contained" onClick={setStatusActivityIncompleted} endIcon={<ClearIcon />} style={{ backgroundColor: "red", width:"100px" ,height:"30px" }} >
+            <Button variant="contained" onClick={setStatusActivityIncompleted} endIcon={<ClearIcon />} style={{ backgroundColor: "red", width:"100px" ,height:"30px", visibility:`${visibility}` }} >
                 Fail 
             </Button>
         </Stack>

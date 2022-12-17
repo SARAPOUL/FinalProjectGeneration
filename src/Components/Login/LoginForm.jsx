@@ -45,7 +45,7 @@ function LoginForm() {
     
     login(value)
       .then((res)=> {
-        console.log(res.data)
+        // console.log('res.data',res.data.payload.user.images)
         alert(res.data)
         
         dispatch({
@@ -59,6 +59,9 @@ function LoginForm() {
 
         localStorage.setItem('token',res.data.token)
         localStorage.setItem('user',res.data.payload.user.username)
+        localStorage.setItem('images',res.data.payload.user.images)
+        localStorage.setItem('displayName',res.data.payload.user.displayName)
+
         roleBasedRedirect(res.data.payload.user.role)
       })
       .catch((err)=> {
