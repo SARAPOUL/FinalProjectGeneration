@@ -59,8 +59,7 @@ img{
   margin:5px;
 }
 
-
-.MuiInputBase-root {
+.f-input .MuiInputBase-root {
   border-radius: 25px !important;
   width:255px;
   height:50px;
