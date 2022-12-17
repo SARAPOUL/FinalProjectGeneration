@@ -151,10 +151,10 @@ const MainCard = ({ card }) => {
             .put(`${import.meta.env.VITE_APP_API}/change-status/${id}`, { status: 1 })
             .then((response) => {
                 // window.alert(`Done success !!`)
-                // window.location.reload()
-            })
-            .catch((err) => console.log(err));
-    };
+                window.location.reload()
+            }).catch(err => console.log(err))
+    }
+
 
     const setStatusActivityIncompleted = () => {
         setState({ ...state, statusActivity: 9 });
