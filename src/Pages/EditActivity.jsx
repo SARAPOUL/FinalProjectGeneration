@@ -1,12 +1,15 @@
 
 import React, { useState, useCallback, useEffect } from 'react'
-import Activity from "../Components/Activity/Activity"
+
+import EditActivity from "../Components/Activity/EditActivity"
+import '../Components/Activity/Activity.css'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 const EditActivity = () => {
 
     const [location,setLocation] = useState(useLocation())
     const id = location.pathname.slice(14);
+
 
     const [activity, setActivity] = useState({
         activityName: "test",
@@ -21,9 +24,10 @@ const EditActivity = () => {
    
 
     return (
-        <div>
-            <h2 className=''>Edit Activity </h2><hr />
-            <Activity key={activity._id} activity={activity} id={id} />
+
+        <div className='activity-card'>
+            <EditActivity key={activity._id} activity={activity} />
+
         </div>
     )
 }

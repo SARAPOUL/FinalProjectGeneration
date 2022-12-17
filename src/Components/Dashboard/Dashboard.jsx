@@ -149,9 +149,8 @@ const Dashboard = () => {
             <div className="left">
 
                 <div className='left-top'>
-                    <button type="button" className="addActivity">
-                        <a href="/addactivity">Add Activity</a>
-                    </button>
+                     <a href="/addactivity"><button type="button" className="addActivity">Add Activity</button></a>
+                   
                 </div>
 
                 <div className='left-bottom'>
@@ -177,7 +176,7 @@ const Dashboard = () => {
 
                             </Grid>
                         </div>
-                       
+
                     </div>                  
                     
                     
