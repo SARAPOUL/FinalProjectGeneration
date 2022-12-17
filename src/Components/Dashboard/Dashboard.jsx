@@ -117,19 +117,12 @@ const Dashboard = () => {
 
     // 0=Pending,1 =  Completed , 9 = Incomplete
     const [totalStatus,setTotalStatus] = useState()
-    let pending,completed,incomplete,total ;
-    totalStatus.map(item => {
-        if(item._id == 9) {
-            incomplete += item.totalscore
-            total += item.totalscore
-        } else if (item._id == 1) {
-            completed += item.totalscore
-            total += item.totalscore
-        } else if (item._id == 0) {
-            pending += item.totalscore
-            total += item.totalscore
-        }
-    })
+    let total = 0;
+    for ( let i in totalStatus) {
+        total += totalStatus[i].totalscore
+    }
+    console.log(total)
+    
     
     // /chart-activity, /card-activity /total-status/
 
@@ -180,7 +173,7 @@ const Dashboard = () => {
 
 
     <div className="container">
-            {total}
+            
             <div className="left">
 
                 <div className='left-top'>
