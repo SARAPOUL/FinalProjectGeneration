@@ -56,7 +56,7 @@ function ResponsiveAppBar() {
       payload: null,
     })
     navigate('/')
-
+    window.location.reload()
   }
 
   useEffect(() => {

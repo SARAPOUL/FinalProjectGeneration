@@ -55,7 +55,7 @@ const Dashboard = () => {
           { 
             
             data: chartData.map(item => item.totalscore),
-            label: 'Hour of activity',
+            label: 'Activity Total',
             backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
               'rgba(54, 162, 235, 0.2)',
@@ -117,18 +117,27 @@ const Dashboard = () => {
 
     // 0=Pending,1 =  Completed , 9 = Incomplete
     const [totalStatus,setTotalStatus] = useState([
-        { _id: 9, totalscore: 2 },
-        { _id: 0, totalscore: 3 },
-        { _id: 1, totalscore: 2 }
+        { _id: 9, totalscore: 0 },
+        { _id: 0, totalscore: 0 },
+        { _id: 1, totalscore: 0 }
       ])
 
     let total = 0;
+    let inProgress = 0;
+    let complete = 0;
+    let incomplete = 0;
     for ( let i in totalStatus) {
         total += totalStatus[i].totalscore
+        if(totalStatus[i]._id==9){
+            incomplete = totalStatus[i].totalscore
+        }else if(totalStatus[i]._id==1){
+            complete = totalStatus[i].totalscore
+        }else{
+            inProgress = totalStatus[i].totalscore
+        }
     }
-    if(totalStatus) {
-        console.log(totalStatus[1].totalscore)
-    }
+    
+
     
     
     // /chart-activity, /card-activity /total-status/
@@ -223,9 +232,9 @@ const Dashboard = () => {
                 
                     <div className="display-card">
                         <span>Hello, </span>
-                        <h2>Display Name</h2>
+                        <h2>{localStorage.displayName}</h2>
                         <Link to="/profile" className="picture-link">
-                            <img src={profilePicture} alt="profile-picture" className="profile-picture" />
+                            <img src={localStorage.images} alt="profile-picture" className="profile-picture" />
                         </Link>
         
                         <div className="graph">
@@ -241,7 +250,7 @@ const Dashboard = () => {
                             <div className="activity">
                                 <p>Completed:</p>
                                 <span className="green">|</span>
-                                <span>{totalStatus[2].totalscore}</span>
+                                <span>{complete}</span>
                             </div>
                         </div>
 
@@ -249,12 +258,12 @@ const Dashboard = () => {
                             <div className="activity">
                                 <p>In progress:</p>
                                 <span className="yellow">|</span>
-                                <span>{totalStatus[1].totalscore}</span>
+                                <span>{inProgress}</span>
                             </div>
                             <div className="activity">
                                 <p>Incomplete:</p>
                                 <span className="red">|</span>
-                                <span>{totalStatus[0].totalscore}</span>
+                                <span>{incomplete}</span>
                             </div>
                         </div>
 
