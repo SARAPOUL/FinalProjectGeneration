@@ -116,12 +116,19 @@ const Dashboard = () => {
     ]);
 
     // 0=Pending,1 =  Completed , 9 = Incomplete
-    const [totalStatus,setTotalStatus] = useState()
+    const [totalStatus,setTotalStatus] = useState([
+        { _id: 9, totalscore: 2 },
+        { _id: 0, totalscore: 3 },
+        { _id: 1, totalscore: 2 }
+      ])
+
     let total = 0;
     for ( let i in totalStatus) {
         total += totalStatus[i].totalscore
     }
-    console.log(total)
+    if(totalStatus) {
+        console.log(totalStatus[1].totalscore)
+    }
     
     
     // /chart-activity, /card-activity /total-status/
@@ -145,15 +152,15 @@ const Dashboard = () => {
         }).catch(err => console.log(err))
     }
 
-    async function fetchData2 (path) {
-        try {
-            const response = await axios.get(`${import.meta.env.VITE_APP_API}/${path}`,{ params: { user } })
-            (path == "/card-activity") ? setCard(response) :console.log(response);
+    // async function fetchData2 (path) {
+    //     try {
+    //         const response = await axios.get(`${import.meta.env.VITE_APP_API}/${path}`,{ params: { user } })
+    //         (path == "/card-activity") ? setCard(response) :console.log(response);
                 
-        } catch (error) {
-            console.error(error);
-        }
-    }
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // }
 
     useEffect(()=>{
         fetchData("/card-activity")
@@ -230,12 +237,12 @@ const Dashboard = () => {
                             <div className="activity">
                                 <p>Total activity:</p>
                                 <span className="gray">|</span>
-                                <span>{activityData[0].amount}</span>
+                                <span>{total}</span>
                             </div>
                             <div className="activity">
                                 <p>Completed:</p>
                                 <span className="green">|</span>
-                                <span>{activityData[1].amount}</span>
+                                <span>{totalStatus[2].totalscore}</span>
                             </div>
                         </div>
 
@@ -243,12 +250,12 @@ const Dashboard = () => {
                             <div className="activity">
                                 <p>In progress:</p>
                                 <span className="yellow">|</span>
-                                <span>{activityData[2].amount}</span>
+                                <span>{totalStatus[1].totalscore}</span>
                             </div>
                             <div className="activity">
                                 <p>Incomplete:</p>
                                 <span className="red">|</span>
-                                <span>{activityData[3].amount}</span>
+                                <span>{totalStatus[0].totalscore}</span>
                             </div>
                         </div>
 
