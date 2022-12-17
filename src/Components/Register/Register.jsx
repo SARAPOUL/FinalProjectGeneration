@@ -7,11 +7,13 @@ import Button from "@mui/material/Button";
 import "./Register.css";
 import { register as registerAxios } from '../Functions/auth'
 import FileUpload from "./FileUpload";
+import Swal from 'sweetalert2'
+
 const Register = () => {
   //start img
   // const [images, setImages] = useState([]);
   // const [imageURLs, setImageURLs] = useState([]);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
 
   // useEffect(() => {
@@ -40,7 +42,11 @@ const Register = () => {
     data.images = value.images
     // console.log(data);
     registerAxios(data)
-    // console.log(data); 
+    Swal.fire(
+      'Register Success!',
+      'You clicked the button!',
+      'success'
+    ) 
     navigate('/dashboard');
   }
   // const onSubmit = (data) => /แสดงข้อมูลให้ดู
