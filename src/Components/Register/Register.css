@@ -47,8 +47,7 @@ label{
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  /* flex-direction: column-reverse; */
-  flex-direction: column;
+  flex-direction: column-reverse;
   width:40%;
 }
 
