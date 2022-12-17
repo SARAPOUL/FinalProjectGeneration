@@ -140,6 +140,7 @@ const MainCard = ({card}) => {
         bgcolor={bgcolor} 
       visibility={visibility}
 
+
         sx={{ 
         // maxWidth: 400,
         //  bgcolor status

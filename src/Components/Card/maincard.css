@@ -8,8 +8,11 @@
     left: 90%;
 }
 
-/* .btn-status :hover{
-    border-color: white;
-    transform: translateY(-10px);
-    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.08);
-} */
+.zoomOut {
+    transition: transform .5s; /* Animation */
+}
+
+.zoomOut:hover {
+    transform: scale(1.2);
+}
+

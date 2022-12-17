@@ -11,6 +11,11 @@ import Profile from '../../Pages/Profile'
 import Register from '../../Pages/Register'
 import Dashboard from '../../Pages/Dashboard'
 import EditProfile from '../../Pages/EditProfile'
+import {useContext,createContext} from 'react'
+
+
+const CollectContext = createContext();
+
 
 function App() {
   const [auth, setAuth] = React.useState(localStorage.token);
@@ -22,7 +27,6 @@ function App() {
   }, [localStorage.token]);
   return (
     <div className="App">
-
       <Router>
         <NavBar />
         <Routes>
