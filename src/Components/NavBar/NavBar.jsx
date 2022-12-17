@@ -113,10 +113,10 @@ function ResponsiveAppBar() {
           {auth && (
 
             <Box sx={{ flexGrow: 0 }}>
-              <span>displayName</span>
+              <span>{localStorage.displayName}  </span>
               <Tooltip title="Profile">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Profile" src={Logo} />
+                  <Avatar alt="Profile" src={localStorage.images} />
                 </IconButton>
               </Tooltip>
               <Menu
