@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React , { useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -33,7 +33,7 @@ function ResponsiveAppBar() {
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [auth, setAuth] = React.useState(true);
+  const [auth, setAuth] = React.useState(localStorage.token);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -50,15 +50,21 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
-  const logout = () =>{
+  const logout = () => {
     dispatch({
-      type:'LOGOUT',
+      type: 'LOGOUT',
       payload: null,
     })
-     navigate('/')
+    navigate('/')
 
   }
 
+  useEffect(() => {
+    setAuth(localStorage.token)
+    // This function will be called whenever the value of date1 or date2 changes
+    // console.log('The difference between the selected dates has changed');
+  }, [localStorage.token]);
+  //  console.log(localStorage.token);
   return (
     <AppBar position="static">
       <Container maxWidth="100%" className="NavBar">
@@ -107,10 +113,10 @@ function ResponsiveAppBar() {
           {auth && (
 
             <Box sx={{ flexGrow: 0 }}>
-              <span>displayName</span>
+              <span>{localStorage.displayName}  </span>
               <Tooltip title="Profile">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Profile" src={Logo} />
+                  <Avatar alt="Profile" src={localStorage.images} />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -140,9 +146,8 @@ function ResponsiveAppBar() {
                   <Typography textAlign="center">Reset password</Typography>
                 </MenuItem> */}
                 <MenuItem key="logout" onClick={logout}>
-                   <Link to="/" className="menu-nav"> <Typography textAlign="center">Logout</Typography></Link>
+                  <Link to="/" className="menu-nav"> <Typography textAlign="center">Logout</Typography></Link>
                 </MenuItem>
-
               </Menu>
             </Box>)}
         </Toolbar>
