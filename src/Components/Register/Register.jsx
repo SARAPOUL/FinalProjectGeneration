@@ -44,7 +44,7 @@ const Register = () => {
           <br />
           <TextField
             required
-            name="email"
+            name="username"
             label="Email"
             type="email"
             {...register("email", {
@@ -202,7 +202,7 @@ const Register = () => {
         <input hidden type="file"   multiple accept="image/*" onChange={onImageChange} />
         </Button>
         {imageURLs.map((imageSrc, idx) => (
-          <img key={idx} width="240" height="360" src={imageSrc} />
+          <img key={idx} width="240" height="260" src={imageSrc} />
         ))}
       </div>
     </form>
