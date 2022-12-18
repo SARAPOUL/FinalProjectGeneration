@@ -11,7 +11,7 @@ const Register = () => {
   //start img
   // const [images, setImages] = useState([]);
   // const [imageURLs, setImageURLs] = useState([]);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
 
   // useEffect(() => {
@@ -41,7 +41,7 @@ const Register = () => {
     // console.log(data);
     registerAxios(data)
     // console.log(data); 
-    navigate('/dashboard');
+    navigate('/');
   }
   // const onSubmit = (data) => /แสดงข้อมูลให้ดู
 
