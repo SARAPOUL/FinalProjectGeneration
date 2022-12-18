@@ -47,7 +47,7 @@ const Register = () => {
       'You clicked the button!',
       'success'
     ) 
-    navigate('/dashboard');
+    navigate('/');
   }
   // const onSubmit = (data) => /แสดงข้อมูลให้ดู
 
