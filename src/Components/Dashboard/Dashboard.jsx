@@ -9,38 +9,6 @@ import MainCard from "../Card/MainCard";
 import {Link} from "react-router-dom"
 import axios from 'axios'
 
-// const [chartData, setChartData] = useState([{
-//     labels: ['Run', 'Bicycle', 'Swim', 'Walk', 'Hike'],
-//     datasets: [
-//       {
-//         data: [12, 19, 3, 5, 2],
-//         label: 'Hour of activity',
-//         backgroundColor: [
-//           'rgba(255, 99, 132, 0.2)',
-//           'rgba(54, 162, 235, 0.2)',
-//           'rgba(255, 206, 86, 0.2)',
-//           'rgba(75, 192, 192, 0.2)',
-//           'rgba(153, 102, 255, 0.2)',
-          
-//         ],
-//         borderColor: [
-//           'rgba(255, 99, 132, 1)',
-//           'rgba(54, 162, 235, 1)',
-//           'rgba(255, 206, 86, 1)',
-//           'rgba(75, 192, 192, 1)',
-//           'rgba(153, 102, 255, 1)',
-          
-//         ],
-//         borderWidth: 1,
-//       },
-//     ], 
-// }])
-
-
-
-// export 
-
-
 const Dashboard = () => {
 
     const user = localStorage.user
@@ -57,19 +25,25 @@ const Dashboard = () => {
             data: chartData.map(item => item.totalscore),
             label: 'Activity Total',
             backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
+            //   '#355070',
+            //   '#6d597a',
+            //   '#b56576',
+            //   '#e56b6f',
+            //   '#eaac8b',
+
+                '#8ecae6',
+              '#219ebc',
+              '#023047',
+              '#ffb703',
+              '#fb8500',
               
             ],
             borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
+                '#8ecae6',
+                '#219ebc',
+                '#023047',
+                '#ffb703',
+                '#fb8500',
               
             ],
             borderWidth: 1,
@@ -77,35 +51,6 @@ const Dashboard = () => {
         ],
       };
     
-    // const [chartData, setChartData] = useState([{
-    //     labels: chartData.map(item => item.activityName),
-    //     datasets: [
-    //       {
-    //         data: chartData.map(item => item.count),
-    //         label: 'Hour of activity',
-    //         backgroundColor: [
-    //           'rgba(255, 99, 132, 0.2)',
-    //           'rgba(54, 162, 235, 0.2)',
-    //           'rgba(255, 206, 86, 0.2)',
-    //           'rgba(75, 192, 192, 0.2)',
-    //           'rgba(153, 102, 255, 0.2)',
-              
-    //         ],
-    //         borderColor: [
-    //           'rgba(255, 99, 132, 1)',
-    //           'rgba(54, 162, 235, 1)',
-    //           'rgba(255, 206, 86, 1)',
-    //           'rgba(75, 192, 192, 1)',
-    //           'rgba(153, 102, 255, 1)',
-              
-    //         ],
-    //         borderWidth: 1,
-    //       },
-    //     ], 
-    // }])
-
-    
-
     const [card,setCard] =useState([]);
     
     const [activityData,setActivityData] =useState([
@@ -138,8 +83,6 @@ const Dashboard = () => {
     }
     
 
-    
-    
     // /chart-activity, /card-activity /total-status/
 
     // const {_id,activity,decripttion,endDate,startDate} = card;
@@ -178,16 +121,8 @@ const Dashboard = () => {
         
     },[])
 
-
-
-
-    
-    
     return(
-        
-        
-
-
+   
     <div className="container">
             
             <div className="left">
