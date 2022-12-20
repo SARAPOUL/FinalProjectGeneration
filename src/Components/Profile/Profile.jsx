@@ -43,8 +43,9 @@ const Profile = () => {
           <TextField
             name="email"
             type="email"
-            label={post.username}
+            value={post.username}
             InputProps={{ readOnly: true }}
+            disabled="true"
           />
         </div>
         <div className="f-input">
@@ -52,8 +53,9 @@ const Profile = () => {
           <br />
           <TextField
             name="firstname"
-            label={post.firstname}
+            value={post.firstname}
             InputProps={{ readOnly: true }}
+            disabled="true"
           />
         </div>
         <div className="f-input">
@@ -61,8 +63,9 @@ const Profile = () => {
           <br />
           <TextField
             name="lastname"
-            label={post.lastname}
+            value={post.lastname}
             InputProps={{ readOnly: true }}
+            disabled="true"
           />
         </div>
         <div className="f-input">
@@ -70,8 +73,9 @@ const Profile = () => {
           <br />
           <TextField
             name="displayname"
-            label={post.displayname}
+            value={post.displayname}
             InputProps={{ readOnly: true }}
+            disabled="true"
           />
         </div>
         <div className="f-input">
@@ -79,8 +83,9 @@ const Profile = () => {
           <br />
           <TextField
             name="height"
-            label={post.height}
+            value={post.height}
             InputProps={{ readOnly: true }}
+            disabled="true"
           />
           <label>Cm.</label>
         </div>
@@ -89,9 +94,10 @@ const Profile = () => {
           <br />
           <TextField
             required
-            label={post.weight}
+            value={post.weight}
             name="weight"
             InputProps={{ readOnly: true }}
+            disabled="true"
           />
           <label>Kg.</label>
         </div>
@@ -99,13 +105,14 @@ const Profile = () => {
           <label>Address:</label>
           <br />
           <TextField
-            multiline
+            // multiline
             name="address"
             aria-label="minimum height"
             minRows={3}
-            label={post.address}
-            style={{ width: 200 }}
+            value={post.address}
+            // style={{ width: 200 }}
             InputProps={{ readOnly: true }}
+            disabled="true"
           />
         </div>
         <div className="f-button">
