@@ -56,12 +56,12 @@ const Register = () => {
       <div className="form-register">
         <h1>Create a new account</h1>
         <div className="f-input">
-          <label>Email:</label>
+          <label>Email Address:</label>
           <br />
           <TextField
             required
             name="username"
-            label="Email"
+            label="Email Address"
             type="email"
             {...register("username", {
               required: true,
@@ -90,12 +90,12 @@ const Register = () => {
         </div>
 
         <div className="f-input">
-          <label>RepeatPassword:</label>
+          <label>Confirm Password:</label>
           <br />
           <TextField
             required
             name="password1"
-            label="RepeatPassword"
+            label="Confirm Password"
             type="password"
             {...register("password1", {
               required: true,
@@ -109,32 +109,32 @@ const Register = () => {
           ) : null}
         </div>
         <div className="f-input">
-          <label>Fisrtname:</label>
+          <label>Fisrt Name:</label>
           <br />
           <TextField
             required
             name="fisrtname"
-            label="Name"
+            label="Fisrt Name"
             {...register("fisrtname", { required: true })}
           />
         </div>
         <div className="f-input">
-          <label>Lastname:</label>
+          <label>Last Name:</label>
           <br />
           <TextField
             required
             name="lastname"
-            label="Lastname"
+            label="Last Name"
             {...register("lastname", { required: true })}
           />
         </div>
         <div className="f-input">
-          <label>Displayname:</label>
+          <label>Display Name:</label>
           <br />
           <TextField
             required
             name="displayname"
-            label="Display name"
+            label="Display Name"
             {...register("displayname", { required: true })}
           />
         </div>
