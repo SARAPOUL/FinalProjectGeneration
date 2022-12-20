@@ -1,230 +1,230 @@
-import React,{ useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import * as React from "react";
+import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import TextField from '@mui/material/TextField';
+import "./Register.css";
+import { register as registerAxios } from '../Functions/auth'
+import FileUpload from "./FileUpload";
+import Swal from 'sweetalert2'
 
-// import  "./Register.css"
+const Register = () => {
+  //start img
+  // const [images, setImages] = useState([]);
+  // const [imageURLs, setImageURLs] = useState([]);
+  const navigate = useNavigate();
 
- 
-const commonStyles = {
-  width: '20rem',
+
+  // useEffect(() => {
+  //   if (images.length < 1) return;
+  //   const newImageUrls = [];
+  //   images.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
+  //   setImageURLs(newImageUrls);
+  // }, [images]);
+
+  // function onImageChange(e) {
+  //   setImages([...e.target.files]);
+  // }
+  //ed img
+  const [value, setValue] = useState({
+    images: []
+  })
+  const {
+    register,
+    watch,
+    getValues,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+  const onSubmit = (data) => {
+    // console.log(value.images);
+    data.images = value.images
+    // console.log(data);
+    registerAxios(data)
+    Swal.fire(
+      'Register Success!',
+      'You clicked the button!',
+      'success'
+    ) 
+    navigate('/');
+  }
+  // const onSubmit = (data) => /แสดงข้อมูลให้ดู
+
+  return (
+    <form className="boxs" onSubmit={handleSubmit(onSubmit)}>
+      <div className="form-register">
+        <h1>Create a new account</h1>
+        <div className="f-input">
+          <label>Email:</label>
+          <br />
+          <TextField
+            required
+            name="username"
+            label="Email"
+            type="email"
+            {...register("username", {
+              required: true,
+              pattern: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/i,
+            })}
+          />
+        </div>
+        <div className="f-input">
+          <label>Password:</label>
+          <br />
+          <TextField
+            required
+            name="password"
+            label="Password"
+            type="password"
+            {...register("password", {
+              required: true,
+              minLength: 5,
+              maxLength: 20,
+            })}
+          />
+          {errors?.password?.type === "required" && <p>This field is required</p>}
+          {errors?.password?.type === "minLength" && (
+            <p>password cannot less than 5 characters</p>
+          )}
+        </div>
+
+        <div className="f-input">
+          <label>Repeat Password:</label>
+          <br />
+          <TextField
+            required
+            name="password1"
+            label="Repeat Password"
+            type="password"
+            {...register("password1", {
+              required: true,
+              minLength: 5,
+              maxLength: 20,
+            })}
+          />
+          {watch("password1") !== watch("password") &&
+            getValues("password1") ? (
+            <p>password not match</p>
+          ) : null}
+        </div>
+        <div className="f-input">
+          <label>Firstname:</label>
+          <br />
+          <TextField
+            required
+            name="firstname"
+            label="Name"
+            {...register("firstname", { required: true })}
+          />
+        </div>
+        <div className="f-input">
+          <label>Lastname:</label>
+          <br />
+          <TextField
+            required
+            name="lastname"
+            label="Lastname"
+            {...register("lastname", { required: true })}
+          />
+        </div>
+        <div className="f-input">
+          <label>Display Name:</label>
+          <br />
+          <TextField
+            required
+            name="displayname"
+            label="Display Name"
+            {...register("displayname", { required: true })}
+          />
+        </div>
+        <div className="f-input">
+          <label>Height:</label>
+          <br />
+          <TextField
+            required
+            name="height"
+            label="Height"
+            type="number"
+            {...register("height", { required: true })}
+          />
+          <label>Cm.</label>
+        </div>
+        <div className="f-input">
+          <label>Weight:</label>
+          <br />
+          <TextField
+            required
+            name="weight"
+            label="Weight"
+            type="number"
+            {...register("weight", { required: true })}
+          />
+          <label>Kg.</label>
+        </div>
+        <div className="f-input">
+          <label>Address:</label>
+          <br />
+          <TextField
+            name="address"
+            aria-label="minimum height"
+            minRows={3}
+            placeholder="Address"
+            style={{ width: 200 }}
+            {...register("address", { required: true })}
+          />
+        </div>
+        <div className="f-button">
+          <Button
+            variant="contained"
+            type="submit"
+            onSubmit="handleSubmit"
+            style={{
+              backgroundColor: "#50A5B1",
+              width: "100px",
+              height: "30px",
+            }}
+          >
+            Confirm
+          </Button>
+          <Button
+            variant="contained"
+            style={{
+              backgroundColor: "#C32B42",
+              width: "100px",
+              height: "30px",
+            }}
+          >
+            <Link
+              to="/"
+              style={{
+                textDecoration: "none",
+                color: "white",
+              }}
+            >
+              Cancel
+            </Link>
+          </Button>
+        </div>
+      </div>
+
+      <div className="form-register-image">
+        {/* <Button variant="contained" component="label" style={{
+          backgroundColor: "#50A5B1",
+          width: "100px",
+          height: "30px",
+        }}>
+          Upload
+          <input hidden type="file" multiple accept="image/*" onChange={onImageChange} />
+        </Button>
+        {imageURLs.map((imageSrc, idx) => (
+          <img key={idx} width="240" height="260" src={imageSrc} />
+        ))} */}
+        <FileUpload key={value} value={value} setValue={setValue} />
+      </div>
+    </form>
+  );
 };
 
- class Register extends React.Component {
-  constructor(props) {
-    super(props);
+export default Register;
 
-   
-    if (!ValidatorForm.hasValidationRule('isPasswordMatch')) {
-        ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
-            const { formData } = this.state;
-            if (value == formData.password) {
-                return false;
-            }
-            return true;
-        });
-    }
-
-
-    this.state = {
-        formData: {
-          email: "",
-          password: '',
-          repeatPassword: '',
-          Name: "",
-          Lastname: "",
-          Displayname:"",
-          Height: "",
-          Weight: "",
-          Address: "",
-        },
-        submitted: false,
-    };
-}
-
-componentWillUnmount() {
-  if (ValidatorForm.hasValidationRule('isPasswordMatch')) {
-      ValidatorForm.removeValidationRule('isPasswordMatch');
-  }
-}
-
-handleChange = (event) => {
-  const { formData } = this.state;
-  formData[event.target.name] = event.target.value;
-  if (event.target.name === 'password') {
-      this.form.isFormValid(false);
-  }
-  this.setState({ formData });
-}
-
-handleSubmit = () => {
-  this.setState({ submitted: true }, () => {
-      setTimeout(() => this.setState({ submitted: false }), 5000);
-  });
-}
-
-
-
-
-  render() {
-    const { formData, submitted } = this.state;
-    return (
-      <ValidatorForm className="boxs" ref={r => (this.form = r)}  onSubmit={this.handleSubmit}>
-        <div className="form-register">
-          <h2>Create a new account</h2>
-          <div className="f-input">
-            <label>Email:</label>
-            <TextValidator
-            sx={{ ...commonStyles, borderRadius: '40%' }}
-              label="Email"
-              onChange={this.handleChange}
-              name="email"
-              value={formData.email}
-              validators={["required", "isEmail"]}
-              errorMessages={["this field is required", "email is not valid"]}
-            />
-          </div>
-
-          <div className="f-input">
-            <label>Password:</label>
-            <TextValidator
-            sx={{ ...commonStyles, borderRadius: '40%' }}
-                    label="Password"
-                    onChange={this.handleChange}
-                    name="password"
-                    type="password"
-                    validators={['required']}
-                    errorMessages={['this field is required']}
-                    value={formData.password}
-            />
-          </div>
-
-          <div className="f-input">
-          <label>Repeat password:</label>
-          <TextValidator
-          sx={{ ...commonStyles, borderRadius: '40%' }}
-                    label="Repeat password"
-                    onChange={this.handleChange}
-                    name="repeatPassword"
-                    type="password"
-                    validators={['isPasswordMatch', 'required']}
-                    errorMessages={['password mismatch', 'this field is required']}
-                    value={formData.repeatPassword}
-                />
-                </div>
-
-          <div className="f-input">
-            <label>Name:</label>
-            <TextValidator
-            sx={{ ...commonStyles, borderRadius: '40%' }}
-              label="Name"
-              onChange={this.handleChange}
-              name="Name"
-              value={formData.Name}
-              validators={["required"]}
-              errorMessages={["this field is required"]}
-            />
-          </div>
-
-          <div className="f-input">
-            <label>Lastname:</label>
-            <TextValidator
-            sx={{ ...commonStyles, borderRadius: '40%' }}
-              label="Lastname"
-              onChange={this.handleChange}
-              name="Lastname"
-              value={formData.Lastname}
-              validators={["required"]}
-              errorMessages={["this field is required"]}
-            />
-          </div>
-
-          <div className="f-input">
-            <label>Displayname:</label>
-            <TextValidator
-            sx={{ ...commonStyles, borderRadius: '40%' }}
-              label="Displayname"
-              onChange={this.handleChange}
-              name="Displayname"
-              value={formData.Displayname}
-              validators={["required"]}
-              errorMessages={["this field is required"]}
-            />
-          </div>
-
-          <div className="f-input">
-            <label>Height:</label>
-            <TextValidator
-            sx={{ ...commonStyles, borderRadius: '40%' }}
-              label="Height"
-              type="number"
-              onChange={this.handleChange}
-              name="Height"
-              value={formData.Height}
-              validators={["required"]}
-              errorMessages={["this field is required"]}
-            />
-          </div>
-
-          <div className="f-input">
-            <label>Weight:</label>
-            <TextValidator
-            sx={{ ...commonStyles, borderRadius: '40%' }}
-              label="Weight"
-              type="number"
-              onChange={this.handleChange}
-              name="Weight"
-              value={formData.Weight}
-              validators={["required"]}
-              errorMessages={["this field is required"]}
-            />
-          </div>
-          <div className="f-input">
-            <label>Address:</label>
-            <br/>
-            <TextField
-            sx={{ ...commonStyles, borderRadius: '40%' }}
-              id="Address"
-              aria-label="minimum height"
-              minRows={3}
-              placeholder="Minimum 3 rows"   
-              multiline    
-              label="Address"
-              onChange={this.handleChange}
-              name="Address"
-              value={formData.Address}
-              validators={["required"]}
-              errorMessages={["this field is required"]}
-            />
-          </div>
-          <div className="f-button">
-            <Button
-              style={{ backgroundColor: "#50A5B1", width:"100px" ,height:"30px" }}
-              variant="contained"
-              type="submit"
-              disabled={submitted}
-            >
-              {(submitted && "Your form is submitted!") ||
-                (!submitted && "Submit")}
-            </Button>
-            
-            {/* {(submitted && <Link to="/dashboard"></Link>) ||
-                (!submitted && "Submit")} */}
-
-            <Button variant="contained" onClick={()=>{props.history.push('../Login/LoginForm.jsx')}}  style={{ backgroundColor: "#C32B42", width:"100px" ,height:"30px" }}>
-              <Link to="/" style={{textDecoration: 'none',color: "white"}}>Cancel</Link>
-            </Button>
-          </div>
-        </div>
-        <div className="form-register-image">
-        <Button variant="contained" style={{ backgroundColor: "#50A5B1" , width:"100px" ,height:"30px" }}>
-          Upload
-        </Button>
-        </div>
-      </ValidatorForm>
-    );
-  }
-}
- 
-export default Register

@@ -4,43 +4,38 @@ import { useNavigate } from 'react-router-dom';
 import { InputLabel, Select, MenuItem } from '@mui/material';
 import './Activity.css'
 import Grid from '@mui/material/Grid'; // Grid version 1';
-import activityPic from '../../assets/run.png'
-import addheader from '../../assets/add.png'
+import activityPic from '../../assets/editrun.png'
+import editheader from '../../assets/edit.png'
 import axios from 'axios';
-
-const Activity = (props) => {
+const EditActivity = (props) => {
     const navigate = useNavigate();
     const id = props.id
-    // console.log(props.id)
-
     // State of activity
-    // const {id} = props.id
     const [state, setState] = useState({
-        username: localStorage.user,
         activityName: "",
-        activityType: "walk",
-        startActivity: Date.now(),
-        endActivity: Date.now(),
+        activityType: "",
+        startActivity: "",
+        endActivity: "",
         duration: "",
         status: "",
         detailActivity: "",
     })
-    const { username, activityName, activityType, startActivity, endActivity, duration, detailActivity } = state
+    const { activityName, activityType, startActivity, endActivity, duration, detailActivity } = state
 
-    // async function getCardActivity() {
-    //     try {
-    //         const response = await axios.get(`${import.meta.env.VITE_APP_API}/card-activity/${id}`);
-    //         const { activityName, activityType, startDate, endDate, duration, detailActivity } = response.data
-    //         setState({ activityName, activityType, startDate, endDate, duration, detailActivity })
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // }
+    async function getCardActivity() {
+        try {
+            const response = await axios.get(`${import.meta.env.VITE_APP_API}/card-activity/${id}`);
+            const { activityName, activityType, startActivity, endActivity, duration, detailActivity } = response.data
+            setState({ activityName, activityType, startActivity, endActivity, duration, detailActivity })
+            console.log(state);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
-    // useEffect(() => {
-    //     getCardActivity()
-    // }, [])
-
+    useEffect(() => {
+        getCardActivity()
+    }, [])
 
     // Function
 
@@ -56,18 +51,14 @@ const Activity = (props) => {
     const selectstartdate = (e) => {
         setState({ ...state, startActivity: e.target.value })
     }
+
     const selectenddate = (e) => {
         setState({ ...state, endActivity: e.target.value })
     }
+
     const setDuration = (e) => {
         setState({ ...state, duration: e.target.value })
     }
-    useEffect(() => {
-        // console.log('duration set!!')
-        setState({ ...state, duration: getDateDifference() })
-        // This function will be called whenever the value of date1 or date2 changes
-        // console.log('The difference between the selected dates has changed');
-    }, [startActivity, endActivity]);
 
 
     function getDateDifference() {
@@ -81,12 +72,18 @@ const Activity = (props) => {
         return formattedTimeDifference;
     }
 
+    useEffect(() => {
+        setState({ ...state, duration: getDateDifference() })
+        // This function will be called whenever the value of date1 or date2 changes
+        // console.log('The difference between the selected dates has changed');
+    }, [startActivity, endActivity]);
+
     const submitForm = (e) => {
         e.preventDefault();
-        axios.post(`${import.meta.env.VITE_APP_API}/add-activity`, { username, activityName, activityType, startActivity, endActivity, detailActivity, duration })
+        axios.put(`${import.meta.env.VITE_APP_API}/edit-activity/${id}`, { activityName, activityType, startActivity, endActivity, detailActivity, duration })
             .then(response => {
-                // alert('Add Activity')
-                // console.log('after Add', response.data)
+                // alert('Edit Activity')
+                console.log('after edit', response.data)
                 setState(response.data)
                 // console.log(state)
                 onBackClick()
@@ -96,7 +93,6 @@ const Activity = (props) => {
     const onBackClick = useCallback(() => {
         navigate('../dashboard')
     }, [navigate])
-
     const minDate = new Date().toISOString().substr(0, 16);
 
 
@@ -110,7 +106,7 @@ const Activity = (props) => {
 
                     <form className='form-add' onSubmit={submitForm}>
                         <div className="add-header">
-                            <img src={addheader} />
+                            <img src={editheader} />
                         </div>
 
                         <Grid container spacing={0} margin={2} >
@@ -245,4 +241,4 @@ const Activity = (props) => {
     )
 }
 
-export default Activity
+export default EditActivity

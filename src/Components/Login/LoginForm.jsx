@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import Login from '../Pages/auth/Login';
 import './LoginForm.css';
@@ -22,13 +22,13 @@ function LoginForm() {
     if (role === "admin") {
       navigate('/admin/index')
     } else {
-      navigate('/user/index')  
+      navigate('/dashboard')
     }
   }
-  
+
   // const navigate = useNavigate();
 
-  const onRegisterClick = useCallback(()=>{
+  const onRegisterClick = useCallback(() => {
     navigate('../register')
   }, [navigate])
 
@@ -39,30 +39,37 @@ function LoginForm() {
     })
   }
 
-  const handleSubmit= (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     console.log(value)
-    
+
     login(value)
-      .then((res)=> {
-        console.log(res.data)
-        alert(res.data)
-        
+      .then((res) => {
+        // console.log('res.data',res.data.payload.user.images)
+        // alert(res.data)
+
         dispatch({
-          type:'LOGIN',
-          payload:{
+          type: 'LOGIN',
+          payload: {
             token: res.data.token,
             username: res.data.payload.user.username,
             role: res.data.payload.user.role,
           }
         })
 
-        localStorage.setItem('token',res.data.token)
+        localStorage.setItem('token', res.data.token)
+        localStorage.setItem('user', res.data.payload.user.username)
+        localStorage.setItem('images', res.data.payload.user.images.secure_url)
+        localStorage.setItem('displayName', res.data.payload.user.displayName)
+
         roleBasedRedirect(res.data.payload.user.role)
+        window.location.reload()
+
       })
-      .catch((err)=> {
+      .catch((err) => {
         console.log(err.response.data)
         alert(err.response.data)
+
       })
   }
 
@@ -72,18 +79,19 @@ function LoginForm() {
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">Email:</label>
-        <input type="email" id="username" name="username" onChange={handleChange}/>
+        <input type="email" id="username" name="username" onChange={handleChange} />
 
         <label htmlFor="password">Password:</label>
-        <input type="password" id="password" name="password" onChange={handleChange}/>
+        <input type="password" id="password" name="password" onChange={handleChange} />
 
         <button className='sign-in' type="submit">sign in</button>
-        <button className= 'register' onClick = {onRegisterClick} type="submit">register</button>
+        <button className='register' onClick={onRegisterClick} type="submit">register</button>
         <p >forgot password?</p>
 
       </form>
     </div>
   );
 }
+
 
 export default LoginForm;

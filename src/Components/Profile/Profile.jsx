@@ -1,157 +1,158 @@
-import React,{ useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import * as React from "react";
+import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import TextField from '@mui/material/TextField';
-import "../Register/Register.css"
+import axios from "axios";
+import "../Register/Register.css";
 
-const commonStyles = {
-  width: '19rem',
+const Profile = () => {
+  const onSubmit = (data) => console.log(data);
+
+  const getData = () => {
+    // e.preventDefault();
+    axios
+      .get("http://localhost:8080/api/users/" + localStorage.user)
+      .then((response) => {
+        // console.log(response.data);
+        setPost(response.data);
+      });
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const [post, setPost] = useState({
+    firstname: "",
+    lastname: "",
+    displayname: "",
+    height: 0,
+    weight: 0,
+    images: [],
+  });
+  console.log(post);
+  return (
+    <form className="boxs">
+      <div className="form-register">
+        <h1>Profile</h1>
+        <div className="f-input">
+          <label>Email:</label>
+          <br />
+          <TextField
+            name="email"
+            type="email"
+            value={post.username}
+            InputProps={{ readOnly: true }}
+            disabled="true"
+          />
+        </div>
+        <div className="f-input">
+          <label>First Name:</label>
+          <br />
+          <TextField
+            name="firstname"
+            value={post.firstname}
+            InputProps={{ readOnly: true }}
+            disabled="true"
+          />
+        </div>
+        <div className="f-input">
+          <label>Last Name:</label>
+          <br />
+          <TextField
+            name="lastname"
+            value={post.lastname}
+            InputProps={{ readOnly: true }}
+            disabled="true"
+          />
+        </div>
+        <div className="f-input">
+          <label>Display Name:</label>
+          <br />
+          <TextField
+            name="displayname"
+            value={post.displayname}
+            InputProps={{ readOnly: true }}
+            disabled="true"
+          />
+        </div>
+        <div className="f-input">
+          <label>Height:</label>
+          <br />
+          <TextField
+            name="height"
+            value={post.height}
+            InputProps={{ readOnly: true }}
+            disabled="true"
+          />
+          <label>Cm.</label>
+        </div>
+        <div className="f-input">
+          <label>Weight:</label>
+          <br />
+          <TextField
+            required
+            value={post.weight}
+            name="weight"
+            InputProps={{ readOnly: true }}
+            disabled="true"
+          />
+          <label>Kg.</label>
+        </div>
+        <div className="f-input">
+          <label>Address:</label>
+          <br />
+          <TextField
+            // multiline
+            name="address"
+            aria-label="minimum height"
+            minRows={3}
+            value={post.address}
+            // style={{ width: 200 }}
+            InputProps={{ readOnly: true }}
+            disabled="true"
+          />
+        </div>
+        <div className="f-button">
+          <Button
+            style={{
+              backgroundColor: "#C32B42",
+              width: "100px",
+              height: "30px",
+            }}
+          >
+            <Link
+              to="/dashboard"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              Back
+            </Link>
+          </Button>
+          <Button
+            variant="contained"
+            style={{
+              backgroundColor: "#50A5B1",
+              width: "100px",
+              height: "30px",
+            }}
+          >
+            <Link
+              to="/editProfile"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              Edit
+            </Link>
+          </Button>
+        </div>
+      </div>
+
+      <div className="form-register-image">
+        <img src={localStorage.images} width="240" height="260" />
+      </div>
+    </form>
+  );
 };
 
- class Profile extends React.Component {
-  state = {
-    formData: {
-      email: "",
-      Name: "",
-      Lastname: "",
-      Displayname:"",
-      Height: "",
-      Weight: "",
-      Address: "",
-    },
-    submitted: false,
-  };
-  handleChange = (event) => {
-    const { formData } = this.state;
-    formData[event.target.name] = event.target.value;
-    this.setState({ formData });
-  };
-
-  handleSubmit = () => {
-    this.setState({ submitted: true }, () => {
-      setTimeout(() => this.setState({ submitted: false }), );
-    });
-  };
-
-  
-
-
-  render() {
-    const { formData, submitted } = this.state;
-    return (
-      <ValidatorForm className="boxs" ref="form" onSubmit={this.handleSubmit}>
-        <div className="form-register">
-          <h2>Profile</h2>
-          <div className="f-input">
-            <label>Email:</label>
-            <TextValidator
-            sx={{ ...commonStyles, borderRadius: '40%' }}
-              label=""
-              onChange={this.handleChange}
-              name="email"
-              value={formData.email}
-              InputProps={{readOnly: true}}
-            />
-          </div>
-
-          <div className="f-input">
-            <label>Name:</label>
-            <TextValidator
-            sx={{ ...commonStyles, borderRadius: '40%' }}
-              label=""
-              onChange={this.handleChange}
-              name="Name"
-              value={formData.Name}
-              InputProps={{readOnly: true}}
-            />
-          </div>
-
-          <div className="f-input">
-            <label>Lastname:</label>
-            <TextValidator
-            sx={{ ...commonStyles, borderRadius: '40%' }}
-              label=""
-              onChange={this.handleChange}
-              name="Lastname"
-              value={formData.Lastname}
-              InputProps={{readOnly: true}}
-            />
-          </div>
-
-          <div className="f-input">
-            <label>Displayname:</label>
-            <TextValidator
-            sx={{ ...commonStyles, borderRadius: '40%' }}
-              label=""
-              onChange={this.handleChange}
-              name="Displayname"
-              value={formData.Displayname}
-              InputProps={{readOnly: true}}
-            />
-          </div>
-
-          <div className="f-input">
-            <label>Height:</label>
-            <TextValidator
-            sx={{ ...commonStyles, borderRadius: '40%' }}
-              label=""
-              onChange={this.handleChange}
-              name="Height"
-              value={formData.Height}
-              InputProps={{readOnly: true}}
-            />
-          </div>
-
-          <div className="f-input">
-            <label>Weight:</label>
-            <TextValidator
-            sx={{ ...commonStyles, borderRadius: '40%' }}
-              label=""
-              onChange={this.handleChange}
-              name="Weight"
-              value={formData.Weight}
-              InputProps={{readOnly: true}}
-            />
-          </div>
-          <div className="f-input">
-            <label>Address:</label>
-            <br/>
-            <TextField
-            sx={{ ...commonStyles, borderRadius: '40%' }}
-              id="Address"
-              aria-label="minimum height"
-              minRows={3}  
-              multiline    
-              label=""
-              onChange={this.handleChange}
-              name="Address"
-              value={formData.Address}
-              InputProps={{readOnly: true}}
-            />
-          </div>
-          <div className="f-button">
-            <Button
-              style={{ backgroundColor: "#C32B42", width:"100px" ,height:"30px" }}
-              variant="contained"
-              type="submit"
-              disabled={submitted}
-              InputProps={{readOnly: true}}
-            >
-              <Link to="/dashboard" style={{textDecoration: 'none',color: "white"}}>Back</Link>
-            </Button>
-            <Button variant="contained" style={{ backgroundColor: "#50A5B1", width:"100px" ,height:"30px" }}>
-            <Link to="/editProfile" style={{textDecoration: 'none',color: "white"}}>Edit</Link>
-              
-            </Button>
-          </div>
-        </div>
-        <div className="form-register-image">
-          <img type="img" multiple id="image" />
-        </div>
-      </ValidatorForm>
-    );
-  }
-}
- 
-export default Profile
+export default Profile;
