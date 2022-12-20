@@ -50,7 +50,7 @@
 
 .graph {
     width: 80%;
-    height:35%;
+    margin: 10px 0;
     display: flex;
     justify-content:center;
 }
