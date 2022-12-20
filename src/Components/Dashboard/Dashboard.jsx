@@ -32,10 +32,10 @@ const Dashboard = () => {
             //   '#eaac8b',
 
                 '#8ecae6',
-              '#219ebc',
-              '#023047',
-              '#ffb703',
-              '#fb8500',
+                '#219ebc',
+                '#023047',
+                '#ffb703',
+                '#fb8500',
               
             ],
             borderColor: [
@@ -52,13 +52,6 @@ const Dashboard = () => {
       };
     
     const [card,setCard] =useState([]);
-    
-    const [activityData,setActivityData] =useState([
-        {_id:'1',Type:'Total activity',amount:'98'},
-        {_id:'2',Type:'Completed',amount:'21'},
-        {_id:'3',Type:'Inprogress',amount:'74'},
-        {_id:'4',Type:'Incomplete',amount:'9'},
-    ]);
 
     // 0=Pending,1 =  Completed , 9 = Incomplete
     const [totalStatus,setTotalStatus] = useState([
@@ -128,8 +121,8 @@ const Dashboard = () => {
             <div className="left">
 
                 <div className='left-top'>
-                     <a href="/addactivity"><button type="button" className="addActivity">Add Activity</button></a>
-                   
+                    <span>Activities Dashboard</span>
+                    <a href="/addactivity"><button type="button" className="addActivity">Add Activity</button></a>
                 </div>
 
                 <div className='left-bottom'>
@@ -167,40 +160,48 @@ const Dashboard = () => {
                 
                     <div className="display-card">
                         <span>Hello, </span>
-                        <h2>{localStorage.displayName}</h2>
+                        <h2 className="profile-name">{localStorage.displayName}</h2>
                         <Link to="/profile" className="picture-link">
                             <img src={localStorage.images} alt="profile-picture" className="profile-picture" />
                         </Link>
-        
+
+                        <div className="box">
+                            <span className="summary-header">Completed Activities</span>
+                        </div>
                         <div className="graph">
                             <Doughnut data={data} />
                         </div>
-
-                        <div className="activity-container">
-                            <div className="activity">
-                                <p>Total activity:</p>
-                                <span className="gray">|</span>
-                                <span>{total}</span>
+    
+                        <div className="box">
+                            <span className="summary-header">Summary</span>
+                            <div className="activity-container">
+                                <div className="activity">
+                                    <p>Total activity:</p>
+                                    <span className="gray">|</span>
+                                    <span>{total}</span>
+                                </div>
+                                <div className="activity">
+                                    <p>Completed:</p>
+                                    <span className="green">|</span>
+                                    <span>{complete}</span>
+                                </div>
                             </div>
-                            <div className="activity">
-                                <p>Completed:</p>
-                                <span className="green">|</span>
-                                <span>{complete}</span>
+                            <div className="activity-container">
+                                <div className="activity">
+                                    <p>In progress:</p>
+                                    <span className="yellow">|</span>
+                                    <span>{inProgress}</span>
+                                </div>
+                                <div className="activity">
+                                    <p>Incomplete:</p>
+                                    <span className="red">|</span>
+                                    <span>{incomplete}</span>
+                                </div>
                             </div>
                         </div>
+                        
 
-                        <div className="activity-container">
-                            <div className="activity">
-                                <p>In progress:</p>
-                                <span className="yellow">|</span>
-                                <span>{inProgress}</span>
-                            </div>
-                            <div className="activity">
-                                <p>Incomplete:</p>
-                                <span className="red">|</span>
-                                <span>{incomplete}</span>
-                            </div>
-                        </div>
+                        
 
                     </div>
                 
