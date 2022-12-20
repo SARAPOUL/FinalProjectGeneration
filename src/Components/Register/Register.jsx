@@ -90,12 +90,12 @@ const Register = () => {
         </div>
 
         <div className="f-input">
-          <label>RepeatPassword:</label>
+          <label>Repeat Password:</label>
           <br />
           <TextField
             required
             name="password1"
-            label="RepeatPassword"
+            label="Repeat Password"
             type="password"
             {...register("password1", {
               required: true,
@@ -109,13 +109,13 @@ const Register = () => {
           ) : null}
         </div>
         <div className="f-input">
-          <label>Fisrtname:</label>
+          <label>Firstname:</label>
           <br />
           <TextField
             required
-            name="fisrtname"
+            name="firstname"
             label="Name"
-            {...register("fisrtname", { required: true })}
+            {...register("firstname", { required: true })}
           />
         </div>
         <div className="f-input">
@@ -129,12 +129,12 @@ const Register = () => {
           />
         </div>
         <div className="f-input">
-          <label>Displayname:</label>
+          <label>Display Name:</label>
           <br />
           <TextField
             required
             name="displayname"
-            label="Display name"
+            label="Display Name"
             {...register("displayname", { required: true })}
           />
         </div>

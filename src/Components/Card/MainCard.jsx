@@ -189,7 +189,7 @@ const MainCard = ({ card }) => {
     return (
         <Card
             className="zoomOut"
-            bgcolor={bgcolor}
+            // bgcolor={bgcolor}
             visibility={visibility}
             color={color}
             sx={{
