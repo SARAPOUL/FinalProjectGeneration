@@ -10,23 +10,9 @@ import FileUpload from "./FileUpload";
 import Swal from 'sweetalert2'
 
 const Register = () => {
-  //start img
-  // const [images, setImages] = useState([]);
-  // const [imageURLs, setImageURLs] = useState([]);
+
   const navigate = useNavigate();
 
-
-  // useEffect(() => {
-  //   if (images.length < 1) return;
-  //   const newImageUrls = [];
-  //   images.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
-  //   setImageURLs(newImageUrls);
-  // }, [images]);
-
-  // function onImageChange(e) {
-  //   setImages([...e.target.files]);
-  // }
-  //ed img
   const [value, setValue] = useState({
     images: []
   })
@@ -113,9 +99,9 @@ const Register = () => {
           <br />
           <TextField
             required
-            name="fisrtname"
-            label="Fisrt Name"
-            {...register("fisrtname", { required: true })}
+            name="firstname"
+            label="First Name"
+            {...register("firstname", { required: true })}
           />
         </div>
         <div className="f-input">
@@ -209,17 +195,6 @@ const Register = () => {
       </div>
 
       <div className="form-register-image">
-        {/* <Button variant="contained" component="label" style={{
-          backgroundColor: "#50A5B1",
-          width: "100px",
-          height: "30px",
-        }}>
-          Upload
-          <input hidden type="file" multiple accept="image/*" onChange={onImageChange} />
-        </Button>
-        {imageURLs.map((imageSrc, idx) => (
-          <img key={idx} width="240" height="260" src={imageSrc} />
-        ))} */}
         <FileUpload key={value} value={value} setValue={setValue} />
       </div>
     </form>
