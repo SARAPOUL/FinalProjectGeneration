@@ -139,13 +139,13 @@ function ResponsiveAppBar() {
                 <MenuItem key="home" onClick={handleCloseUserMenu} >
                   <Link to="/dashboard" className="menu-nav"><Typography textAlign="center">Home</Typography></Link>
                 </MenuItem>
-                { <MenuItem key="profile">
+                <MenuItem key="profile">
                   <Link to="/profile" className="menu-nav"><Typography textAlign="center" >Profile</Typography></Link>
-                </MenuItem>}
-                { <MenuItem key="edit">
+                </MenuItem>
+                {/* <MenuItem key="edit">
                   <Link to="/edit" className="menu-nav"><Typography textAlign="center" >Edit Profile</Typography></Link>
-                </MenuItem>}
-                {/* <MenuItem  key ="resetPassword" onClick={handleCloseUserMenu}>
+                </MenuItem>
+                <MenuItem  key ="resetPassword" onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">Reset password</Typography>
                 </MenuItem> */}
                 <MenuItem key="logout" onClick={logout}>
