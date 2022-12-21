@@ -225,15 +225,11 @@ const EditActivity = (props) => {
                             </Grid>
                         </Grid>
 
-
                         {/* Button */}
                         <div className="btn">
                             <button type="cancle" onClick={onBackClick} className="" style={{ backgroundColor: "#C32B42", marginRight: "16px" }}>Cancle</button>
                             <button type="submit" value="submit" className="">Save</button>
                         </div>
-
-
-
                     </form>
                 </div>
             </div>

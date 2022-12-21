@@ -186,21 +186,15 @@ const Register = () => {
           </Button>
           <Button
             variant="contained"
+            href="/"
             style={{
               backgroundColor: "#C32B42",
               width: "100px",
               height: "30px",
+              color: "white",
             }}
           >
-            <Link
-              to="/"
-              style={{
-                textDecoration: "none",
-                color: "white",
-              }}
-            >
               Cancel
-            </Link>
           </Button>
         </div>
       </div>
