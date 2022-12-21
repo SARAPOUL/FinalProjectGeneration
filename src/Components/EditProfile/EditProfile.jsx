@@ -1,5 +1,5 @@
 import * as React from "react";
-import { register as registerAxios } from '../Functions/auth'
+import { editProfile } from '../Functions/auth'
 import FileUpload from "../Register/FileUpload";
 import Swal from 'sweetalert2'
 import { useState, useEffect } from "react";
@@ -12,22 +12,22 @@ import "../Register/Register.css";
 
 const EditProfile = () => {
 
- 
-
   const getData = () => {
     // e.preventDefault();
     axios
       .get("http://localhost:8080/api/users/" + localStorage.user)
       .then((response) => {
-        // console.log(response.data);
-        // setPost(response.data);
         console.log(response.data);
-        setValue('firstname',response.data.firstname);
-        setValue('lastname',response.data.lastname);
-        setValue('displayname',response.data.displayname);
-        setValue('height',response.data.height);
-        setValue('weight',response.data.weight);
-        setValue('address',response.data.address);
+        // setPost(response.data);
+        console.log(response.data.images);
+        setValue('firstname', response.data.firstname);
+        setValue('lastname', response.data.lastname);
+        setValue('displayname', response.data.displayname);
+        setValue('height', response.data.height);
+        setValue('weight', response.data.weight);
+        setValue('address', response.data.address);
+        setId(response.data._id)
+        setImg(response.data)
       });
   };
 
@@ -36,11 +36,14 @@ const EditProfile = () => {
     getData();
   }, []);
 
-  
+
   const navigate = useNavigate();
 
+  const [id, setId] = useState('')
+
+
   const [img, setImg] = useState({
-    images: []
+    images: ""
   })
   const {
     register,
@@ -49,14 +52,17 @@ const EditProfile = () => {
   } = useForm({});
   const onSubmit = (data) => {
     // console.log(value.images);
-    // data.images = value.images
-    // console.log(data);
-    registerAxios(data)
+    data.images = img.images
+    data._id = id
+    console.log('ยิงจริงๆนะ', data);
+    editProfile(data)
     Swal.fire(
       'Edit Success!',
       'You clicked the button!',
       'success'
-    ) 
+    )
+    localStorage.setItem('images', data.images[0].secure_url)
+    localStorage.setItem('displayName', data.displayname)
     navigate('/profile');
   }
   // const onSubmit = (data) => /แสดงข้อมูลให้ดู
@@ -120,10 +126,8 @@ const EditProfile = () => {
           <TextField
             name="address"
             aria-label="minimum height"
-            minRows={3}
-            label=""
             style={{ width: 200 }}
-            {...register("address", { required: true })}
+            {...register("address")}
           />
         </div>
         <div className="f-button">
@@ -141,27 +145,21 @@ const EditProfile = () => {
           </Button>
           <Button
             variant="contained"
+            href="/profile"
             style={{
               backgroundColor: "#C32B42",
               width: "100px",
               height: "30px",
+              color: "white",
             }}
           >
-            <Link
-              to="/"
-              style={{
-                textDecoration: "none",
-                color: "white",
-              }}
-            >
-              Cancel
-            </Link>
+            Cancel
           </Button>
         </div>
       </div>
 
       <div className="form-register-image">
-        {/* <FileUpload   key={value} value={value} setValue={setValue} /> */}
+        <FileUpload key={img} value={img} setValue={setImg} />
       </div>
     </form>
   );

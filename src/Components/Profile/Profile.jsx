@@ -109,35 +109,31 @@ const Profile = () => {
             disabled="true"
           />
         </div>
-        <div className="f-button">
+        <div className="f-button" >
           <Button
+            href="/dashboard"
             style={{
               backgroundColor: "#C32B42",
               width: "100px",
               height: "30px",
+              color: "white",
+              marginRight:"10px"
             }}
           >
-            <Link
-              to="/dashboard"
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              Back
-            </Link>
+
+            Back
           </Button>
           <Button
             variant="contained"
+            href="/editProfile"
             style={{
               backgroundColor: "#50A5B1",
               width: "100px",
               height: "30px",
+              color: "white"
             }}
           >
-            <Link
-              to="/editProfile"
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              Edit
-            </Link>
+            Edit
           </Button>
         </div>
       </div>

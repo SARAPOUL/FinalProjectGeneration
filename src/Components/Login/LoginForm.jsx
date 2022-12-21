@@ -86,8 +86,6 @@ function LoginForm() {
 
         <button className='sign-in' type="submit">sign in</button>
         <button className='register' onClick={onRegisterClick} type="submit">register</button>
-        <p >forgot password?</p>
-
       </form>
     </div>
   );
