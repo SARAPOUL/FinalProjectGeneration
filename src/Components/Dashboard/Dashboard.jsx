@@ -9,6 +9,19 @@ import MainCard from "../Card/MainCard";
 import {Link} from "react-router-dom"
 import axios from 'axios'
 
+function BackToTopButton() {
+   
+  
+    
+  
+    return (
+      <button className="back-to-top" style={{ display: showButton ? 'block' : 'none' }}>
+        Back to top
+      </button>
+    );
+  }
+  
+
 const Dashboard = () => {
 
     const user = localStorage.user
@@ -106,14 +119,26 @@ const Dashboard = () => {
     //         console.error(error);
     //     }
     // }
-
+    // const [styleSidebar, setStayleSidebar] = useState();
     useEffect(()=>{
         fetchData("/card-activity")
         fetchData("/chart-activity")
         fetchData("/total-status")
-        
+        function handleScroll() {
+            const element = document.querySelector('.right');
+            if (window.scrollY >= 64) {
+                element.style.top = '0';
+            } else {
+                element.style.top = 'initial';
+            }
+          }
+      
+          window.addEventListener('scroll', handleScroll);
+          return () => window.removeEventListener('scroll', handleScroll);
     },[])
 
+    
+      
     return(
    
     <div className="container">
@@ -156,21 +181,20 @@ const Dashboard = () => {
                 </div>
 
             </div>
-            <div className="right">
-                
-                    <div className="display-card">
+            <div className="right" >
+                     <div className="display-card">
                         <span>Hello, </span>
                         <h2 className="profile-name">{localStorage.displayName}</h2>
                         <Link to="/profile" className="picture-link">
                             <img src={localStorage.images} alt="profile-picture" className="profile-picture" />
                         </Link>
-
+                            
                         <div className="box">
                             <span className="summary-header">Completed Activities</span>
                         </div>
-                        <div className="graph">
+                        <Box className="graph"> 
                             <Doughnut data={data} />
-                        </div>
+                        </Box>
     
                         <div className="box">
                             <span className="summary-header">Summary</span>
