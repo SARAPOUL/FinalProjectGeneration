@@ -48,12 +48,35 @@ const FileUpload = ({value, setValue}) => {
             }
         };
     }
+
+    const handleRemove = (public_id)=>{
+        // setLoading(true)
+        console.log(public_id)
+        // const img = value.images
+        const { images } = value
+        axios.post(import.meta.env.VITE_APP_API+'/removeimages', 
+        {public_id},
+        ).then(res => {
+            // setLoading(false)
+            let filterImages = images.filter(item=> {
+                return item.public_id !== public_id
+            })
+            setValue({...value, images: filterImages})
+        }).catch(err => {
+            // setLoading(false)
+            console.log(err)
+        })
+        }
+
     return (
         <>
         <br />
         {value.images && value.images.map(item=>
         <span className="avatar-item">
-        <Badge count="X">
+        <Badge 
+        onClick={()=> handleRemove(item.public_id)}
+        style={{ cursor: 'pointer' }}
+        count="X">
             <Avatar
             className="m-3" 
             src={item.url} 
