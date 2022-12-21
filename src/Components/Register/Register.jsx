@@ -153,10 +153,7 @@ const Register = () => {
           <br />
           <TextField
             name="address"
-            aria-label="minimum height"
-            minRows={3}
             placeholder="Address"
-            style={{ width: 200 }}
             {...register("address", { required: true })}
           />
         </div>

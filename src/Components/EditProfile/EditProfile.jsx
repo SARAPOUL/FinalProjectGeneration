@@ -1,66 +1,82 @@
 import * as React from "react";
+import { register as registerAxios } from '../Functions/auth'
+import FileUpload from "../Register/FileUpload";
+import Swal from 'sweetalert2'
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import "../Register/Register.css";
 
-const Register = () => {
-  //start img
-  const [images, setImages] = useState([]);
-  const [imageURLs, setImageURLs] = useState([]);
+const EditProfile = () => {
+
+ 
+
+  const getData = () => {
+    // e.preventDefault();
+    axios
+      .get("http://localhost:8080/api/users/" + localStorage.user)
+      .then((response) => {
+        // console.log(response.data);
+        // setPost(response.data);
+        console.log(response.data);
+        setValue('firstname',response.data.firstname);
+        setValue('lastname',response.data.lastname);
+        setValue('displayname',response.data.displayname);
+        setValue('height',response.data.height);
+        setValue('weight',response.data.weight);
+        setValue('address',response.data.address);
+      });
+  };
+
 
   useEffect(() => {
-    if (images.length < 1) return;
-    const newImageUrls = [];
-    images.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
-    setImageURLs(newImageUrls);
-  }, [images]);
+    getData();
+  }, []);
 
-  function onImageChange(e) {
-    setImages([...e.target.files]);
-  }
-  //ed img
+  
+  const navigate = useNavigate();
 
+  const [img, setImg] = useState({
+    images: []
+  })
   const {
     register,
-    formState: { errors },
+    setValue,
     handleSubmit,
-  } = useForm();
-  const onSubmit = () => navigate('/profile');
-  // const onSubmit = (data) => console.log(data);
+  } = useForm({});
+  const onSubmit = (data) => {
+    // console.log(value.images);
+    // data.images = value.images
+    // console.log(data);
+    registerAxios(data)
+    Swal.fire(
+      'Edit Success!',
+      'You clicked the button!',
+      'success'
+    ) 
+    navigate('/profile');
+  }
+  // const onSubmit = (data) => /แสดงข้อมูลให้ดู
+
   return (
     <form className="boxs" onSubmit={handleSubmit(onSubmit)}>
       <div className="form-register">
         <h1>EditProfile</h1>
         <div className="f-input">
-          <label>Email:</label><br/>
+          <label>Fisrt Name:</label>
+          <br />
           <TextField
             required
-            name="email"
-            type="email"
-            {...register("email", {
-              required: true,
-              pattern: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/i,
-            })}
-          />
-        </div>
-        {/* <error>
-          {errors.email?.type === "required" && "Email is required"}
-          {errors.email?.type === "pattern" &&
-            "Entered email is in wrong format"}
-        </error> */}
-        <div className="f-input">
-          <label>Fisrtname:</label><br/>
-          <TextField
-            required
-            name="fisrtname"
-            {...register("fisrtname", { required: true })}
+            name="firstname"
+            {...register("firstname", { required: true })}
           />
         </div>
         <div className="f-input">
-          <label>Lastname:</label><br/>
+          <label>Last Name:</label>
+          <br />
           <TextField
             required
             name="lastname"
@@ -68,7 +84,8 @@ const Register = () => {
           />
         </div>
         <div className="f-input">
-          <label>Displayname:</label><br/>
+          <label>Display Name:</label>
+          <br />
           <TextField
             required
             name="displayname"
@@ -76,7 +93,8 @@ const Register = () => {
           />
         </div>
         <div className="f-input">
-          <label>Height:</label><br/>
+          <label>Height:</label>
+          <br />
           <TextField
             required
             name="height"
@@ -86,7 +104,8 @@ const Register = () => {
           <label>Cm.</label>
         </div>
         <div className="f-input">
-          <label>Weight:</label><br/>
+          <label>Weight:</label>
+          <br />
           <TextField
             required
             name="weight"
@@ -96,12 +115,13 @@ const Register = () => {
           <label>Kg.</label>
         </div>
         <div className="f-input">
-          <label>Address:</label><br/>
+          <label>Address:</label>
+          <br />
           <TextField
             name="address"
             aria-label="minimum height"
             minRows={3}
-            // placeholder="Minimum 3 rows"
+            label=""
             style={{ width: 200 }}
             {...register("address", { required: true })}
           />
@@ -117,12 +137,7 @@ const Register = () => {
               height: "30px",
             }}
           >
-            <Link
-              to="/profile"
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              Back
-            </Link>
+            Save
           </Button>
           <Button
             variant="contained"
@@ -133,30 +148,23 @@ const Register = () => {
             }}
           >
             <Link
-              to="/profile"
-              style={{ textDecoration: "none", color: "white" }}
+              to="/"
+              style={{
+                textDecoration: "none",
+                color: "white",
+              }}
             >
-              Save
+              Cancel
             </Link>
           </Button>
         </div>
       </div>
 
       <div className="form-register-image">
-      <Button variant="contained" component="label" style={{
-              backgroundColor: "#50A5B1",
-              width: "100px",
-              height: "30px",
-            }}>
-          Upload
-        <input hidden type="file"   multiple accept="image/*" onChange={onImageChange} />
-        </Button>
-        {imageURLs.map((imageSrc, idx) => (
-          <img key={idx} width="240" height="260" src={imageSrc} />
-        ))}
+        {/* <FileUpload   key={value} value={value} setValue={setValue} /> */}
       </div>
     </form>
   );
 };
 
-export default Register;
+export default EditProfile;

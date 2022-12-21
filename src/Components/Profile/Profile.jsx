@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -8,7 +7,6 @@ import axios from "axios";
 import "../Register/Register.css";
 
 const Profile = () => {
-  const onSubmit = (data) => console.log(data);
 
   const getData = () => {
     // e.preventDefault();
@@ -88,7 +86,6 @@ const Profile = () => {
           <label>Weight:</label>
           <br />
           <TextField
-            required
             label={post.weight}
             name="weight"
             InputProps={{ readOnly: true }}
@@ -99,12 +96,8 @@ const Profile = () => {
           <label>Address:</label>
           <br />
           <TextField
-            multiline
             name="address"
-            aria-label="minimum height"
-            minRows={3}
             label={post.address}
-            style={{ width: 200 }}
             InputProps={{ readOnly: true }}
           />
         </div>
