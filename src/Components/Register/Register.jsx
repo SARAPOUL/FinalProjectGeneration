@@ -10,9 +10,23 @@ import FileUpload from "./FileUpload";
 import Swal from 'sweetalert2'
 
 const Register = () => {
-
+  //start img
+  // const [images, setImages] = useState([]);
+  // const [imageURLs, setImageURLs] = useState([]);
   const navigate = useNavigate();
 
+
+  // useEffect(() => {
+  //   if (images.length < 1) return;
+  //   const newImageUrls = [];
+  //   images.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
+  //   setImageURLs(newImageUrls);
+  // }, [images]);
+
+  // function onImageChange(e) {
+  //   setImages([...e.target.files]);
+  // }
+  //ed img
   const [value, setValue] = useState({
     images: []
   })
@@ -42,12 +56,12 @@ const Register = () => {
       <div className="form-register">
         <h1>Create a new account</h1>
         <div className="f-input">
-          <label>Email Address:</label>
+          <label>Email:</label>
           <br />
           <TextField
             required
             name="username"
-            label="Email Address"
+            label="Email"
             type="email"
             {...register("username", {
               required: true,
@@ -76,12 +90,12 @@ const Register = () => {
         </div>
 
         <div className="f-input">
-          <label>Confirm Password:</label>
+          <label>Repeat Password:</label>
           <br />
           <TextField
             required
             name="password1"
-            label="Confirm Password"
+            label="Repeat Password"
             type="password"
             {...register("password1", {
               required: true,
@@ -95,22 +109,22 @@ const Register = () => {
           ) : null}
         </div>
         <div className="f-input">
-          <label>Fisrt Name:</label>
+          <label>Firstname:</label>
           <br />
           <TextField
             required
             name="firstname"
-            label="First Name"
+            label="Name"
             {...register("firstname", { required: true })}
           />
         </div>
         <div className="f-input">
-          <label>Last Name:</label>
+          <label>Lastname:</label>
           <br />
           <TextField
             required
             name="lastname"
-            label="Last Name"
+            label="Lastname"
             {...register("lastname", { required: true })}
           />
         </div>
@@ -192,6 +206,17 @@ const Register = () => {
       </div>
 
       <div className="form-register-image">
+        {/* <Button variant="contained" component="label" style={{
+          backgroundColor: "#50A5B1",
+          width: "100px",
+          height: "30px",
+        }}>
+          Upload
+          <input hidden type="file" multiple accept="image/*" onChange={onImageChange} />
+        </Button>
+        {imageURLs.map((imageSrc, idx) => (
+          <img key={idx} width="240" height="260" src={imageSrc} />
+        ))} */}
         <FileUpload key={value} value={value} setValue={setValue} />
       </div>
     </form>
@@ -199,3 +224,4 @@ const Register = () => {
 };
 
 export default Register;
+
