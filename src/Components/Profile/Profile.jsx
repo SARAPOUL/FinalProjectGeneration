@@ -11,7 +11,7 @@ const Profile = () => {
   const getData = () => {
     // e.preventDefault();
     axios
-      .get("http://localhost:8080/api/users/" + localStorage.user)
+      .get(`${import.meta.env.VITE_APP_API}/users/` + localStorage.user)
       .then((response) => {
         // console.log(response.data);
         setPost(response.data);
