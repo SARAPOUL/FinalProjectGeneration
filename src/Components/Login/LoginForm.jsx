@@ -22,7 +22,7 @@ function LoginForm() {
     if (role === "admin") {
       navigate('/admin/index')
     } else {
-      navigate('/dashboard')
+      navigate('/')
     }
   }
 
