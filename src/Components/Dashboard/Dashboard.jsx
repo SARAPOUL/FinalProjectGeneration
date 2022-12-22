@@ -93,7 +93,7 @@ const Dashboard = () => {
 
     // const {_id,activity,decripttion,endDate,startDate} = card;
     const fetchData = (path) => {
-        axios.get(`${import.meta.env.VITE_APP_API}/${path}`,{ params: { user } })
+        axios.get(`${import.meta.env.VITE_APP_API}${path}`,{ params: { user } })
         .then(response => {
             console.log(response.data)
             if(path == "/card-activity") {
