@@ -8,7 +8,7 @@ import editheader from '../../assets/edit.png'
 import axios from 'axios';
 
 //activityPicture
-import runimg from '../../assets/activityPicture/editrun.png'
+import runimg from '../../assets/activityPicture/editrun.jpg'
 import bikeimg from '../../assets/activityPicture/bike2.jpg'
 import walkimg from '../../assets/activityPicture/walk.jpg'
 import hikingimg from '../../assets/activityPicture/hiking2.jpg'
