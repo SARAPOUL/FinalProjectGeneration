@@ -7,7 +7,7 @@ import Grid from '@mui/material/Grid'; // Grid version 1';
 import addheader from '../../assets/add.png'
 import axios from 'axios';
 
-import runimg from '../../assets/activityPicture/run.png'
+import runimg from '../../assets/activityPicture/run.PNG'
 import bikeimg from '../../assets/activityPicture/bike.jpg'
 import walkimg from '../../assets/activityPicture/walk.jpg'
 import hikingimg from '../../assets/activityPicture/hiking.jpg'
