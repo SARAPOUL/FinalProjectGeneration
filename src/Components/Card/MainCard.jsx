@@ -31,7 +31,7 @@ import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import HikingIcon from '@mui/icons-material/Hiking';
 import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk';
 import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike';
-
+import AlarmOffIcon from '@mui/icons-material/AlarmOff';
 // const themeCard = createTheme({
 //     palette: {
 //       pending: {
@@ -405,9 +405,9 @@ const MainCard = ({ card }) => {
                     <Button
                         variant="contained"
                         onClick={setStatusActivityIncompleted}
-                        endIcon={<ClearIcon />}
+                        endIcon={<AlarmOffIcon />}
                         style={{
-                            backgroundColor: "red",
+                            backgroundColor: "grey",
                             width: "100px",
                             height: "30px",
                             visibility: `${visibility}`,

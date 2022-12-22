@@ -9,6 +9,19 @@ import MainCard from "../Card/MainCard";
 import {Link} from "react-router-dom"
 import axios from 'axios'
 
+function BackToTopButton() {
+   
+  
+    
+  
+    return (
+      <button className="back-to-top" style={{ display: showButton ? 'block' : 'none' }}>
+        Back to top
+      </button>
+    );
+  }
+  
+
 const Dashboard = () => {
 
     const user = localStorage.user
@@ -32,10 +45,10 @@ const Dashboard = () => {
             //   '#eaac8b',
 
                 '#8ecae6',
-              '#219ebc',
-              '#023047',
-              '#ffb703',
-              '#fb8500',
+                '#219ebc',
+                '#023047',
+                '#ffb703',
+                '#fb8500',
               
             ],
             borderColor: [
@@ -52,13 +65,6 @@ const Dashboard = () => {
       };
     
     const [card,setCard] =useState([]);
-    
-    const [activityData,setActivityData] =useState([
-        {_id:'1',Type:'Total activity',amount:'98'},
-        {_id:'2',Type:'Completed',amount:'21'},
-        {_id:'3',Type:'Inprogress',amount:'74'},
-        {_id:'4',Type:'Incomplete',amount:'9'},
-    ]);
 
     // 0=Pending,1 =  Completed , 9 = Incomplete
     const [totalStatus,setTotalStatus] = useState([
@@ -113,14 +119,26 @@ const Dashboard = () => {
     //         console.error(error);
     //     }
     // }
-
+    // const [styleSidebar, setStayleSidebar] = useState();
     useEffect(()=>{
         fetchData("/card-activity")
         fetchData("/chart-activity")
         fetchData("/total-status")
-        
+        function handleScroll() {
+            const element = document.querySelector('.right');
+            if (window.scrollY >= 64) {
+                element.style.top = '0';
+            } else {
+                element.style.top = 'initial';
+            }
+          }
+      
+          window.addEventListener('scroll', handleScroll);
+          return () => window.removeEventListener('scroll', handleScroll);
     },[])
 
+    
+      
     return(
    
     <div className="container">
@@ -128,8 +146,8 @@ const Dashboard = () => {
             <div className="left">
 
                 <div className='left-top'>
-                     <a href="/addactivity"><button type="button" className="addActivity">Add Activity</button></a>
-                   
+                    <span>Activities Dashboard</span>
+                    <a href="/addactivity"><button type="button" className="addActivity">Add Activity</button></a>
                 </div>
 
                 <div className='left-bottom'>
@@ -163,44 +181,51 @@ const Dashboard = () => {
                 </div>
 
             </div>
-            <div className="right">
-                
-                    <div className="display-card">
+            <div className="right" >
+                     <div className="display-card">
                         <span>Hello, </span>
-                        <h2>{localStorage.displayName}</h2>
+                        <h2 className="profile-name">{localStorage.displayName}</h2>
                         <Link to="/profile" className="picture-link">
                             <img src={localStorage.images} alt="profile-picture" className="profile-picture" />
                         </Link>
-        
-                        <div className="graph">
+                            
+                        <div className="box">
+                            <span className="summary-header">Completed Activities</span>
+                        </div>
+                        <Box className="graph"> 
                             <Doughnut data={data} />
+                        </Box>
+    
+                        <div className="box">
+                            <span className="summary-header">Summary</span>
+                            <div className="activity-container">
+                                <div className="activity">
+                                    <p>Total activity:</p>
+                                    <span className="gray">|</span>
+                                    <span>{total}</span>
+                                </div>
+                                <div className="activity">
+                                    <p>Completed:</p>
+                                    <span className="green">|</span>
+                                    <span>{complete}</span>
+                                </div>
+                            </div>
+                            <div className="activity-container">
+                                <div className="activity">
+                                    <p>In progress:</p>
+                                    <span className="yellow">|</span>
+                                    <span>{inProgress}</span>
+                                </div>
+                                <div className="activity">
+                                    <p>Incomplete:</p>
+                                    <span className="red">|</span>
+                                    <span>{incomplete}</span>
+                                </div>
+                            </div>
                         </div>
+                        
 
-                        <div className="activity-container">
-                            <div className="activity">
-                                <p>Total activity:</p>
-                                <span className="gray">|</span>
-                                <span>{total}</span>
-                            </div>
-                            <div className="activity">
-                                <p>Completed:</p>
-                                <span className="green">|</span>
-                                <span>{complete}</span>
-                            </div>
-                        </div>
-
-                        <div className="activity-container">
-                            <div className="activity">
-                                <p>In progress:</p>
-                                <span className="yellow">|</span>
-                                <span>{inProgress}</span>
-                            </div>
-                            <div className="activity">
-                                <p>Incomplete:</p>
-                                <span className="red">|</span>
-                                <span>{incomplete}</span>
-                            </div>
-                        </div>
+                        
 
                     </div>
                 

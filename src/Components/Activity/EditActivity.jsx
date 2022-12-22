@@ -114,7 +114,7 @@ const EditActivity = (props) => {
                                 <label className=''>Activity Name: </label>
                             </Grid>
                             <Grid item xs={12} md={8}>
-                                <TextField id="activity_name" label="Activity Name" variant="outlined" value={activityName} validators={["required"]} onChange={setActivityName} required />
+                                <TextField style = {{width: 250}} id="activity_name" label="Activity Name" variant="outlined" value={activityName} validators={["required"]} onChange={setActivityName} required />
                                 {/* <input type="text" className='form-control' onChange={setActivityName} /> */}
                             </Grid>
                         </Grid>
@@ -124,7 +124,7 @@ const EditActivity = (props) => {
                                 <label id="activity_type">Activity Type: </label>
                             </Grid>
                             <Grid item xs={12} md={8}>
-                                <Select
+                                <Select style = {{width: 250}}
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
                                     value={activityType}
@@ -154,7 +154,7 @@ const EditActivity = (props) => {
                                 <label className=''>Start : </label>
                             </Grid>
                             <Grid item xs={12} md={8}>
-                                <TextField className=''
+                                <TextField style = {{width: 250}}
                                     id="start_date"
                                     label="Start :"
                                     type="datetime-local"
@@ -177,7 +177,7 @@ const EditActivity = (props) => {
                                 <label className=''>End : </label>
                             </Grid>
                             <Grid item xs={12} md={8}>
-                                <TextField className='m-3'
+                                <TextField style = {{width: 250}}
                                     id="end_date"
                                     label="End :"
                                     type="datetime-local"
@@ -199,7 +199,7 @@ const EditActivity = (props) => {
                                 <label className=''>Duration : </label>
                             </Grid>
                             <Grid item xs={12} md={8}>
-                                <TextField id="duration" label="" variant="outlined" value={duration} onChange={setDuration} disabled />
+                                <TextField style = {{width: 250}} id="duration" label="" variant="outlined" value={duration} onChange={setDuration} disabled />
                             </Grid>
                         </Grid>
 
@@ -208,7 +208,7 @@ const EditActivity = (props) => {
                                 <label className=''>Description: </label>
                             </Grid>
                             <Grid item xs={12} md={8}>
-                                <TextField
+                                <TextField style = {{width: 250}}
                                     sx={{ borderRadius: '40%' }}
                                     id="Decripttion"
                                     aria-label="minimum height"
