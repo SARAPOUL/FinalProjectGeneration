@@ -19,7 +19,7 @@ import AddActivity from '../../Pages/AddActivity'
 import Login from '../../Pages/Login'
 import EditActivity from '../../Pages/EditActivity'
 import Profile from '../../Pages/Profile'
-import Register from '../../Pages/Register'
+import Register from '../../Pages/register'
 
 import Logo from '../../assets/icon-app.png';
 
