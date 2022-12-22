@@ -1,4 +1,4 @@
-import React , { useEffect } from 'react';
+import React, { useEffect ,useState} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -31,10 +31,11 @@ function ResponsiveAppBar() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [auth, setAuth] = React.useState(localStorage.token);
-
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [auth, setAuth] = useState(localStorage.token);
+  const [image, setimage] = useState(localStorage.token);
+  const [displayName, setDisplayName] = useState(localStorage.displayName);
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -139,10 +140,13 @@ function ResponsiveAppBar() {
                 <MenuItem key="home" onClick={handleCloseUserMenu} >
                   <Link to="/dashboard" className="menu-nav"><Typography textAlign="center">Home</Typography></Link>
                 </MenuItem>
-                {/* <MenuItem key="profile">
+                <MenuItem key="profile">
                   <Link to="/profile" className="menu-nav"><Typography textAlign="center" >Profile</Typography></Link>
-                </MenuItem> */}
-                {/* <MenuItem  key ="resetPassword" onClick={handleCloseUserMenu}>
+                </MenuItem>
+                {/* <MenuItem key="edit">
+                  <Link to="/edit" className="menu-nav"><Typography textAlign="center" >Edit Profile</Typography></Link>
+                </MenuItem>
+                <MenuItem  key ="resetPassword" onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">Reset password</Typography>
                 </MenuItem> */}
                 <MenuItem key="logout" onClick={logout}>

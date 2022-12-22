@@ -9,37 +9,18 @@ import MainCard from "../Card/MainCard";
 import {Link} from "react-router-dom"
 import axios from 'axios'
 
-// const [chartData, setChartData] = useState([{
-//     labels: ['Run', 'Bicycle', 'Swim', 'Walk', 'Hike'],
-//     datasets: [
-//       {
-//         data: [12, 19, 3, 5, 2],
-//         label: 'Hour of activity',
-//         backgroundColor: [
-//           'rgba(255, 99, 132, 0.2)',
-//           'rgba(54, 162, 235, 0.2)',
-//           'rgba(255, 206, 86, 0.2)',
-//           'rgba(75, 192, 192, 0.2)',
-//           'rgba(153, 102, 255, 0.2)',
-          
-//         ],
-//         borderColor: [
-//           'rgba(255, 99, 132, 1)',
-//           'rgba(54, 162, 235, 1)',
-//           'rgba(255, 206, 86, 1)',
-//           'rgba(75, 192, 192, 1)',
-//           'rgba(153, 102, 255, 1)',
-          
-//         ],
-//         borderWidth: 1,
-//       },
-//     ], 
-// }])
-
-
-
-// export 
-
+function BackToTopButton() {
+   
+  
+    
+  
+    return (
+      <button className="back-to-top" style={{ display: showButton ? 'block' : 'none' }}>
+        Back to top
+      </button>
+    );
+  }
+  
 
 const Dashboard = () => {
 
@@ -57,19 +38,25 @@ const Dashboard = () => {
             data: chartData.map(item => item.totalscore),
             label: 'Activity Total',
             backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
+            //   '#355070',
+            //   '#6d597a',
+            //   '#b56576',
+            //   '#e56b6f',
+            //   '#eaac8b',
+
+                '#8ecae6',
+                '#219ebc',
+                '#023047',
+                '#ffb703',
+                '#fb8500',
               
             ],
             borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
+                '#8ecae6',
+                '#219ebc',
+                '#023047',
+                '#ffb703',
+                '#fb8500',
               
             ],
             borderWidth: 1,
@@ -77,43 +64,7 @@ const Dashboard = () => {
         ],
       };
     
-    // const [chartData, setChartData] = useState([{
-    //     labels: chartData.map(item => item.activityName),
-    //     datasets: [
-    //       {
-    //         data: chartData.map(item => item.count),
-    //         label: 'Hour of activity',
-    //         backgroundColor: [
-    //           'rgba(255, 99, 132, 0.2)',
-    //           'rgba(54, 162, 235, 0.2)',
-    //           'rgba(255, 206, 86, 0.2)',
-    //           'rgba(75, 192, 192, 0.2)',
-    //           'rgba(153, 102, 255, 0.2)',
-              
-    //         ],
-    //         borderColor: [
-    //           'rgba(255, 99, 132, 1)',
-    //           'rgba(54, 162, 235, 1)',
-    //           'rgba(255, 206, 86, 1)',
-    //           'rgba(75, 192, 192, 1)',
-    //           'rgba(153, 102, 255, 1)',
-              
-    //         ],
-    //         borderWidth: 1,
-    //       },
-    //     ], 
-    // }])
-
-    
-
     const [card,setCard] =useState([]);
-    
-    const [activityData,setActivityData] =useState([
-        {_id:'1',Type:'Total activity',amount:'98'},
-        {_id:'2',Type:'Completed',amount:'21'},
-        {_id:'3',Type:'Inprogress',amount:'74'},
-        {_id:'4',Type:'Incomplete',amount:'9'},
-    ]);
 
     // 0=Pending,1 =  Completed , 9 = Incomplete
     const [totalStatus,setTotalStatus] = useState([
@@ -138,8 +89,6 @@ const Dashboard = () => {
     }
     
 
-    
-    
     // /chart-activity, /card-activity /total-status/
 
     // const {_id,activity,decripttion,endDate,startDate} = card;
@@ -170,31 +119,35 @@ const Dashboard = () => {
     //         console.error(error);
     //     }
     // }
-
+    // const [styleSidebar, setStayleSidebar] = useState();
     useEffect(()=>{
         fetchData("/card-activity")
         fetchData("/chart-activity")
         fetchData("/total-status")
-        
+        function handleScroll() {
+            const element = document.querySelector('.right');
+            if (window.scrollY >= 64) {
+                element.style.top = '0';
+            } else {
+                element.style.top = 'initial';
+            }
+          }
+      
+          window.addEventListener('scroll', handleScroll);
+          return () => window.removeEventListener('scroll', handleScroll);
     },[])
 
-
-
-
     
-    
+      
     return(
-        
-        
-
-
+   
     <div className="container">
             
             <div className="left">
 
                 <div className='left-top'>
-                     <a href="/addactivity"><button type="button" className="addActivity">Add Activity</button></a>
-                   
+                    <span>Activities Dashboard</span>
+                    <a href="/addactivity"><button type="button" className="addActivity">Add Activity</button></a>
                 </div>
 
                 <div className='left-bottom'>
@@ -228,44 +181,51 @@ const Dashboard = () => {
                 </div>
 
             </div>
-            <div className="right">
-                
-                    <div className="display-card">
+            <div className="right" >
+                     <div className="display-card">
                         <span>Hello, </span>
-                        <h2>{localStorage.displayName}</h2>
+                        <h2 className="profile-name">{localStorage.displayName}</h2>
                         <Link to="/profile" className="picture-link">
                             <img src={localStorage.images} alt="profile-picture" className="profile-picture" />
                         </Link>
-        
-                        <div className="graph">
+                            
+                        <div className="box">
+                            <span className="summary-header">Completed Activities</span>
+                        </div>
+                        <Box className="graph"> 
                             <Doughnut data={data} />
+                        </Box>
+    
+                        <div className="box">
+                            <span className="summary-header">Summary</span>
+                            <div className="activity-container">
+                                <div className="activity">
+                                    <p>Total activity:</p>
+                                    <span className="gray">|</span>
+                                    <span>{total}</span>
+                                </div>
+                                <div className="activity">
+                                    <p>Completed:</p>
+                                    <span className="green">|</span>
+                                    <span>{complete}</span>
+                                </div>
+                            </div>
+                            <div className="activity-container">
+                                <div className="activity">
+                                    <p>In progress:</p>
+                                    <span className="yellow">|</span>
+                                    <span>{inProgress}</span>
+                                </div>
+                                <div className="activity">
+                                    <p>Incomplete:</p>
+                                    <span className="red">|</span>
+                                    <span>{incomplete}</span>
+                                </div>
+                            </div>
                         </div>
+                        
 
-                        <div className="activity-container">
-                            <div className="activity">
-                                <p>Total activity:</p>
-                                <span className="gray">|</span>
-                                <span>{total}</span>
-                            </div>
-                            <div className="activity">
-                                <p>Completed:</p>
-                                <span className="green">|</span>
-                                <span>{complete}</span>
-                            </div>
-                        </div>
-
-                        <div className="activity-container">
-                            <div className="activity">
-                                <p>In progress:</p>
-                                <span className="yellow">|</span>
-                                <span>{inProgress}</span>
-                            </div>
-                            <div className="activity">
-                                <p>Incomplete:</p>
-                                <span className="red">|</span>
-                                <span>{incomplete}</span>
-                            </div>
-                        </div>
+                        
 
                     </div>
                 

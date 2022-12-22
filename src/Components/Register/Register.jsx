@@ -90,12 +90,12 @@ const Register = () => {
         </div>
 
         <div className="f-input">
-          <label>RepeatPassword:</label>
+          <label>Repeat Password:</label>
           <br />
           <TextField
             required
             name="password1"
-            label="RepeatPassword"
+            label="Repeat Password"
             type="password"
             {...register("password1", {
               required: true,
@@ -109,13 +109,13 @@ const Register = () => {
           ) : null}
         </div>
         <div className="f-input">
-          <label>Fisrtname:</label>
+          <label>Firstname:</label>
           <br />
           <TextField
             required
-            name="fisrtname"
+            name="firstname"
             label="Name"
-            {...register("fisrtname", { required: true })}
+            {...register("firstname", { required: true })}
           />
         </div>
         <div className="f-input">
@@ -129,12 +129,12 @@ const Register = () => {
           />
         </div>
         <div className="f-input">
-          <label>Displayname:</label>
+          <label>Display Name:</label>
           <br />
           <TextField
             required
             name="displayname"
-            label="Display name"
+            label="Display Name"
             {...register("displayname", { required: true })}
           />
         </div>
@@ -167,10 +167,7 @@ const Register = () => {
           <br />
           <TextField
             name="address"
-            aria-label="minimum height"
-            minRows={3}
             placeholder="Address"
-            style={{ width: 200 }}
             {...register("address", { required: true })}
           />
         </div>
@@ -189,21 +186,15 @@ const Register = () => {
           </Button>
           <Button
             variant="contained"
+            href="/"
             style={{
               backgroundColor: "#C32B42",
               width: "100px",
               height: "30px",
+              color: "white",
             }}
           >
-            <Link
-              to="/"
-              style={{
-                textDecoration: "none",
-                color: "white",
-              }}
-            >
               Cancel
-            </Link>
           </Button>
         </div>
       </div>
@@ -227,3 +218,4 @@ const Register = () => {
 };
 
 export default Register;
+

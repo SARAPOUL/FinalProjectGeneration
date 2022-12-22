@@ -1,116 +1,145 @@
 import * as React from "react";
-import { useForm } from "react-hook-form";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import axios from "axios";
 import "../Register/Register.css";
 
 const Profile = () => {
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log(data);
+
+  const getData = () => {
+    // e.preventDefault();
+    axios
+      .get("http://localhost:8080/api/users/" + localStorage.user)
+      .then((response) => {
+        // console.log(response.data);
+        setPost(response.data);
+      });
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const [post, setPost] = useState({
+    firstname: "",
+    lastname: "",
+    displayname: "",
+    height: 0,
+    weight: 0,
+    images: [],
+  });
+  console.log(post);
   return (
-    <form className="boxs" onSubmit={handleSubmit(onSubmit)}>
+    <form className="boxs">
       <div className="form-register">
         <h1>Profile</h1>
         <div className="f-input">
-          <label>Email:</label><br/>
+          <label>Email:</label>
+          <br />
           <TextField
             name="email"
             type="email"
+            value={post.username}
             InputProps={{ readOnly: true }}
-            {...register}
+            disabled="true"
           />
         </div>
         <div className="f-input">
-          <label>Fisrtname:</label><br/>
+          <label>First Name:</label>
+          <br />
           <TextField
-            name="fisrtname"
+            name="firstname"
+            value={post.firstname}
             InputProps={{ readOnly: true }}
-            {...register}
+            disabled="true"
           />
         </div>
         <div className="f-input">
-          <label>Lastname:</label><br/>
+          <label>Last Name:</label>
+          <br />
           <TextField
             name="lastname"
+            value={post.lastname}
             InputProps={{ readOnly: true }}
-            {...register}
+            disabled="true"
           />
         </div>
         <div className="f-input">
-          <label>Displayname:</label><br/>
+          <label>Display Name:</label>
+          <br />
           <TextField
             name="displayname"
+            value={post.displayname}
             InputProps={{ readOnly: true }}
-            {...register}
+            disabled="true"
           />
         </div>
         <div className="f-input">
-          <label>Height:</label><br/>
+          <label>Height:</label>
+          <br />
           <TextField
             name="height"
+            value={post.height}
             InputProps={{ readOnly: true }}
-            {...register}
+            disabled="true"
           />
           <label>Cm.</label>
         </div>
         <div className="f-input">
-          <label>Weight:</label><br/>
+          <label>Weight:</label>
+          <br />
           <TextField
             required
+            value={post.weight}
             name="weight"
             InputProps={{ readOnly: true }}
-            {...register}
+            disabled="true"
           />
           <label>Kg.</label>
         </div>
         <div className="f-input">
-          <label>Address:</label><br/>
+          <label>Address:</label>
+          <br />
           <TextField
-            multiline
             name="address"
-            aria-label="minimum height"
-            minRows={3}
-            style={{ width: 200 }}
+            value={post.address}
             InputProps={{ readOnly: true }}
-            {...register}
+            disabled="true"
           />
         </div>
-        <div className="f-button">
+        <div className="f-button" >
           <Button
+            href="/dashboard"
             style={{
               backgroundColor: "#C32B42",
               width: "100px",
               height: "30px",
+              color: "white",
+              marginRight:"10px"
             }}
           >
-            <Link
-              to="/dashboard"
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              Back
-            </Link>
+
+            Back
           </Button>
           <Button
             variant="contained"
+            href="/editProfile"
             style={{
               backgroundColor: "#50A5B1",
               width: "100px",
               height: "30px",
+              color: "white"
             }}
           >
-            <Link
-              to="/editProfile"
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              Edit
-            </Link>
+            Edit
           </Button>
         </div>
       </div>
 
       <div className="form-register-image">
-        <img width="240" height="260" />
+        <img src={localStorage.images} width="240" height="260" />
       </div>
     </form>
   );

@@ -4,9 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import { InputLabel, Select, MenuItem } from '@mui/material';
 import './Activity.css'
 import Grid from '@mui/material/Grid'; // Grid version 1';
-import activityPic from '../../assets/editrun.png'
 import editheader from '../../assets/edit.png'
 import axios from 'axios';
+
+import runimg from '../../assets/activityPicture/run.png'
+import bikeimg from '../../assets/activityPicture/bike2.jpg'
+import walkimg from '../../assets/activityPicture/walk.jpg'
+import hikingimg from '../../assets/activityPicture/hiking2.jpg'
+import swimimg from '../../assets/activityPicture/swim2.jpg'
+
 const EditActivity = (props) => {
     const navigate = useNavigate();
     const id = props.id
@@ -21,7 +27,7 @@ const EditActivity = (props) => {
         detailActivity: "",
     })
     const { activityName, activityType, startActivity, endActivity, duration, detailActivity } = state
-
+    const [img, setImg] = useState(walkimg)
     async function getCardActivity() {
         try {
             const response = await axios.get(`${import.meta.env.VITE_APP_API}/card-activity/${id}`);
@@ -78,6 +84,22 @@ const EditActivity = (props) => {
         // console.log('The difference between the selected dates has changed');
     }, [startActivity, endActivity]);
 
+    useEffect(() => {
+        console.log('activityType',state.activityType);
+        if(state.activityType == 'walk'){
+            setImg(walkimg)
+        }else if(state.activityType == 'run'){
+            setImg(runimg)
+        }else if(state.activityType == 'hiking'){
+            setImg(hikingimg)
+        }else if(state.activityType == 'swim'){
+            setImg(swimimg)
+        }else if(state.activityType == 'bike'){
+            setImg(bikeimg)
+        }
+       
+    }, [state.activityType]);
+
     const submitForm = (e) => {
         e.preventDefault();
         axios.put(`${import.meta.env.VITE_APP_API}/edit-activity/${id}`, { activityName, activityType, startActivity, endActivity, detailActivity, duration })
@@ -101,7 +123,7 @@ const EditActivity = (props) => {
             <div className='form-activity' style={{ margin: "32px" }}>
                 <div className="flex">
                     <div className="form-pic">
-                        <img src={activityPic} className="run-picture" />
+                        <img src={img} className="run-picture" />
                     </div>
 
                     <form className='form-add' onSubmit={submitForm}>
@@ -114,7 +136,7 @@ const EditActivity = (props) => {
                                 <label className=''>Activity Name: </label>
                             </Grid>
                             <Grid item xs={12} md={8}>
-                                <TextField id="activity_name" label="Activity Name" variant="outlined" value={activityName} validators={["required"]} onChange={setActivityName} required />
+                                <TextField style = {{width: 250}} id="activity_name" label="Activity Name" variant="outlined" value={activityName} validators={["required"]} onChange={setActivityName} required />
                                 {/* <input type="text" className='form-control' onChange={setActivityName} /> */}
                             </Grid>
                         </Grid>
@@ -124,7 +146,7 @@ const EditActivity = (props) => {
                                 <label id="activity_type">Activity Type: </label>
                             </Grid>
                             <Grid item xs={12} md={8}>
-                                <Select
+                                <Select style = {{width: 250}}
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
                                     value={activityType}
@@ -154,7 +176,7 @@ const EditActivity = (props) => {
                                 <label className=''>Start : </label>
                             </Grid>
                             <Grid item xs={12} md={8}>
-                                <TextField className=''
+                                <TextField style = {{width: 250}}
                                     id="start_date"
                                     label="Start :"
                                     type="datetime-local"
@@ -177,7 +199,7 @@ const EditActivity = (props) => {
                                 <label className=''>End : </label>
                             </Grid>
                             <Grid item xs={12} md={8}>
-                                <TextField className='m-3'
+                                <TextField style = {{width: 250}}
                                     id="end_date"
                                     label="End :"
                                     type="datetime-local"
@@ -199,7 +221,7 @@ const EditActivity = (props) => {
                                 <label className=''>Duration : </label>
                             </Grid>
                             <Grid item xs={12} md={8}>
-                                <TextField id="duration" label="" variant="outlined" value={duration} onChange={setDuration} disabled />
+                                <TextField style = {{width: 250}} id="duration" label="" variant="outlined" value={duration} onChange={setDuration} disabled />
                             </Grid>
                         </Grid>
 
@@ -208,7 +230,7 @@ const EditActivity = (props) => {
                                 <label className=''>Description: </label>
                             </Grid>
                             <Grid item xs={12} md={8}>
-                                <TextField
+                                <TextField style = {{width: 250}}
                                     sx={{ borderRadius: '40%' }}
                                     id="Decripttion"
                                     aria-label="minimum height"
@@ -225,15 +247,11 @@ const EditActivity = (props) => {
                             </Grid>
                         </Grid>
 
-
                         {/* Button */}
                         <div className="btn">
                             <button type="cancle" onClick={onBackClick} className="" style={{ backgroundColor: "#C32B42", marginRight: "16px" }}>Cancle</button>
                             <button type="submit" value="submit" className="">Save</button>
                         </div>
-
-
-
                     </form>
                 </div>
             </div>
