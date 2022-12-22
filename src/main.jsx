@@ -6,7 +6,7 @@ import App from './Components/App'
 import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import rootReducer from './components/reducers/index'
+import rootReducer from './Components/reducers/index'
 
 const store = configureStore({
   reducer: rootReducer, composeWithDevTools
