@@ -4,9 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import { InputLabel, Select, MenuItem } from '@mui/material';
 import './Activity.css'
 import Grid from '@mui/material/Grid'; // Grid version 1';
-import activityPic from '../../assets/run.png'
 import addheader from '../../assets/add.png'
 import axios from 'axios';
+
+import runimg from '../../assets/activityPicture/run.png'
+import bikeimg from '../../assets/activityPicture/bike.jpg'
+import walkimg from '../../assets/activityPicture/walk.jpg'
+import hikingimg from '../../assets/activityPicture/hiking.jpg'
+import swimimg from '../../assets/activityPicture/swim.jpg'
+
 
 const Activity = (props) => {
     const navigate = useNavigate();
@@ -26,7 +32,7 @@ const Activity = (props) => {
         detailActivity: "",
     })
     const { username, activityName, activityType, startActivity, endActivity, duration, detailActivity } = state
-
+    const [img, setImg] = useState(walkimg)
     // async function getCardActivity() {
     //     try {
     //         const response = await axios.get(`${import.meta.env.VITE_APP_API}/card-activity/${id}`);
@@ -49,6 +55,7 @@ const Activity = (props) => {
     }
     const selectActivity = (e) => {
         setState({ ...state, activityType: e.target.value })
+
     }
     const setDescriptiton = (e) => {
         setState({ ...state, detailActivity: e.target.value })
@@ -63,13 +70,26 @@ const Activity = (props) => {
         setState({ ...state, duration: e.target.value })
     }
     useEffect(() => {
-        // console.log('duration set!!')
         setState({ ...state, duration: getDateDifference() })
-        // This function will be called whenever the value of date1 or date2 changes
-        // console.log('The difference between the selected dates has changed');
     }, [startActivity, endActivity]);
 
+    useEffect(() => {
+        console.log('activityType',state.activityType);
+        if(state.activityType == 'walk'){
+            setImg(walkimg)
+        }else if(state.activityType == 'run'){
+            setImg(runimg)
+        }else if(state.activityType == 'hiking'){
+            setImg(hikingimg)
+        }else if(state.activityType == 'swim'){
+            setImg(swimimg)
+        }else if(state.activityType == 'bike'){
+            setImg(bikeimg)
+        }
+       
+    }, [state.activityType]);
 
+    console.log(img);
     function getDateDifference() {
         const tempStartDate = new Date(startActivity);
         const tempEndDate = new Date(endActivity);
@@ -105,7 +125,7 @@ const Activity = (props) => {
             <div className='form-activity' style={{ margin: "32px" }}>
                 <div className="flex">
                     <div className="form-pic">
-                        <img src={activityPic} className="run-picture" />
+                        <img src={img} className="run-picture" />
                     </div>
 
                     <form className='form-add' onSubmit={submitForm}>
@@ -135,6 +155,7 @@ const Activity = (props) => {
                                     label="Activity Type"
                                     onChange={selectActivity}
                                 >
+                                    <MenuItem value="" disabled>Activity Type</MenuItem>
                                     <MenuItem value="walk">Walk</MenuItem>
                                     <MenuItem value="run">Run</MenuItem>
                                     <MenuItem value="hiking">Hiking</MenuItem>

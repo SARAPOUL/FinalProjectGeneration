@@ -4,9 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import { InputLabel, Select, MenuItem } from '@mui/material';
 import './Activity.css'
 import Grid from '@mui/material/Grid'; // Grid version 1';
-import activityPic from '../../assets/editrun.png'
 import editheader from '../../assets/edit.png'
 import axios from 'axios';
+
+import runimg from '../../assets/activityPicture/run.png'
+import bikeimg from '../../assets/activityPicture/bike2.jpg'
+import walkimg from '../../assets/activityPicture/walk.jpg'
+import hikingimg from '../../assets/activityPicture/hiking2.jpg'
+import swimimg from '../../assets/activityPicture/swim2.jpg'
+
 const EditActivity = (props) => {
     const navigate = useNavigate();
     const id = props.id
@@ -21,7 +27,7 @@ const EditActivity = (props) => {
         detailActivity: "",
     })
     const { activityName, activityType, startActivity, endActivity, duration, detailActivity } = state
-
+    const [img, setImg] = useState(walkimg)
     async function getCardActivity() {
         try {
             const response = await axios.get(`${import.meta.env.VITE_APP_API}/card-activity/${id}`);
@@ -78,6 +84,22 @@ const EditActivity = (props) => {
         // console.log('The difference between the selected dates has changed');
     }, [startActivity, endActivity]);
 
+    useEffect(() => {
+        console.log('activityType',state.activityType);
+        if(state.activityType == 'walk'){
+            setImg(walkimg)
+        }else if(state.activityType == 'run'){
+            setImg(runimg)
+        }else if(state.activityType == 'hiking'){
+            setImg(hikingimg)
+        }else if(state.activityType == 'swim'){
+            setImg(swimimg)
+        }else if(state.activityType == 'bike'){
+            setImg(bikeimg)
+        }
+       
+    }, [state.activityType]);
+
     const submitForm = (e) => {
         e.preventDefault();
         axios.put(`${import.meta.env.VITE_APP_API}/edit-activity/${id}`, { activityName, activityType, startActivity, endActivity, detailActivity, duration })
@@ -101,7 +123,7 @@ const EditActivity = (props) => {
             <div className='form-activity' style={{ margin: "32px" }}>
                 <div className="flex">
                     <div className="form-pic">
-                        <img src={activityPic} className="run-picture" />
+                        <img src={img} className="run-picture" />
                     </div>
 
                     <form className='form-add' onSubmit={submitForm}>
