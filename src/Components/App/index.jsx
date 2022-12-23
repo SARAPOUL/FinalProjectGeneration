@@ -32,9 +32,9 @@ function App() {
           <Route path="/register" element={<Register />} />
 
           <Route path="/dashboard" element={localStorage.token ? <Dashboard /> : null} />
-          <Route path="/addactivity" element={localStorage.token ? <AddActivity /> : null} />
+          <Route path="/addactivity" element={ <AddActivity /> }/>
           <Route path="/editactivity/:id" element={localStorage.token ? <EditActivity /> : null} />
-          <Route path="/editProfile" element={localStorage.token ? <EditProfile /> : null} />
+          <Route path="/editProfile" element={<EditProfile  />}/>
           <Route path="/profile" element={localStorage.token ? <Profile /> : null} />
 
         </Routes>
