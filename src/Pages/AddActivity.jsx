@@ -5,7 +5,6 @@ const addActivity = () => {
     return (
 
         <div className='activity-card'>
-            
             <Activity />
         </div>
     )
