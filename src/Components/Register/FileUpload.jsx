@@ -2,7 +2,7 @@
 import React from "react";
 
 // ใช้ resize รูป 
-import Resize from 'react-image-file-resizer';
+import Resize from "./Resizer";
 
 // ใช้ดึงข้อมูล เชื่อม API
 import axios from 'axios'
