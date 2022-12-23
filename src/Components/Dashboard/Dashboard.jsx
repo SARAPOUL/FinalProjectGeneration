@@ -147,7 +147,7 @@ const Dashboard = () => {
 
                 <div className='left-top'>
                     <span>Activities Dashboard</span>
-                    <a href="/addActivity"><button type="button" className="addActivity">Add Activity</button></a>
+                    <a href="/addactivity"><button type="button" className="addActivity">Add Activity</button></a>
                 </div>
 
                 <div className='left-bottom'>
