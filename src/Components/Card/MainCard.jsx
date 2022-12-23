@@ -175,12 +175,12 @@ const MainCard = ({ card }) => {
     const confirmDelete = (id) => {
         const deleteCard = Swal.fire({
             title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            text: `You won't delete ${activityName}!`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#4CC1BA',
             cancelButtonColor: '#d33',
-            confirmButtonText: `Yes, delete ${activityName}!`
+            confirmButtonText: `Yes, delete it!`
         }).then((result) => {
             if (result.isConfirmed) {
                 axios
