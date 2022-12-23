@@ -9,6 +9,8 @@ import { login } from '../Functions/auth'
 //Redux
 import { useDispatch } from 'react-redux';
 
+import Swal from 'sweetalert2'
+
 function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch()
@@ -67,8 +69,14 @@ function LoginForm() {
 
       })
       .catch((err) => {
-        console.log(err.response.data)
-        alert(err.response.data)
+        // console.log(err.response.data)
+        // alert(err.response.data)
+        Swal.fire(
+          {
+            icon: 'error',
+            title: 'Login Fail',
+            text: err.response.data,
+          })
 
       })
   }

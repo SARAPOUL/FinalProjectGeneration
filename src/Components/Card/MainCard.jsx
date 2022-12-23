@@ -32,6 +32,8 @@ import HikingIcon from '@mui/icons-material/Hiking';
 import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk';
 import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike';
 import AlarmOffIcon from '@mui/icons-material/AlarmOff';
+
+import Swal from 'sweetalert2'
 // const themeCard = createTheme({
 //     palette: {
 //       pending: {
@@ -115,7 +117,7 @@ const MainCard = ({ card }) => {
     } else {
         bgcolor = bgcolor2;
     }
-    
+
     if (activityType == 'walk') {
         iconActivityType = <DirectionsWalkIcon />
     } else if (activityType == 'hiking') {
@@ -125,8 +127,8 @@ const MainCard = ({ card }) => {
     } else if (activityType == 'bike') {
         iconActivityType = <DirectionsBikeIcon />
     } else if (activityType == 'swim') {
-        iconActivityType = <PoolIcon /> 
-    } 
+        iconActivityType = <PoolIcon />
+    }
 
     const [dateStart, setDateStart] = useState(new Date());
     const [dateEnd, setdateEnd] = useState(new Date());
@@ -168,17 +170,45 @@ const MainCard = ({ card }) => {
             .catch((err) => console.log(err));
     };
 
+
+
     const confirmDelete = (id) => {
-        const deleteCard = window.confirm(`You want to delete :${activityName} !!`);
-        if (deleteCard) {
-            axios
-                .delete(`${import.meta.env.VITE_APP_API}/card-activity/${id}`)
-                .then((response) => {
-                    // window.alert(`Delete success !!`)
-                    window.location.reload();
-                })
-                .catch((err) => console.log(err));
-        }
+        const deleteCard = Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#4CC1BA',
+            cancelButtonColor: '#d33',
+            confirmButtonText: `Yes, delete ${activityName}!`
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios
+                    .delete(`${import.meta.env.VITE_APP_API}/card-activity/${id}`)
+                    .then((response) => {
+                        // window.alert(`Delete success !!`)
+                        window.location.reload();
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    })
+                    .catch((err) => console.log(err));
+                
+            }
+        })
+
+        // const deleteCard = window.confirm(`You want to delete :${activityName} !!`);
+        // if (deleteCard) {
+        //     axios
+        //         .delete(`${import.meta.env.VITE_APP_API}/card-activity/${id}`)
+        //         .then((response) => {
+        //             // window.alert(`Delete success !!`)
+        //             window.location.reload();
+        //         })
+        //         .catch((err) => console.log(err));
+        // }
     };
 
     // modal state
@@ -197,7 +227,7 @@ const MainCard = ({ card }) => {
                 //  bgcolor status
                 // bgcolor: colorStatus,
                 background: `${bgcolor}`,
-                
+
 
                 "border-radius": `10px`,
             }}
@@ -211,7 +241,7 @@ const MainCard = ({ card }) => {
                 }}
             >
                 <div className="activity-name" >
-                <Typography
+                    <Typography
                         component="p"
                         variant="h5"
                         sx={{
@@ -220,10 +250,10 @@ const MainCard = ({ card }) => {
                             fontWeight: "bold"
                         }}
                     >
-                       {activityName}
+                        {activityName}
                     </Typography>
-                {/* <span style={{fontWeight: "bold"}}>{activityName}</span>  */}
-                    
+                    {/* <span style={{fontWeight: "bold"}}>{activityName}</span>  */}
+
                 </div>
 
                 <Box
@@ -256,10 +286,10 @@ const MainCard = ({ card }) => {
                         marginLeft: "10px",
                         color: "#434242",
                         fontSize: "14px",
-                        
+
                     }}
                 >
-                    <span style={{fontWeight: "bold"}}>Start:</span> {startFormattedDate}
+                    <span style={{ fontWeight: "bold" }}>Start:</span> {startFormattedDate}
                     {/* Start: {dateStart.toLocaleString()} */}
                 </Typography>
                 <Typography
@@ -269,12 +299,12 @@ const MainCard = ({ card }) => {
                         marginLeft: "10px",
                         marginBottom: "5px",
                         fontSize: "14px",
-                        
+
 
                         // color: "#434242",
                     }}
                 >
-                    <span style={{fontWeight: "bold"}}>End:</span> {endFormattedDate}
+                    <span style={{ fontWeight: "bold" }}>End:</span> {endFormattedDate}
                     {/* End: {dateEnd.toLocaleString()} */}
                 </Typography>
             </Box>
@@ -284,11 +314,11 @@ const MainCard = ({ card }) => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "flex-start",
-                    ml:2,
-                    }}
-                >
+                    ml: 2,
+                }}
+            >
                 <AccessTimeIcon />
-                <Typography variant="h7" component="div" sx={{ml:1}}>
+                <Typography variant="h7" component="div" sx={{ ml: 1 }}>
                     {duration}
                 </Typography>
             </Box>
@@ -305,12 +335,12 @@ const MainCard = ({ card }) => {
                 <Card
                     sx={{
                         minWidth: "100%",
-                        
+
                     }}
                 >
                     <CardContent>
                         <Typography
-                            sx={{ fontSize: 14,  }}
+                            sx={{ fontSize: 14, }}
                             color="text.secondary"
                             gutterBottom
                         >
@@ -327,7 +357,7 @@ const MainCard = ({ card }) => {
                         <Button
                             size="small"
                             onClick={() => setModalState(true)}
-                            sx={{  }}
+                            sx={{}}
                         >
                             See more
                         </Button>
@@ -380,7 +410,7 @@ const MainCard = ({ card }) => {
             {/* remain time */}
             <CardContent>
                 <Stack
-                    
+
                     spacing={2}
                     direction="row"
                     sx={{
@@ -417,30 +447,30 @@ const MainCard = ({ card }) => {
                     </Button>
                 </Stack>
 
-               
+
             </CardContent>
-                      
+
             <CardActions
-            sx={{
-              display: "flex",
-              gap: "1px",
-              justifyContent: "flex-end",
-            }}
-          >
-            
-              <Link to={`/editActivity/${id}`} id={id}>
-                <Button size="small" href="/editActivity">
-                  <EditIcon />
+                sx={{
+                    display: "flex",
+                    gap: "1px",
+                    justifyContent: "flex-end",
+                }}
+            >
+
+                <Link to={`/editActivity/${id}`} id={id}>
+                    <Button size="small" href="/editActivity">
+                        <EditIcon />
+                    </Button>
+                </Link>
+                <Button size="small">
+                    <DeleteIcon
+                        sx={{ color: "red" }}
+                        onClick={() => confirmDelete(id)}
+                    />
                 </Button>
-              </Link>
-              <Button size="small">
-                <DeleteIcon
-                  sx={{ color: "red" }}
-                  onClick={() => confirmDelete(id)}
-                />
-              </Button>
-            
-          </CardActions>
+
+            </CardActions>
 
         </Card>
     );

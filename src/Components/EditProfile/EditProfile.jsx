@@ -51,10 +51,8 @@ const EditProfile = () => {
     handleSubmit,
   } = useForm({});
   const onSubmit = (data) => {
-    // console.log(value.images);
     data.images = img.images
     data._id = id
-    console.log('ยิงจริงๆนะ', data);
     editProfile(data)
     Swal.fire(
       'Edit Success!',
