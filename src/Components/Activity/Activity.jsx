@@ -35,7 +35,7 @@ const Activity = (props) => {
     const [img, setImg] = useState(walkimg)
     // async function getCardActivity() {
     //     try {
-    //         const response = await axios.get(`${import.meta.env.VITE_APP_API}/card-activity/${id}`);
+    //         const response = await axios.get(`/card-activity/${id}`);
     //         const { activityName, activityType, startDate, endDate, duration, detailActivity } = response.data
     //         setState({ activityName, activityType, startDate, endDate, duration, detailActivity })
     //     } catch (error) {
@@ -103,7 +103,7 @@ const Activity = (props) => {
 
     const submitForm = (e) => {
         e.preventDefault();
-        axios.post(`${import.meta.env.VITE_APP_API}/add-activity`, { username, activityName, activityType, startActivity, endActivity, detailActivity, duration })
+        axios.post(`/add-activity`, { username, activityName, activityType, startActivity, endActivity, detailActivity, duration })
             .then(response => {
                 // alert('Add Activity')
                 // console.log('after Add', response.data)

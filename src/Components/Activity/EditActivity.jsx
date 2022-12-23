@@ -31,7 +31,7 @@ const EditActivity = (props) => {
     const [img, setImg] = useState(walkimg)
     async function getCardActivity() {
         try {
-            const response = await axios.get(`${import.meta.env.VITE_APP_API}/card-activity/${id}`);
+            const response = await axios.get(`/card-activity/${id}`);
             const { activityName, activityType, startActivity, endActivity, duration, detailActivity } = response.data
             setState({ activityName, activityType, startActivity, endActivity, duration, detailActivity })
             console.log(state);
@@ -103,7 +103,7 @@ const EditActivity = (props) => {
 
     const submitForm = (e) => {
         e.preventDefault();
-        axios.put(`${import.meta.env.VITE_APP_API}/edit-activity/${id}`, { activityName, activityType, startActivity, endActivity, detailActivity, duration })
+        axios.put(`/edit-activity/${id}`, { activityName, activityType, startActivity, endActivity, detailActivity, duration })
             .then(response => {
                 // alert('Edit Activity')
                 console.log('after edit', response.data)

@@ -4,9 +4,9 @@ import EditActivity from "../Components/Activity/EditActivity"
 import '../Components/Activity/Activity.css'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-const editActivity = () => {
+const EditActivityPage = () => {
 
-    const [location,setLocation] = useState(useLocation())
+    const [location, setLocation] = useState(useLocation())
     const id = location.pathname.slice(14);
 
 
@@ -31,4 +31,4 @@ const editActivity = () => {
     )
 }
 
-export default editActivity
+export default EditActivityPage

@@ -104,11 +104,11 @@ const MainCard = ({ card }) => {
     const endActivityFormat = new Date(endActivity);
     const endFormattedDate = endActivityFormat.toLocaleString("en-US", options);
 
-    if (status == 1) {
+    if (status === 1) {
         bgcolor = bgcolorDone;
         visibility = "hidden";
         color = "#ffffff";
-    } else if (status == 9) {
+    } else if (status === 9) {
         bgcolor = bgcolorFail;
         visibility = "hidden";
         color = "#ffffff";
@@ -148,7 +148,7 @@ const MainCard = ({ card }) => {
         setState({ ...state, statusActivity: 1 });
         // ไปเรียก axios เปลี่ยนสถานนะcard
         axios
-            .put(`${import.meta.env.VITE_APP_API}/change-status/${id}`, { status: 1 })
+            .put(`/change-status/${id}`, { status: 1 })
             .then((response) => {
                 // window.alert(`Done success !!`)
                 window.location.reload()
@@ -160,7 +160,7 @@ const MainCard = ({ card }) => {
         setState({ ...state, statusActivity: 9 });
         // ไปเรียก axios เปลี่ยนสถานนะcard
         axios
-            .put(`${import.meta.env.VITE_APP_API}/change-status/${id}`, { status: 9 })
+            .put(`/change-status/${id}`, { status: 9 })
             .then((response) => {
                 // window.alert(`Fail success !!`)
                 window.location.reload();
@@ -172,7 +172,7 @@ const MainCard = ({ card }) => {
         const deleteCard = window.confirm(`You want to delete :${activityName} !!`);
         if (deleteCard) {
             axios
-                .delete(`${import.meta.env.VITE_APP_API}/card-activity/${id}`)
+                .delete(`/card-activity/${id}`)
                 .then((response) => {
                     // window.alert(`Delete success !!`)
                     window.location.reload();
@@ -428,8 +428,8 @@ const MainCard = ({ card }) => {
             }}
           >
             
-              <Link to={`/editActivity/${id}`} id={id}>
-                <Button size="small" href="/editActivity">
+              <Link to={`/EditActivityPage/${id}`} id={id}>
+                <Button size="small" href="/EditActivityPage">
                   <EditIcon />
                 </Button>
               </Link>

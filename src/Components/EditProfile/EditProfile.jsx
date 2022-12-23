@@ -15,7 +15,7 @@ const EditProfile = () => {
   const getData = () => {
     // e.preventDefault();
     axios
-      .get(`${import.meta.env.VITE_APP_API}/users/` + localStorage.user)
+      .get(`/users/` + localStorage.user)
       .then((response) => {
         console.log(response.data);
         // setPost(response.data);

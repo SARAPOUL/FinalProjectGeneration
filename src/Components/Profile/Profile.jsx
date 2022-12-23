@@ -11,7 +11,7 @@ const Profile = () => {
   const getData = () => {
     // e.preventDefault();
     axios
-      .get(`${import.meta.env.VITE_APP_API}/users/` + localStorage.user)
+      .get(`/users/` + localStorage.user)
       .then((response) => {
         // console.log(response.data);
         setPost(response.data);
@@ -139,7 +139,7 @@ const Profile = () => {
       </div>
 
       <div className="form-register-image">
-        <img src={localStorage.images} width="240" height="260" />
+        <img src={localStorage.images} alt="images" width="240" height="260" />
       </div>
     </form>
   );

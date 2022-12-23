@@ -20,7 +20,7 @@ const FileUpload = ({ value, setValue }) => {
 
 
             // วนลูปจำนวนรูปที่อัพ
-            for (let i = 0; i < files.length; i++); {
+            for (let i = 0; i < files.length; i++) {
                 Resize.imageFileResizer(
                     files[0],
                     300,
@@ -30,7 +30,7 @@ const FileUpload = ({ value, setValue }) => {
                     0,
                     (uri) => {
                         axios.post
-                            (import.meta.env.VITE_APP_API + '/images',
+                            ('/images',
                                 {
                                     image: uri
                                 }
@@ -53,7 +53,7 @@ const FileUpload = ({ value, setValue }) => {
         console.log(public_id)
         // const img = value.images
         const { images } = value
-        axios.post(import.meta.env.VITE_APP_API + '/removeimages',
+        axios.post('/removeimages',
             { public_id },
         ).then(res => {
             // setLoading(false)
