@@ -8,7 +8,7 @@ import AddActivity from '../../Pages/AddActivity'
 import Login from '../../Pages/Login'
 import EditActivity from '../../Pages/EditActivity'
 import Profile from '../../Pages/Profile'
-import Register from '../../Pages/Register'
+import Register from '../../Pages/register'
 import Dashboard from '../../Pages/Dashboard'
 import EditProfile from '../../Pages/EditProfile'
 import {useContext,createContext} from 'react'
@@ -32,9 +32,9 @@ function App() {
           <Route path="/register" element={<Register />} />
 
           <Route path="/dashboard" element={localStorage.token ? <Dashboard /> : null} />
-          <Route path="/addActivity" element={localStorage.token ? <AddActivity /> : null} />
-          <Route path="/editActivity/:id" element={localStorage.token ? <EditActivity /> : null} />
-          <Route path="/editProfile" element={localStorage.token ? <EditProfile /> : null} />
+          <Route path="/addactivity" element={localStorage.token ? <AddActivity /> : null}/>
+          <Route path="/editactivity/:id" element={localStorage.token ? <EditActivity /> : null} />
+          <Route path="/editProfile" element={localStorage.token ? <EditProfile /> : null}/>
           <Route path="/profile" element={localStorage.token ? <Profile /> : null} />
 
         </Routes>

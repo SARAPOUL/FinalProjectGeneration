@@ -15,7 +15,7 @@ const EditProfile = () => {
   const getData = () => {
     // e.preventDefault();
     axios
-      .get("http://localhost:8080/api/users/" + localStorage.user)
+      .get(`${import.meta.env.VITE_APP_API}/users/` + localStorage.user)
       .then((response) => {
         console.log(response.data);
         // setPost(response.data);
@@ -51,10 +51,8 @@ const EditProfile = () => {
     handleSubmit,
   } = useForm({});
   const onSubmit = (data) => {
-    // console.log(value.images);
     data.images = img.images
     data._id = id
-    console.log('ยิงจริงๆนะ', data);
     editProfile(data)
     Swal.fire(
       'Edit Success!',

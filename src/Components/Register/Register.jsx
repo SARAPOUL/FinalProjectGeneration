@@ -39,6 +39,16 @@ const Register = () => {
   } = useForm();
   const onSubmit = (data) => {
     // console.log(value.images);
+    if(!value.images[0]){
+      Swal.fire(
+        {
+          icon: 'error',
+          title: 'Upload Images',
+          text: 'Please Upload Images',
+        }
+      ) 
+      return
+    }
     data.images = value.images
     // console.log(data);
     registerAxios(data)
